@@ -8,7 +8,6 @@ in {
     ../ssh.nix
     ../desktop/i3.nix
     ../desktop/applications.nix
-    ./hardware-configuration.nix
   ];
 
   #nix.nixPath = [ "nixpkgs=/home/pbb/proj/nixpkgs" "nixos=/home/pbb/proj/nixpkgs" ];
