@@ -8,13 +8,14 @@ in {
     ../ssh.nix
     ../desktop/i3.nix
     ../desktop/applications.nix
+    ./hardware-configuration.nix
   ];
 
   #nix.nixPath = [ "nixpkgs=/home/pbb/proj/nixpkgs" "nixos=/home/pbb/proj/nixpkgs" ];
 
   boot.loader.grub.enable = true;
-  boot.loader.grub.device = "nodev";
-  boot.initrd.luks.devices.crypted.device = "/dev/disk/by-partuuid/3bfadd9e-66c0-42b1-a634-a74c7b947a06";
+  boot.loader.grub.version = 2;
+  boot.loader.grup.device = "/dev/sdb";
 
   boot.consoleLogLevel = 0;
   boot.kernelParams = [ "quiet" ];
