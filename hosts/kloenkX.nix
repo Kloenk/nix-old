@@ -15,11 +15,9 @@ in {
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "nodev";
   boot.initrd.luks.devices.crypted.device = "/dev/disk/by-partuuid/3bfadd9e-66c0-42b1-a634-a74c7b947a06";
-  boot.blacklistedKernelModules = [ "mei_me" ];
 
   boot.consoleLogLevel = 0;
   boot.kernelParams = [ "quiet" ];
-  systemd.services.systemd-udev-settle.enable = lib.mkForce false;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "KloenkX";
@@ -47,7 +45,7 @@ in {
   users.users.kloenk.packages = with pkgs; [ lm_sensors ];
 
   services.pcscd.enable = true;
-  services.pcscd.plugins = with pkgs; [ ccid pcsc-cyberjack ];
+  #services.pcscd.plugins = with pkgs; [ ccid pcsc-cyberjack ];
 
   system.stateVersion = "19.03";
 }
