@@ -16,6 +16,26 @@ in {
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/sdb";
 
+  # taken from hardware-configuration.nix
+  boot.initrd.availableKernelModules = [ "aes_x86_64" "aesni_intel" "cryptd" "uhci_hcd" "ehci_pci" "hpsa" "usb_storage" "usbhid" "sd_mod" ];
+  boot.kernelModules = [ "kvm-intel" ];
+
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/6d399f17-5b7b-4438-b93b-15852d45ef9a";
+      fsType = "ext4";
+    };
+
+  boot.initrd.luks.devices."cryptRoot".device = "/dev/disk/by-uuid/efcc2cf2-c4b5-493a-995b-f101703ab629";
+
+  fileSystems."/boot"  = {
+    device = "/dev/dis/by-uuid/8675-08D5";
+    fsType = "vfat";
+  };
+
+  swapDevices = [ ];
+
+  nix.maxJobs = lib.mkDefault 16;
+
   boot.consoleLogLevel = 0;
   boot.kernelParams = [ "quiet" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -26,7 +46,7 @@ in {
   networking.extraHosts = ''
     172.16.0.1 airlink.local unit.local
   '';
-  systemd.services.dhcpcd.serviceConfig.ExecStart = lib.mkForce "@${pkgs.dhcpcd}/sbin/dhcpcd dhcpcd -b -q -A -z wlp3s0";
+  #systemd.services.dhcpcd.serviceConfig.ExecStart = lib.mkForce "@${pkgs.dhcpcd}/sbin/dhcpcd dhcpcd -b -q -A -z wlp3s0";
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
 
   environment.etc.qemu-ifup.source = pkgs.writeText "qemu-ifup" ''
