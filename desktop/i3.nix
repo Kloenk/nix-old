@@ -37,7 +37,7 @@ in {
 
   fonts.fonts = with pkgs; [ noto-fonts noto-fonts-emoji source-code-pro ];
 
-  programs.ssh.startAgent = true;
+  #programs.ssh.startAgent = true; # replaced with gnupg
   programs.browserpass.enable = true;
   programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
 }
