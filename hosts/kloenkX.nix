@@ -14,7 +14,7 @@ in {
 
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
-  boot.loader.grup.device = "/dev/sdb";
+  boot.loader.grub.device = "/dev/sdb";
 
   boot.consoleLogLevel = 0;
   boot.kernelParams = [ "quiet" ];
