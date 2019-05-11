@@ -61,5 +61,5 @@
     "pdiebiamhaleloakpcgmpnenggpjbcbm" # tab snooze
   ]; };
   hardware.nitrokey.enable = true;
-  hardware.steam-hardwar.enable = true;
+  hardware.steam-hardware.enable = true;
 }
