@@ -8,33 +8,37 @@ in {
     ../ssh.nix
     ../desktop/i3.nix
     ../desktop/applications.nix
+
+    # fallback for detection
+    <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
   ];
 
   #nix.nixPath = [ "nixpkgs=/home/pbb/proj/nixpkgs" "nixos=/home/pbb/proj/nixpkgs" ];
 
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  boot.loader.grub.device = "/dev/sdb";
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   # taken from hardware-configuration.nix
-  boot.initrd.availableKernelModules = [ "aes_x86_64" "aesni_intel" "cryptd" "uhci_hcd" "ehci_pci" "hpsa" "usb_storage" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "aes_x86_64" "aesni_intel" "cryptd" "ehci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.kernelModules = [ "kvm-intel" ];
+  boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/6d399f17-5b7b-4438-b93b-15852d45ef9a";
+    { device = "/dev/disk/by-uuid/1f8bf17d-9ae0-469d-a353-7cee2f30d97f";
       fsType = "ext4";
     };
 
-  boot.initrd.luks.devices."cryptRoot".device = "/dev/disk/by-uuid/efcc2cf2-c4b5-493a-995b-f101703ab629";
+  boot.initrd.luks.devices."cryptRoot".device = "/dev/disk/by-uuid/fb3f40fc-7d82-4b78-8e3e-7bf813b1d567";
 
   fileSystems."/boot"  = {
-    device = "/dev/dis/by-uuid/8675-08D5";
+    device = "/dev/dis/by-uuid/d7357d33-83ca-4352-8959-d8cfc6dfd499";
     fsType = "vfat";
   };
 
-  swapDevices = [ ];
+  swapDevices = [ { device = "/dev/disk/by-uuid/98d4977b-0599-4966-bffa-dd2db73951c5";} ];
 
   nix.maxJobs = lib.mkDefault 16;
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
   boot.consoleLogLevel = 0;
   boot.kernelParams = [ "quiet" ];
@@ -67,5 +71,9 @@ in {
   services.pcscd.enable = true;
   #services.pcscd.plugins = with pkgs; [ ccid pcsc-cyberjack ];
 
+  # This value determines the NixOS release with which your system is to be
+  # compatible, in order to avoid breaking some software such as database
+  # servers. You should change this only after NixOS release notes say you
+  # should.
   system.stateVersion = "19.03";
 }
