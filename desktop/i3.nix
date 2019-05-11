@@ -21,6 +21,20 @@ in {
   services.xserver.windowManager.i3.package = pkgs.i3-gaps;
   services.xserver.displayManager.startx.enable = true;
 
+  services.redshift = {
+    enable = true;
+    latitude = "51.085636";
+    longitude = "7.1105932";
+    temperature = {
+      day = 5500;
+      night = 3700;
+    };
+  };
+
+  services.compton = {
+    enable = true;
+  };
+
   fonts.fonts = with pkgs; [ noto-fonts noto-fonts-emoji source-code-pro ];
 
   programs.ssh.startAgent = true;

@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ./kde.nix
+  ];
   users.users.kloenk.packages = with pkgs; [
     rustup
     gcc
