@@ -76,7 +76,7 @@ in {
           "Mod4+v" = "split v";
 
           #fullscreen
-          "Mod4+f" = "fullscreen toogle";
+          "Mod4+f" = "fullscreen toggle";
 
           # change container layout (stacked, tabbed, toggle split)
           "Mod4+s" =  "layout stacking";
