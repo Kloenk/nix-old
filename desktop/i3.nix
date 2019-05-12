@@ -158,7 +158,7 @@ in {
           "XF86AudioStop" =  "exec playerctl pause";
           "Mod4+XF86Display" = "exec ${pkgs.xorg.xrandr}/bin/xrandr --auto";
         };
-        floating.modifier = "Mod4";
+        config.floating.modifier = "Mod4";
         config.bars = [{
           fonts = [ "DejaVu Sans Mono 8" ];
           position = "top";
