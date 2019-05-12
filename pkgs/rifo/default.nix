@@ -5,15 +5,10 @@ stdenv.mkDerivation rec {
   version = "0.2.1_r1";
 
   src = fetchgit {
-    "url" = "https://git.kloenk.de/finn/Rifo";
-    "rev" = "79e24d4fd164a7b2f9fa7ced8173613fbd718e85";
-    "fetchSubmodules" = false;
+    url = "https://git.kloenk.de/finn/Rifo";
+    rev = "79e24d4fd164a7b2f9fa7ced8173613fbd718e85";
     sha256 = "0czgssv5m57b995xv2558rqb7ym5cc2rvx57z9ag0a91a57vv5f6";
   };
-
-  buildPhase = ''
-    sed -i 's%fzf%${fzf}/bin/fzf%g' rifo.sh
-  '';
 
   installPhase = ''
     mkdir -p $out/bin
