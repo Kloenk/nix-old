@@ -1,3 +1,5 @@
+{ stdenv, fzf, jq, pass, termite, fetchgit, lib, makeWrapper, oathToolkit, xdotool, bash }:
+
 with lib;
 
  let
