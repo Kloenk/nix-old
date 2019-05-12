@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let 
-  i3-package = pkgs.i3;
+  i3-package = pkgs.i3-gaps;
 in {
   sound.enable = true;
   hardware.pulseaudio.enable = true;
@@ -159,9 +159,9 @@ in {
           "Mod4+XF86Display" = "exec ${pkgs.xorg.xrandr}/bin/xrandr --auto";
         };
         config.bars = [{
-          fonts = [ "DejaVu Sans Mono 11" ];
+          fonts = [ "DejaVu Sans Mono 8" ];
           position = "top";
-          command = "${i3-package}/bin/i3bar"; #-t"; # support transparency
+          command = "${i3-package}/bin/i3bar -t"; # support transparency
           colors = {
             background = "#00000000";
             inactiveWorkspace = { border = "#323232ff"; background = "#323232ff"; text = "#ffffffff"; };
