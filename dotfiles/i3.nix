@@ -46,7 +46,7 @@
   bindsym $mod+Shift+x kill
   
   # start rofi (a program launcher)
-  bindsym $mod+a exec "${pkgs.rofi}/bin/rofi -show drun -font DejaVu\ Sans\ 15 -color-window 'argb:a0000000,argb:00000000,argb:00000000' -color-normal 'argb:00000000,#ffffff,argb:00000000,argb:00000000,#567eff' -hide-scrollbar -fullscreen"
+  bindsym $mod+Shift+a exec "${pkgs.rofi}/bin/rofi -show drun -font DejaVu\ Sans\ 15 -color-window 'argb:a0000000,argb:00000000,argb:00000000' -color-normal 'argb:00000000,#ffffff,argb:00000000,argb:00000000,#567eff' -hide-scrollbar -fullscreen"
   
   ## start dmenu (a program launcher)
   #bindsym $mod+d exec rifo
