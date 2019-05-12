@@ -45,7 +45,7 @@
     screen # for usb serial
     pass
     pass-otp
-    vscode # or vscode-with-extensions
+    vscode-with-extensions
     mosh
     chromium
   ];
