@@ -6,7 +6,7 @@ in {
   imports = [
     (builtins.fetchGit {
       url = "https://github.com/rycee/home-manager.git";
-      rev = "52fdf5b7ecab93eaf2a2ee83777b73f8ee126614";
+      rev = "8b15f1899356762187ce119980ca41c0aba782bb";
     } + "/nixos/default.nix")
   ];
   i18n = {
