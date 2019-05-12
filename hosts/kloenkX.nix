@@ -46,7 +46,7 @@ in {
 
   networking.hostName = "KloenkX";
   networking.wireless.enable = true;
-  networking.wireless.networks = secrets.wifiNetworks;
+  #networking.wireless.networks = secrets.wifiNetworks;
   networking.extraHosts = ''
     172.16.0.1 airlink.local unit.local
   '';
@@ -70,6 +70,8 @@ in {
 
   services.pcscd.enable = true;
   #services.pcscd.plugins = with pkgs; [ ccid pcsc-cyberjack ];
+
+  nixpkgs.config.allowUnfree = true; # allow unfree software
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
