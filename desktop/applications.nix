@@ -44,6 +44,7 @@
     pass-otp
     vscode # or vscode-with-extensions
     mosh
+    chromium
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -62,4 +63,44 @@
   ]; };
   hardware.nitrokey.enable = true;
   hardware.steam-hardware.enable = true;
+
+  home-manager.users.kloenk.programs.git.extraConfig.signing = {
+        key = "0xC9546F9D";
+        signByDefault = true;
+  };
+
+  home-manager.users.kloenk.programs.vscode ={
+      enable = true;
+      userSettings = {
+        "files.autoSave" = "afterDelay";
+        "git.autofetch" = true;
+        "workbench.startupEditor" = "newUntitledFile";
+        "todo-tree.defaultHighlight" = {
+          "icon" = "alert";
+          "type" = "text";
+          "foreground" = "red";
+          "background" = "white";
+          "opacity" = 50;
+          "iconColour" = "blue";
+        };
+        "workbench.colorTheme" = "Visual Studio Dark";
+        "git-graph.fetchAvatars" = true;
+      };
+      extensions = [
+        "bungcip.better-toml"
+        "ms-vscode.cpptools"
+        "serayuzgur.crates"
+        "lunaryorn.fish-ide"
+        "waderyan.gitblame"
+        "mhutchie.git-graph"
+        "eamodio.gitlens"
+        "bbenoist.nix"
+        "martinring.nix"
+        "platformio.platformio-ide"
+        "alefragnani.project-manager"
+        "rust-lang.rust"
+        "swellaby.rust-pack"
+        "gruntfuggly.todo-tree"
+      ];
+    };
 }
