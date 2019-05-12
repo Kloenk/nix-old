@@ -153,7 +153,7 @@ in {
         pluto = "ssh pluto";
         s = "sudo";
         ssy = "sudo systemctl";
-        sy "systemctl";
+        sy = "systemctl";
         startx = "exec startx";
         v = "vim";
       };
