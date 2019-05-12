@@ -11,6 +11,10 @@ stdenv.mkDerivation rec {
     sha256 = "0czgssv5m57b995xv2558rqb7ym5cc2rvx57z9ag0a91a57vv5f6";
   };
 
+  buildPhase = ''
+    sed -i 's%fzf%${fzf}/bin/fzf%g' rifo.sh
+  '';
+
   installPhase = ''
     mkdir -p $out/bin
     install -Dm0755 rifopass.sh $out/bin/rifopass
