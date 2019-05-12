@@ -25,6 +25,7 @@ in {
     # files
     home.file.".wallpaper-image".source = ./wallpaper-image;
     home.file.".config/i3status/config".source = ./i3status-config;
+    home.file.".Xresources".source = ./Xresources;
 
     xsession = {
       enable = true;
