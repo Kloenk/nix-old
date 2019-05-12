@@ -161,7 +161,7 @@ in {
         config.bars = [{
           fonts = [ "DejaVu Sans Mono 11" ];
           position = "top";
-          command = "${i3-package}/bin/i3bar -t"; # support transparency
+          command = "${i3-package}/bin/i3bar"; #-t"; # support transparency
           colors = {
             background = "#00000000";
             inactiveWorkspace = { border = "#323232ff"; background = "#323232ff"; text = "#ffffffff"; };

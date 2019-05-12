@@ -142,7 +142,7 @@ in {
         cb = "cargo build";
         cr = "cargo run";
         ct = "cargo test";
-        exit = " exti";
+        exit = " exit";
         gc = "git commit";
         gis = "git status";
         gp = "git push";
