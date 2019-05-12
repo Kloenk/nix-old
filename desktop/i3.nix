@@ -16,15 +16,15 @@ in {
     displayManager.startx.enable = true;
   };
 
-  home-manager.user.kloenk = {
+  home-manager.users.kloenk = {
     home.keyboard.layout = "de";
     #home.keyboard.variant = "neo";
     home.keyboard.model = "thinkpad";
     home.keyboard.options = [ "altwin:swap_lalt_lwin" ];
     
     # files
-    home.file.".wallpaper-image".source = "./wallpaper-image";
-    home.file.".config/i3status/config".source = "./i3status-config";
+    home.file.".wallpaper-image".source = ./wallpaper-image;
+    home.file.".config/i3status/config".source = ./i3status-config;
 
     xsession = {
       enable = true;
