@@ -98,5 +98,6 @@
     dolphin
     kdeApplications.dolphin-plugins
 
+    kdeApplications.kdepim-runtime
   ];
 }
