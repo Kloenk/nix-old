@@ -197,7 +197,7 @@ in {
       };
       initExtra = ''
         ${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources
-        ${pkgs.feh}/bin/feh --bg-fill ~/wallpaper-image
+        ${pkgs.feh}/bin/feh --bg-fill ~/.wallpaper-image
 
         export XDB_SESSION_TYPE=x11
         export KDE_FULL_SESSION=true
