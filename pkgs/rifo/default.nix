@@ -21,6 +21,7 @@ with lib;
   src = fetchgit {
     url = "https://git.kloenk.de/finn/Rifo";
     rev = "79e24d4fd164a7b2f9fa7ced8173613fbd718e85";
+    fetchSubmodules = false;
     sha256 = "0czgssv5m57b995xv2558rqb7ym5cc2rvx57z9ag0a91a57vv5f6";
   };
 
