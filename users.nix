@@ -207,7 +207,7 @@ in {
           user = "kloenk";
           forwardAgent = true;
         };
-        pluto-lycus = {
+        volta-lycus = {
           hostname = "10.0.0.4";
           port = 62954;
           user = "kloenk";
