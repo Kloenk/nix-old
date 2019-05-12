@@ -213,7 +213,7 @@ in {
     services.compton = {
       enable = true;
       backend = "glx";
-      shadow = "true";
+      shadow = true;
       shadowOpacity = "0.3";
     };
 
