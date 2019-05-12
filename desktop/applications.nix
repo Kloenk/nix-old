@@ -4,6 +4,9 @@
   imports = [
     ./kde.nix
   ];
+
+  home-manager.useUserPackages = true;
+
   users.users.kloenk.packages = with pkgs; [
     rustup
     gcc
