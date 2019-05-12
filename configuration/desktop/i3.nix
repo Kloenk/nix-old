@@ -36,10 +36,10 @@ in {
         config.keybindings = {
           "Mod4+Return" = "exec ${pkgs.termite}/bin/termite";
           "Mod4+Shift+x" = "kill";
-          #"Mod4+d" = "exec rifo";
-          #"Mod4+p" = "exec rifopass";
-          #"Mod4+Control+p" = "exec rifopass fill-in";
-          #"Mod4+Control+Shift+p" = "exec rifopass username fill-in";
+          "Mod4+d" = "exec ${pkgs.rifo}/bin/rifo";
+          "Mod4+p" = "exec ${pkgs.rifo}/bin/rifopas";
+          "Mod4+Control+p" = "exec ${pkgs.rifo}/bin/rifopas fill-in";
+          "Mod4+Control+Shift+p" = "exec ${pkgs.rifo}/bin/rifopas username fill-in";
           "Mod4+Shift+d" = "exec --no-startup-id ${pkgs.rofi}/bin/rofi -show drun";
           #"Mod4+z" = "exec ~/.lock.sh";
           #"Mod1+F4" = "exec ~/lock.sh";

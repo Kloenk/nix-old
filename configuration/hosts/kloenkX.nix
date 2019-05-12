@@ -4,6 +4,7 @@ let
   secrets = import /etc/nixos/secrets.nix;
 in {
   imports = [
+    ../../default.nix
     ../users.nix
     ../ssh.nix
     ../desktop/i3.nix
