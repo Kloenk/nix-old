@@ -39,7 +39,7 @@ in {
           #"Mod4+p" = "exec rifopass";
           #"Mod4+Control+p" = "exec rifopass fill-in";
           #"Mod4+Control+Shift+p" = "exec rifopass username fill-in";
-          "Mod4+SHift+d" = "exec --no-startup-id ${pkgs.rofi}/bin/rofi -show drun";
+          "Mod4+Shift+d" = "exec --no-startup-id ${pkgs.rofi}/bin/rofi -show drun";
           #"Mod4+z" = "exec ~/.lock.sh";
           #"Mod1+F4" = "exec ~/lock.sh";
           "XF86ScreenSave" = "exec ${pkgs.xtrlock-pam}/bin/xtrlock";
@@ -158,6 +158,7 @@ in {
           "XF86AudioStop" =  "exec playerctl pause";
           "Mod4+XF86Display" = "exec ${pkgs.xorg.xrandr}/bin/xrandr --auto";
         };
+        floating.modifier = "Mod4";
         config.bars = [{
           fonts = [ "DejaVu Sans Mono 8" ];
           position = "top";
