@@ -36,7 +36,7 @@ in {
    "sd_mod"
    "sdhci_pci"
   ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ "kvm-intel" "acpi_call" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
