@@ -16,6 +16,8 @@ in {
 
   #nix.nixPath = [ "nixpkgs=/home/pbb/proj/nixpkgs" "nixos=/home/pbb/proj/nixpkgs" ];
 
+  #hardware.cpu.intel.updateMicrocode = true;
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -101,6 +103,8 @@ in {
   #services.pcscd.plugins = with pkgs; [ ccid pcsc-cyberjack ];
 
   nixpkgs.config.allowUnfree = true; # allow unfree software
+
+  hardware.bluetooth.enable = true;
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
