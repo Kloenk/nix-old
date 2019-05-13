@@ -38,6 +38,9 @@
     # settings
     plasma5.systemsettings
 
+    # icons
+    breeze-icons
+
     # Archives (e.g., tar.gz and zip)
     ark
 
