@@ -86,10 +86,11 @@
   hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio.support32Bit = true;
 
-  home-manager.users.kloenk.programs.git.extraConfig.signing = {
+  home-manager.users.kloenk.programs.git.signing = {
         key = "0xC9546F9D";
         signByDefault = true;
   };
+
 
   home-manager.users.kloenk.home.file.".config/Code/User/settings.json".source = ./code-settings.json;
 }
