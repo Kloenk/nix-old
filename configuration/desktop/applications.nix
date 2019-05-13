@@ -4,6 +4,9 @@
   home-manager.useUserPackages = true;
 
   users.users.kloenk.packages = with pkgs; [
+    arandr
+    spotifywm
+    flameshot
     rustup
     gcc
     yarn
