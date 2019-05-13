@@ -47,6 +47,7 @@
     mosh
     chromium
     libreoffice
+    blueman
 
     # Archives (e.g., tar.gz and zip)
     ark

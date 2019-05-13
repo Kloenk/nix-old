@@ -59,7 +59,7 @@ in {
 
   networking.hostName = "KloenkX";
   networking.wireless.enable = true;
-  #networking.wireless.networks = secrets.wifiNetworks;
+  networking.wireless.networks = secrets.wifiNetworks;
   networking.extraHosts = ''
     172.16.0.1 airlink.local unit.local
   '';
@@ -68,7 +68,7 @@ in {
 
   networking.wireguard.interfaces = {
     wg0 = {
-      ips = [ "192.168.42.5/24" ];
+      ips = [ "192.168.42.6/24" ];
 
       privateKeyFile = "/etc/nixos/secrets/wg0.key";
 
