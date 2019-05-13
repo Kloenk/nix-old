@@ -20,8 +20,18 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
 
   # taken from hardware-configuration.nix
-  boot.initrd.availableKernelModules = [ "aes_x86_64" "aesni_intel" "cryptd" "ehci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.initrd.availableKernelModules = [
+   "aes_x86_64"
+   "aesni_intel"
+   "cryptd"
+   "xhci_pci"
+   "ahci"
+   "ohci_pci"
+   "sd_mod"
+   "sr_mod"
+   "rtsx_usb_sdmmc"
+  ];
+  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
