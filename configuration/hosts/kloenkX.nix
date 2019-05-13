@@ -72,23 +72,23 @@ in {
   #systemd.services.dhcpcd.serviceConfig.ExecStart = lib.mkForce "@${pkgs.dhcpcd}/sbin/dhcpcd dhcpcd -b -q -A -z wlp3s0";
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
 
-  networking.wireguard.interfaces = {
-    wg0 = {
-      ips = [ "192.168.42.6/24" ];
+  #networking.wireguard.interfaces = {
+  #  wg0 = {
+  #    ips = [ "192.168.42.6/24" ];
 
-      privateKeyFile = "/etc/nixos/secrets/wg0.key";
+  #    privateKeyFile = "/etc/nixos/secrets/wg0.key";
 
-      peers = [ 
-        {
-          publicKey = "MUsPCkTKHBGvCI62CevFs6Wve+cXBLQIl/C3rW3PbVM=";
-          allowedIPs = [ "192.168.42.0/24" ];
-          endpoint = "51.254.249.187:4242";
-          persistentKeepalive = 21;
-          presharedKeyFile = "/etc/nixos/secrets/wg0.psk";
-        }
-      ];
-    };
-  };
+  #    peers = [ 
+  #      {
+  #        publicKey = "MUsPCkTKHBGvCI62CevFs6Wve+cXBLQIl/C3rW3PbVM=";
+  #        allowedIPs = [ "192.168.42.0/24" ];
+  #        endpoint = "51.254.249.187:4242";
+  #        persistentKeepalive = 21;
+  #        presharedKeyFile = "/etc/nixos/secrets/wg0.psk";
+  #      }
+  #    ];
+  #  };
+  #};
 
   environment.etc.qemu-ifup.source = pkgs.writeText "qemu-ifup" ''
     #!${pkgs.stdenv.shell}
@@ -103,7 +103,7 @@ in {
 
   #services.logind.lidSwitch = "ignore";
   services.tlp.enable = true;
-  users.users.kloenk.packages = with pkgs; [ lm_sensors ];
+  users.users.kloenk.packages = with pkgs; [ lm_sensors tpacpi-bat acpi ];
 
   services.pcscd.enable = true;
   #services.pcscd.plugins = with pkgs; [ ccid pcsc-cyberjack ];
