@@ -36,12 +36,11 @@ in {
         config.keybindings = {
           "Mod4+Return" = "exec ${pkgs.termite}/bin/termite";
           "Mod4+Shift+x" = "kill";
-          "Mod4+d" = "exec ${pkgs.rifo}/bin/rifo";
-          "Mod4+p" = "exec ${pkgs.rifo}/bin/rifopas";
-          "Mod4+Control+p" = "exec ${pkgs.rifo}/bin/rifopas fill-in";
-          "Mod4+Control+Shift+p" = "exec ${pkgs.rifo}/bin/rifopas username fill-in";
-          "Mod4+Shift+d" = "exec --no-startup-id ${pkgs.rofi}/bin/rofi -show drun";
+          "Mod4+d" = "exec --no-startup-id ${pkgs.rofi}/bin/rofi -show drun";
+          "Mod4+p" = "exec ${pkgs.rofi-pass}/bin/rifo-pass";
+          "Mod4+Shift+d" = "exec --no-startup-id ${pkgs.rofi}/bin/rofi -show drun ofi -show run -color-window 'argb:cc000000,argb:00000000,argb:00000000' -color-normal 'argb:00000000,#ffffff,argb:00000000,argb:00000000,#ff7777' -fake-transparency";
           #"Mod4+z" = "exec ~/.lock.sh";
+          "Mod4+z" = "exec ${pkgs.xtrlock-pam}/bin/xtrlock";
           #"Mod1+F4" = "exec ~/lock.sh";
           "XF86ScreenSave" = "exec ${pkgs.xtrlock-pam}/bin/xtrlock";
           #"Mod4+Control+z" = "exec systemd-inhibit --what=handle-lid-switch ~/.lock.sh";
@@ -149,14 +148,14 @@ in {
           "Mod4+r" = "mode \"resize\"";
 
           # sound
-          "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
-          "XF86AudioMicMute" = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
-          "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +1000";
-          "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -1000";
-          "XF86AudioNext" =  "exec playerctl next";
-          "XF86AudioPrev" =  "exec playerctl previous";
-          "XF86AudioPlay" =  "exec playerctl play-pause";
-          "XF86AudioStop" =  "exec playerctl pause";
+          "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
+          "XF86AudioMicMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+          "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +1000";
+          "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -1000";
+          "XF86AudioNext" =  "exec ${pkgs.playerctl}/bin/playerctl next";
+          "XF86AudioPrev" =  "exec ${pkgs.playerctl}/bin/playerctl previous";
+          "XF86AudioPlay" =  "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+          "XF86AudioStop" =  "exec ${pkgs.playerctl}/bin/playerctl pause";
           "Mod4+XF86Display" = "exec ${pkgs.xorg.xrandr}/bin/xrandr --auto";
         };
         config.floating.modifier = "Mod4";
@@ -171,7 +170,7 @@ in {
           };
         }];
         extraConfig = ''
-          for_window [class="^.*"] border pixel 0
+          for_window [class="^.*"] border pixel 1
           workspace_auto_back_and_forth yes
 
           for_window [window_role="pop-up"] floating enable
