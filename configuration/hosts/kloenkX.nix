@@ -16,10 +16,13 @@ in {
 
   #nix.nixPath = [ "nixpkgs=/home/pbb/proj/nixpkgs" "nixos=/home/pbb/proj/nixpkgs" ];
 
-  #hardware.cpu.intel.updateMicrocode = true;
+  hardware.cpu.intel.updateMicrocode = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # f2fs support
+  boot.supportedFilesystems = [ "f2fs" ];
 
   # taken from hardware-configuration.nix
   boot.initrd.availableKernelModules = [
@@ -27,30 +30,33 @@ in {
    "aesni_intel"
    "cryptd"
    "xhci_pci"
+   "ehci_pci"
    "ahci"
-   "ohci_pci"
+   "usb_storage"
    "sd_mod"
-   "sr_mod"
-   "rtsx_usb_sdmmc"
+   "sdhci_pci"
   ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/1f8bf17d-9ae0-469d-a353-7cee2f30d97f";
-      fsType = "ext4";
+    { device = "/dev/disk/by-uuid/b5265276-b78f-45d0-a34e-2775467766f5";
+      fsType = "f2fs";
     };
 
-  boot.initrd.luks.devices."cryptRoot".device = "/dev/disk/by-uuid/fb3f40fc-7d82-4b78-8e3e-7bf813b1d567";
+  boot.initrd.luks.devices."cryptRoot".device = "/dev/disk/by-uuid/5faab799-5559-452b-af82-d169f21a4d00";
 
   fileSystems."/boot"  = {
-    device = "/dev/disk/by-uuid/5342-86C8";
+    device = "/dev/disk/by-uuid/E5E0-B6C0";
     fsType = "vfat";
   };
 
-  swapDevices = [ { device = "/dev/disk/by-uuid/98d4977b-0599-4966-bffa-dd2db73951c5";} ];
+  swapDevices = [
+    { device = "/dev/disk/by-uuid/1d92d5f5-ac28-44f9-9d86-389ea77500f0";}
+    { device = "/dev/disk/by-uuid/a458094a-dda3-4191-be9b-432b126b241c";}
+  ];
 
-  nix.maxJobs = lib.mkDefault 16;
+  nix.maxJobs = lib.mkDefault 4;
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
   boot.consoleLogLevel = 0;

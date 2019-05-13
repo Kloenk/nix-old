@@ -18,5 +18,6 @@
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     "C_Cpp.updateChannel": "Insiders",
     "workbench.colorTheme": "Visual Studio Dark",
-    "git-graph.fetchAvatars": true
+    "git-graph.fetchAvatars": true,
+    "files.autoSaveDelay": 100
 }
