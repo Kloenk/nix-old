@@ -1,10 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./kde.nix
-  ];
-
   home-manager.useUserPackages = true;
 
   users.users.kloenk.packages = with pkgs; [
@@ -29,7 +25,6 @@
     gimp
     inkscape
     krita
-    thunderbird
     sshfs
     quasselClient
     pavucontrol
@@ -48,6 +43,23 @@
     vscode #-with-extensions
     mosh
     chromium
+    libreoffice
+
+    # Archives (e.g., tar.gz and zip)
+    ark
+
+    # This is needed for graphical dialogs used to enter GPG passphrases
+    pinentry_qt5
+
+    # mail
+    thunderbird
+
+    # steam
+    steam
+    steamcontroller
+
+    #ts 3
+    teamspeak_client
   ];
 
   nixpkgs.config.allowUnfree = true;
