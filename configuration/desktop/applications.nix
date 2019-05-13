@@ -48,6 +48,7 @@
     chromium
     libreoffice
     blueman
+    mkpasswd
 
     # Archives (e.g., tar.gz and zip)
     ark
