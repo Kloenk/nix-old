@@ -1,4 +1,4 @@
-{ stdenv, fzf, jq, pass, termite, fetchgit, lib, makeWrapper, oathToolkit, xdotool, bash }:
+{ stdenv, fzf, jq, pass, termite, fetchgit, lib, makeWrapper, oathToolkit, xdotool, bash, coreutils }:
 
 with lib;
 
@@ -12,6 +12,7 @@ with lib;
     oathToolkit
     xdotool
     bash
+    coreutils
   ];
 
  in stdenv.mkDerivation {
