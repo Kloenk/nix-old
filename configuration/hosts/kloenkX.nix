@@ -64,6 +64,24 @@ in {
   #systemd.services.dhcpcd.serviceConfig.ExecStart = lib.mkForce "@${pkgs.dhcpcd}/sbin/dhcpcd dhcpcd -b -q -A -z wlp3s0";
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
 
+  networking.wireguard.interfaces = {
+    wg0 = {
+      ips = [ "192.168.42.5/24" ];
+
+      privateKeyFile = "/etc/nixos/secrets/wg0.key";
+
+      peers = [ 
+        {
+          publicKey = "MUsPCkTKHBGvCI62CevFs6Wve+cXBLQIl/C3rW3PbVM=";
+          allowedIPs = [ "192.168.42.0/24" ];
+          endpoint = "51.254.249.187:4242";
+          persistentKeepalive = 21;
+          presharedKeyFile = "/etc/nixos/secrets/wg0.psk";
+        }
+      ];
+    };
+  };
+
   environment.etc.qemu-ifup.source = pkgs.writeText "qemu-ifup" ''
     #!${pkgs.stdenv.shell}
     ${pkgs.iproute}/bin/ip l set dev $1 up
