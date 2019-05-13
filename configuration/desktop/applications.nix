@@ -62,7 +62,6 @@
     teamspeak_client
   ];
 
-  nixpkgs.config.allowUnfree = true;
 
   users.users.kloenk.extraGroups = [ "wireshark" "adbusers" "nitrokey" ];
   programs.wireshark.enable = true;
@@ -77,7 +76,11 @@
     "pdiebiamhaleloakpcgmpnenggpjbcbm" # tab snooze
   ]; };
   hardware.nitrokey.enable = true;
+
+  # steam hardware
   hardware.steam-hardware.enable = true;
+  hardware.opengl.driSupport32Bit = true;
+  hardware.pulseaudio.support32Bit = true;
 
   home-manager.users.kloenk.programs.git.extraConfig.signing = {
         key = "0xC9546F9D";
