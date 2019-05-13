@@ -35,10 +35,10 @@ with lib;
     install -Dm0755 rifo.sh $out/bin/rifo
     install -Dm0755 passlistgen.sh $out/bin/passlistgen.sh
     install -Dm0755 rifo-init.sh $out/bin/rifo-init.sh
-    wrapProgram "$out/bin/rifopass" --set PATH:${makeBinPath dependencies}
-    wrapProgram "$out/bin/rifo" --set PATH:${makeBinPath dependencies}
-    wrapProgram "$out/bin/passlistgen.sh" --set PATH:${makeBinPath dependencies}
-    wrapProgram "$out/bin/rifo-init.sh" --set PATH:${makeBinPath dependencies}
+    wrapProgram "$out/bin/rifopass" --set PATH ${makeBinPath dependencies}
+    wrapProgram "$out/bin/rifo" --set PATH ${makeBinPath dependencies}
+    wrapProgram "$out/bin/passlistgen.sh" --set PATH ${makeBinPath dependencies}
+    wrapProgram "$out/bin/rifo-init.sh" --set PATH ${makeBinPath dependencies}
   '';
 
   meta = {
