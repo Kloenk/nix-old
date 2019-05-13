@@ -37,7 +37,7 @@ in {
           "Mod4+Return" = "exec ${pkgs.termite}/bin/termite";
           "Mod4+Shift+x" = "kill";
           "Mod4+d" = "exec --no-startup-id ${pkgs.rofi}/bin/rofi -show drun";
-          "Mod4+p" = "exec ${pkgs.rofi-pass}/bin/rifo-pass";
+          "Mod4+p" = "exec ${pkgs.rofi-pass}/bin/rofi-pass";
           "Mod4+Shift+d" = "exec --no-startup-id ${pkgs.rofi}/bin/rofi -show drun ofi -show run -color-window 'argb:cc000000,argb:00000000,argb:00000000' -color-normal 'argb:00000000,#ffffff,argb:00000000,argb:00000000,#ff7777' -fake-transparency";
           #"Mod4+z" = "exec ~/.lock.sh";
           "Mod4+z" = "exec ${pkgs.xtrlock-pam}/bin/xtrlock";
