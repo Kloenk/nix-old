@@ -101,6 +101,9 @@ in {
   environment.etc.qemu-ifup.mode = "0755";
   environment.etc.qemu-ifdown.mode = "0755";
 
+  # make autoupdates
+  system.autoUpgrade.enable = true;
+
   #services.logind.lidSwitch = "ignore";
   services.tlp.enable = true;
   users.users.kloenk.packages = with pkgs; [ lm_sensors tpacpi-bat acpi ];
