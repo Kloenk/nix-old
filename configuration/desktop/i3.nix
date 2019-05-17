@@ -46,6 +46,7 @@ in {
           #"Mod4+Control+z" = "exec systemd-inhibit --what=handle-lid-switch ~/.lock.sh";
           #"Mod4+Shift+z" = "exec ~/suspend.sh";
           "Mod4+t" = "exec ${pkgs.tdesktop}/bin/telegram-desktop";
+          "Mod4+m" = "exec ${pkgs.thunderbird}/bin/thunderbird";
 
           # change focus
           "Mod4+j" = "focus left";
