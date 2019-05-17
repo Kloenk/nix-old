@@ -49,6 +49,10 @@
     libreoffice
     blueman
     mkpasswd
+    lxappearance
+
+    # java
+    jre8_headless
 
     # Archives (e.g., tar.gz and zip)
     ark
@@ -65,6 +69,10 @@
 
     #ts 3
     teamspeak_client
+
+    # picture viewving
+    sxiv
+    feh
   ];
 
 
@@ -74,12 +82,13 @@
   nixpkgs.config.android_sdk.accept_license = true;
   programs.adb.enable = true;
   programs.chromium = { enable = true; extensions = [
-    "cfhdojbkjhnklbpkdaibdccddilifddb" # ad block plus
-    "kbfnbcaeplbcioakkpcpgfkobkghlhen" # gramarly
-    "ppmmlchacdbknfphdeafcbmklcghghmd" # jwt debugger
-    "laookkfknpbbblfpciffpaejjkokdgca" # momentum
-    "pdiebiamhaleloakpcgmpnenggpjbcbm" # tab snooze
-  ]; };
+      "cfhdojbkjhnklbpkdaibdccddilifddb" # ad block plus
+      "kbfnbcaeplbcioakkpcpgfkobkghlhen" # gramarly
+      "ppmmlchacdbknfphdeafcbmklcghghmd" # jwt debugger
+      "laookkfknpbbblfpciffpaejjkokdgca" # momentum
+      "pdiebiamhaleloakpcgmpnenggpjbcbm" # tab snooze
+    ];
+  };
   hardware.nitrokey.enable = true;
 
   # steam hardware
