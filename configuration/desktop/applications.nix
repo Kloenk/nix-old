@@ -5,7 +5,6 @@
 
   users.users.kloenk.packages = with pkgs; [
     arandr
-    spotifywm
     flameshot
     rustup
     gcc
@@ -43,7 +42,6 @@
     screen # for usb serial
     pass
     pass-otp
-    vscode #-with-extensions
     mosh
     chromium
     libreoffice
@@ -62,13 +60,6 @@
 
     # mail
     thunderbird
-
-    # steam
-    steam
-    steamcontroller
-
-    #ts 3
-    teamspeak_client
 
     # picture viewving
     sxiv

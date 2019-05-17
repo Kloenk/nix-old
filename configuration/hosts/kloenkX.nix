@@ -109,9 +109,16 @@ in {
   users.users.kloenk.packages = with pkgs; [
     lm_sensors
     tpacpi-bat
-    acpi       # fixme: not in the kernel
-    wine       # can we ditch it?
-    firefox    # used because of netflix :-(
+    acpi             # fixme: not in the kernel
+    wine             # can we ditch it?
+    firefox          # used because of netflix :-(
+    spotifywm        # spotify fixed for wms
+    vscode           # code editor (unfree :-( )
+    teamspeak_client # team speak
+
+    # steam
+    steam
+    steamcontroller    
   ];
 
   services.pcscd.enable = true;
