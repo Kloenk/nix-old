@@ -106,12 +106,36 @@ in {
 
   #services.logind.lidSwitch = "ignore";
   services.tlp.enable = true;
-  users.users.kloenk.packages = with pkgs; [ lm_sensors tpacpi-bat acpi ];
+  users.users.kloenk.packages = with pkgs; [
+    lm_sensors
+    tpacpi-bat
+    acpi       # fixme: not in the kernel
+    wine       # can we ditch it?
+    firefox    # used because of netflix :-(
+  ];
 
   services.pcscd.enable = true;
   #services.pcscd.plugins = with pkgs; [ ccid pcsc-cyberjack ];
 
+  fileSystems."/media/MNS" = {
+      device = "//10.1.0.1/FinBeh$";
+      fsType = "cifs";
+      options = let
+        # this line prevents hanging on network split
+        automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+
+      in ["${automount_opts},credentials=/etc/nixos/secrets/mns-smb.secrets"];
+  };
+
+  fileSystems."/mnt/Filme" = {
+    device = "192.168.178.248:Filme";
+    fsType = "nfs";
+    options = ["x-systemd.automount" "noauto" "x-systemd.idle-timeout=60" "x-systemd.device-timeout=5s" "x-systemd.mount-timeout=5s"];
+  };
+
   nixpkgs.config.allowUnfree = true; # allow unfree software
+  #nixpkgs.config.allowBroken = true; # for WideVine
+  #nixpkgs.config.chromium.enableWideVine = true;
 
   hardware.bluetooth.enable = true;
 
