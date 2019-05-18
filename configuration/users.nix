@@ -20,7 +20,10 @@ in {
   environment.systemPackages = with pkgs; [
     termite.terminfo
     rxvt_unicode.terminfo
+    restic
   ];
+
+  environment.variables.EDITOR = "vim";
 
   users.users.kloenk = {
     isNormalUser = true;
@@ -56,7 +59,10 @@ in {
       gptfdisk
       jq
       nix-prefetch-git
+      pass-otp
+      gopass
       # dovecot_pigeonhole
+      sl
     ];
   };
 
