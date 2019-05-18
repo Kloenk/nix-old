@@ -20,5 +20,8 @@
     "workbench.colorTheme": "Visual Studio Dark",
     "git-graph.fetchAvatars": true,
     "files.autoSaveDelay": 100,
-    "rust.mode": "rls"
+    "rust.mode": "rls",
+    "rust.rustup": {
+        "toolchain": "stable-x86_64-unknown-linux-gnu"
+    }
 }
