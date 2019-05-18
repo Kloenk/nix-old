@@ -19,5 +19,6 @@
     "C_Cpp.updateChannel": "Insiders",
     "workbench.colorTheme": "Visual Studio Dark",
     "git-graph.fetchAvatars": true,
-    "files.autoSaveDelay": 100
+    "files.autoSaveDelay": 100,
+    "rust.mode": "rls"
 }

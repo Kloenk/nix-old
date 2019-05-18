@@ -40,7 +40,6 @@
     neomutt
     bind # for dig
     screen # for usb serial
-    pass
     pass-otp
     mosh
     chromium
@@ -64,6 +63,11 @@
     # picture viewving
     sxiv
     feh
+
+    # audio
+    audacity
+
+    # tree view
   ];
 
 
