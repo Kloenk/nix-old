@@ -109,17 +109,24 @@ in {
   users.users.kloenk.packages = with pkgs; [
     lm_sensors
     tpacpi-bat
-    acpi             # fixme: not in the kernel
-    wine             # can we ditch it?
-    firefox          # used because of netflix :-(
-    spotifywm        # spotify fixed for wms
-    vscode           # code editor (unfree :-( )
-    teamspeak_client # team speak
+    acpi                   # fixme: not in the kernel
+    wine                   # can we ditch it?
+    firefox                # used because of netflix :-(
+    spotifywm              # spotify fixed for wms
+    vscode-with-extensions # code editor (unfree :-( )
+    python                 # includes python2 as dependency for vscode
+    teamspeak_client       # team speak
 
     # steam
     steam
     steamcontroller    
   ];
+
+  nixpkgs.config.packageOverrides = pkgs: rec {
+    vscodeCpp = pkgs.vscode-with-extensions.override {
+      vscodeExtensions = vscode-extensions: with vscode-extensions;[ ms-vscode.cpptools ];
+    };
+  };
 
   services.pcscd.enable = true;
   #services.pcscd.plugins = with pkgs; [ ccid pcsc-cyberjack ];
