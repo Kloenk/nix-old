@@ -28,7 +28,10 @@ in {
   users.users.kloenk = {
     isNormalUser = true;
     uid = 1000;
-    extraGroups = [ "wheel" "bluetooth" "dialout" ];
+    extraGroups = [
+      "wheel"
+      "bluetooth"
+    ];
     shell = pkgs.fish;
     hashedPassword = secrets.hashedPasswords.kloenk;
     packages = with pkgs; [
