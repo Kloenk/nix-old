@@ -121,6 +121,9 @@ in {
     spotifywm              # spotify fixed for wms
     vscode-with-extensions # code editor (unfree :-( )
     python                 # includes python2 as dependency for vscode
+    platformio             # pio command
+    openocd                # pio upload for stlink
+    stlink                 # stlink software
     teamspeak_client       # team speak
 
     # steam
@@ -133,6 +136,13 @@ in {
       vscodeExtensions = vscode-extensions: with vscode-extensions;[ ms-vscode.cpptools ];
     };
   };
+
+  users.users.kloenk.extraGroups = [
+    "dialout"  # allowes serial connections
+    "plugdev"  # allowes stlink connection
+  ];
+
+  services.udev.packages = [ pkgs.openocd ];
 
   services.pcscd.enable = true;
   #services.pcscd.plugins = with pkgs; [ ccid pcsc-cyberjack ];
