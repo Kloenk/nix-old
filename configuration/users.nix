@@ -25,6 +25,7 @@ in {
 
   environment.variables.EDITOR = "vim";
 
+  users.mutableUsers = false; # disallow change of users by user
   users.users.kloenk = {
     isNormalUser = true;
     uid = 1000;

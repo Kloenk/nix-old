@@ -15,3 +15,9 @@
 
 secrets.nix
 secrets/
+
+# result of build (vm for example)
+result
+
+# vm image
+*.qcow2
