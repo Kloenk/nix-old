@@ -10,6 +10,8 @@ in {
     ../desktop/i3.nix
     ../desktop/applications.nix
 
+    # x230 configuration
+    <nixos-hardware/lenovo/thinkpad/x230> 
     # fallback for detection
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
   ];
@@ -36,7 +38,7 @@ in {
    "sd_mod"
    "sdhci_pci"
   ];
-  boot.kernelModules = [ "kvm-intel" "acpi_call" ];
+  boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
@@ -57,7 +59,11 @@ in {
   ];
 
   nix.maxJobs = lib.mkDefault 4;
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
+  # set battery threshold
+  powerManagement.powerUpCommands = "${pkgs.tlp}/bin/tlp setcharge 70 90 bat0";
+  # enable autotune for linux with powertop (intel)
+  #powerManagement.powertop.enable = true; # auto tune software
 
   boot.consoleLogLevel = 0;
   boot.kernelParams = [ "quiet" ];
@@ -158,6 +164,12 @@ in {
   #nixpkgs.config.chromium.enableWideVine = true;
 
   hardware.bluetooth.enable = true;
+
+  # add bluetooth sink
+  hardware.bluetooth.extraConfig = "
+    [General]
+    Enable=Source,Sink,Media,Socket
+  ";
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
