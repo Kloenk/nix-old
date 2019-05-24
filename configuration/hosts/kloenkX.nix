@@ -105,6 +105,10 @@ in {
   environment.etc.qemu-ifup.mode = "0755";
   environment.etc.qemu-ifdown.mode = "0755";
 
+  environment.systemPackages = with pkgs; [
+    davfs2
+  ];
+
   # make autoupdates
   system.autoUpgrade.enable = true;
 
@@ -138,6 +142,7 @@ in {
   users.users.kloenk.extraGroups = [
     "dialout"  # allowes serial connections
     "plugdev"  # allowes stlink connection
+    "davfs2"   # webdav foo
   ];
 
   services.udev.packages = [ pkgs.openocd ];
