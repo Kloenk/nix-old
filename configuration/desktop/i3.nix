@@ -49,7 +49,7 @@ in {
           "Mod4+p" = "exec ${pkgs.rofi-pass}/bin/rofi-pass";
           "Mod4+Shift+d" = "exec --no-startup-id ${pkgs.rofi}/bin/rofi -show drun ofi -show run -color-window 'argb:cc000000,argb:00000000,argb:00000000' -color-normal 'argb:00000000,#ffffff,argb:00000000,argb:00000000,#ff7777' -fake-transparency";
           #"Mod4+z" = "exec ~/.lock.sh";
-          "Mod4+z" = "exec ${pkgs.xtrlock-pam}/bin/xtrlock-pam";
+          "Mod4+z" = "exec --no-startup-id ${pkgs.xtrlock-pam}/bin/xtrlock-pam";
           #"Mod1+F4" = "exec ~/lock.sh";
           "XF86ScreenSave" = "exec ${pkgs.xtrlock-pam}/bin/xtrlock-pam";
           #"Mod4+Control+z" = "exec systemd-inhibit --what=handle-lid-switch ~/.lock.sh";
