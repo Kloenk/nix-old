@@ -20,8 +20,8 @@ in {
 
   hardware.cpu.intel.updateMicrocode = true;
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "/dev/disk/by-path/pci-0000:00:1f.2-ata-3";
 
   # f2fs support
   boot.supportedFilesystems = [ "f2fs" ];
@@ -49,7 +49,7 @@ in {
   boot.initrd.luks.devices."cryptRoot".device = "/dev/disk/by-uuid/5faab799-5559-452b-af82-d169f21a4d00";
 
   fileSystems."/boot"  = {
-    device = "/dev/disk/by-uuid/E5E0-B6C0";
+    device = "/dev/disk/by-uuid/0C22-7E96";
     fsType = "vfat";
   };
 
@@ -131,6 +131,9 @@ in {
     # steam
     steam
     steamcontroller    
+
+    # minecraft
+    multimc
   ];
 
   nixpkgs.config.packageOverrides = pkgs: rec {
