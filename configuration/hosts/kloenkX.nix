@@ -43,8 +43,8 @@ in {
   boot.kernelModules = [ "kvm-intel" "acpi_call" ];
   boot.extraModulePackages = [
     config.boot.kernelPackages.acpi_call
-    config.boot.linuxPackages.tp_smapi
-    config.boot.linuxPackages.wireguard
+    config.boot.kernelPackages.tp_smapi
+    config.boot.kernelPackages.wireguard
   ];
 
   fileSystems."/" =
