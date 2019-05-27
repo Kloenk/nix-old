@@ -20,11 +20,13 @@ in {
 
   hardware.cpu.intel.updateMicrocode = true;
 
+  #boot.loader.systemd-boot.enable = true;
+  #boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/disk/by-path/pci-0000:00:1f.2-ata-3";
+  boot.loader.grub.device = "/dev/sdb";
 
   # f2fs support
-  boot.supportedFilesystems = [ "f2fs" ];
+  boot.supportedFilesystems = [ "f2fs" "ext2" ];
 
   # taken from hardware-configuration.nix
   boot.initrd.availableKernelModules = [
@@ -38,8 +40,12 @@ in {
    "sd_mod"
    "sdhci_pci"
   ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot.kernelModules = [ "kvm-intel" "acpi_call" ];
+  boot.extraModulePackages = [
+    config.boot.kernelPackages.acpi_call
+    config.boot.linuxPackages.tp_smapi
+    config.boot.linuxPackages.wireguard
+  ];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/b5265276-b78f-45d0-a34e-2775467766f5";
@@ -49,8 +55,9 @@ in {
   boot.initrd.luks.devices."cryptRoot".device = "/dev/disk/by-uuid/5faab799-5559-452b-af82-d169f21a4d00";
 
   fileSystems."/boot"  = {
-    device = "/dev/disk/by-uuid/0C22-7E96";
-    fsType = "vfat";
+
+    device = "/dev/disk/by-uuid/09e9d51a-eb4c-4baa-aff7-7f7df01c8bad";
+    fsType = "ext2";
   };
 
   swapDevices = [
@@ -110,7 +117,7 @@ in {
   ];
 
   # make autoupdates
-  system.autoUpgrade.enable = true;
+  #system.autoUpgrade.enable = true;
 
   #services.logind.lidSwitch = "ignore";
   services.tlp.enable = true;
