@@ -240,6 +240,10 @@ in {
         #night = 3700;
       #};
     };
+
+    programs.fish.shellAbbrs = {
+      startx = "exec startx";
+    };
   };
 
   fonts.fonts = with pkgs; [ noto-fonts noto-fonts-emoji source-code-pro ];
