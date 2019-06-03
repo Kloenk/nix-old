@@ -18,6 +18,12 @@ in {
 
   hardware.cpu.intel.updateMicrocode = true;
 
+  fileSystems."/" = { device = "/dev/disk/by-id/ata-HTS721010G9SA00_MPDZN7Y0J7WN6L-part1";
+      fsType = "ext4";
+  };
+
+  swapDevices = [ { device = "/dev/disk/by-id/ata-HTS721010G9SA00_MPDZN7Y0J7WN6L-part2"; } ];
+
   boot.supportedFilesystems = [ "f2fs" "ext4" "nfs" ];
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
