@@ -18,8 +18,9 @@ in {
 
   hardware.cpu.intel.updateMicrocode = true;
 
-  fileSystems."/" = { device = "/dev/disk/by-id/ata-HTS721010G9SA00_MPDZN7Y0J7WN6L-part1";
-      fsType = "ext4";
+  fileSystems."/" = {
+    device = "/dev/disk/by-id/ata-HTS721010G9SA00_MPDZN7Y0J7WN6L-part1";
+    fsType = "ext4";
   };
 
   swapDevices = [ { device = "/dev/disk/by-id/ata-HTS721010G9SA00_MPDZN7Y0J7WN6L-part2"; } ];
@@ -34,9 +35,21 @@ in {
     config.boot.kernelPackages.wireguard
   ];
 
+  # taken from hardware-configuration.nix
+  boot.initrd.availableKernelModules = [
+   "uhci_hcd"
+   "ehci_pci"
+   "ahci"
+   "usbhid"
+   "uas"
+   "usb_storage"
+   "sd_mod"
+  ];
+  nix.maxJobs = lib.mkDefault 4;
+
   networking.hostName = "atom";
   networking.dhcpcd.enable = false;
-  networking.interfaces.eno0.ipv4.addresses = [ { address = "192.168.178.249"; prefixLength = 24; } ];
+  networking.interfaces.enp1s0.ipv4.addresses = [ { address = "192.168.178.249"; prefixLength = 24; } ];
   networking.defaultGateway = "192.168.178.1";
   #networking.interfaces.ens0.ipv6.addresses = [ { address = "2a01:4f8:160:4107::2"; prefixLength = 64; } ];
   #networking.defaultGateway6 = { address = "fe80::1"; interface = "enp4s0"; };
