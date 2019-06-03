@@ -148,6 +148,9 @@ in {
           "Mod4+Control+k" = "move workspace to output up";
           "Mod4+Control+l" = "move workspace to output right";
 
+          # reload compton because of broken screen
+          "Mod4+c" = "exec --no-startup-id systemctl --user restart compton";
+
           # reload the configuration file
           "Mod4+Shift+c" = "reload";
           # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
