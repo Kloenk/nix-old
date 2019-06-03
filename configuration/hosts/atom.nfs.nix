@@ -2,6 +2,18 @@
 
 {
 
+    # make sure dirs exists
+    system.activationScripts = {
+      media = {
+        text = ''mkdir -p /media/TapeDrive /media/intenso'';
+        deps = [];
+      };
+      srv-nfs = {
+          text = ''mkdir -p /srv/nfs/Filme /srv/nfs/Books /srv/nfs/Pictures /srv/nfs/TapeDrive'';
+          deps = [];
+      };
+    };
+
     fileSystems."/media/intenso" = {
         device = "/dev/disk/by-uuid/aa04b51e-fc5c-4038-9e7b-08bd852de12d";
         fsType = "ext4";
