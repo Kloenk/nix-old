@@ -9,6 +9,7 @@ in {
     ../ssh.nix
     ../desktop/i3.nix
     ../desktop/applications.nix
+    ../collectd.nix
 
     # x230 configuration
     <nixos-hardware/lenovo/thinkpad/x230> 
@@ -26,7 +27,7 @@ in {
   boot.loader.grub.device = "/dev/sdb";
 
   # f2fs support
-  boot.supportedFilesystems = [ "f2fs" "ext2" ];
+  boot.supportedFilesystems = [ "f2fs" "ext2" "nfs" "cifs" ];
 
   # taken from hardware-configuration.nix
   boot.initrd.availableKernelModules = [
@@ -141,6 +142,9 @@ in {
 
     # minecraft
     multimc
+
+    # docker controller
+    docker
   ];
 
   nixpkgs.config.packageOverrides = pkgs: rec {
@@ -149,10 +153,14 @@ in {
     };
   };
 
+  # docker fo
+  virtualisation.docker.enable = true;
+
   users.users.kloenk.extraGroups = [
     "dialout"  # allowes serial connections
     "plugdev"  # allowes stlink connection
     "davfs2"   # webdav foo
+    "docker"   # docker controll group
   ];
 
   services.udev.packages = [ pkgs.openocd ];
@@ -160,27 +168,6 @@ in {
   services.pcscd.enable = true;
   #services.pcscd.plugins = with pkgs; [ ccid pcsc-cyberjack ];
 
-  fileSystems."/media/MNS" = {
-      device = "//10.1.0.1/FinBeh$";
-      fsType = "cifs";
-      options = let
-        # this line prevents hanging on network split
-        automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
-
-      in ["${automount_opts},credentials=/etc/nixos/secrets/mns-smb.secrets"];
-  };
-
-  fileSystems."/media/Filme" = {
-    device = "192.168.178.248:Filme";
-    fsType = "nfs";
-    options = ["x-systemd.automount" "noauto" "x-systemd.idle-timeout=60" "x-systemd.device-timeout=5s" "x-systemd.mount-timeout=5s"];
-  };
-
-  fileSystems."/media/TapeDrive" = {
-    device = "192.168.178.248:TapeDrive";
-    fsType = "nfs";
-    options = ["x-systemd.automount" "noauto" "x-systemd.idle-timeout=60" "x-systemd.device-timeout=5s" "x-systemd.mount-timeout=5s"];
-  };
 
   nixpkgs.config.allowUnfree = true; # allow unfree software
   #nixpkgs.config.allowBroken = true; # for WideVine
