@@ -164,7 +164,6 @@ in {
         s = "sudo";
         ssy = "sudo systemctl";
         sy = "systemctl";
-        startx = "exec startx";
         v = "vim";
       };
     };
