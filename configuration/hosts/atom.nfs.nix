@@ -9,7 +9,8 @@
         deps = [];
       };
       srv-nfs = {
-          text = ''mkdir -p /srv/nfs/Filme /srv/nfs/Books /srv/nfs/Pictures /srv/nfs/TapeDrive'';
+          text = ''mkdir -p /srv/nfs/Filme /srv/nfs/Books /srv/nfs/Pictures /srv/nfs/TapeDrive
+                   chown -R kloenk:users /srv/nfs'';
           deps = [];
       };
     };
