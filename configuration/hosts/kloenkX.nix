@@ -62,8 +62,8 @@ in {
   };
 
   swapDevices = [
-    { device = "/dev/disk/by-uuid/1d92d5f5-ac28-44f9-9d86-389ea77500f0";}
-    { device = "/dev/disk/by-uuid/a458094a-dda3-4191-be9b-432b126b241c";}
+    { device = "/dev/disk/by-id/ata-SAMSUNG_MZ7WD240HAFV-00003_S16LNYADB02059-part1"; randomEncryption= { enable = true; source = "/dev/random"; }; }
+    { device = "/dev/disk/by-id/ata-SAMSUNG_SSD_PM871_mSATA_128GB_S20FNXAGC19931-part2"; randomEncryption= { enable = true; source = "/dev/random"; }; }
   ];
 
   nix.maxJobs = lib.mkDefault 4;
