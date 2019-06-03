@@ -15,17 +15,17 @@
     };
 
     fileSystems."/media/intenso" = {
-        device = "/dev/disk/by-uuid/aa04b51e-fc5c-4038-9e7b-08bd852de12d";
+        device = "/dev/disk/by-id/usb-Intenso_External_USB_3.0_20150609040398-0:0-part5";
         fsType = "ext4";
         encrypted.enable = true;
-        encrypted.blkDev = "/dev/disk/by-uuid/a69941fe-1548-485a-a7ba-c7a5a736a5e7";
+        encrypted.blkDev = "/dev/mapper/cryptIntenso";
         encrypted.label = "cryptIntenso";
         encrypted.keyFile = "/etc/nixos/secrets/cryptIntenso.keyfile";
         options = [ "nofail" ];
     };
 
     fileSystems."/media/TapeDrive" = {
-        device = "/dev/disk/by-uuid/83cab8ed-3a12-4820-9f09-176076f7ad14";
+        device = "/dev/disk/by-id/ata-WDC_WD5000AACS-00ZUB0_WD-WCASU5339750-part1";
         fsType = "ext4";
         options = [ "nofail" ];
     };

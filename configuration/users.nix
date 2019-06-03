@@ -225,11 +225,13 @@ in {
         };
         atom = {
           hostname = "192.168.178.248";
+          port = 62954;
           user = "kloenk";
           forwardAgent = true;
         };
         atom-wg = {
           hostname = "192.168.42.7";
+          port = 62954;
           user = "kloenk";
           forwardAgent = true;
         };
