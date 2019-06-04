@@ -15,12 +15,8 @@ buildPythonPackage rec{
 
   checkInputs = [ aiocoap ];
 
-  #checkPhase = ''
-  #  # https://github.com/pytoolz/toolz/issues/357
-  #  rm toolz/tests/test_serialization.py
-  #  nosetests toolz/tests
-  #'';
-
+  doCheck = false;
+  
   meta = with lib; {
     #homepage = https://github.com/pytoolz/toolz;
     description = "pytradfri module";

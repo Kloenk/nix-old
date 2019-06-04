@@ -12,6 +12,8 @@ buildPythonPackage rec{
     sha256 = "402d4151db6d8d0b1d66af5b6e10e0de1521decbf12140637e5b8d2aa9c5aef6";
   };
 
+  doCheck = false;
+
 
   meta = with lib; {
     #homepage = https://github.com/pytoolz/toolz;

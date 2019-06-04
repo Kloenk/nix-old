@@ -4,7 +4,7 @@
 
     services.home-assistant.enable = true;
     services.home-assistant.package = pkgs.home-assistant.override {
-        extraPackages = ps: [ ps.colorlog pkgs.pytradfri ];
+        extraPackages = ps: [ ps.colorlog pkgs.pytradfri pkgs.aiocoap ];
     };
     services.home-assistant.configWritable = true;
 
