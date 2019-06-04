@@ -1,7 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-, nose
+, aiocoap
 }:
 
 buildPythonPackage rec{

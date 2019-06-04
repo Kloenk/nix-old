@@ -6,7 +6,8 @@ let
 
   newpkgs = {
     rifo = callPackage ./rifo { };
-    pytradfri = callPackage ./pytradfri { buildPythonPackage = python37Packages.buildPythonPackage; fetchPypi = python37Packages.fetchPypi; };
+    pytradfri = callPackage ./pytradfri { buildPythonPackage = pkgs.python37Packages.buildPythonPackage; pkgs.fetchPypi = python37Packages.fetchPypi; };
+    aiocoap = callPackage ./aiocoap { buildPythonPackage = pkgs.python37Packages.buildPythonPackage; pkgs.fetchPypi = python37Packages.fetchPypi; };
   };
 
 in newpkgs
