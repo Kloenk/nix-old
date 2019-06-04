@@ -6,7 +6,7 @@ let
 
   newpkgs = {
     rifo = callPackage ./rifo { };
-    pytradfri = callPackage ./pytradfri { };
+    pytradfri = callPackage ./pytradfri { python37Packages.buildPythonPackage };
   };
 
 in newpkgs
