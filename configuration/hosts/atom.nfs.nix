@@ -15,15 +15,15 @@
       };
     };
 
-    fileSystems."/media/intenso" = {
-        device = "/dev/disk/by-id/usb-Intenso_External_USB_3.0_20150609040398-0:0-part5";
-        fsType = "ext4";
-        encrypted.enable = true;
-        encrypted.blkDev = "/dev/mapper/cryptIntenso";
-        encrypted.label = "cryptIntenso";
-        encrypted.keyFile = "/etc/nixos/secrets/cryptIntenso.keyfile";
-        options = [ "nofail" ];
-    };
+    #fileSystems."/media/intenso" = {
+    #    device = "/dev/";
+    #    fsType = "ext4";
+    #    encrypted.enable = true;
+    #    encrypted.blkDev = "/dev/mapper/cryptIntenso";
+    #    encrypted.label = "cryptIntenso";
+    #    encrypted.keyFile = "/etc/nixos/secrets/cryptIntenso.keyfile";
+    #    options = [ "nofail" ];
+    #};
 
     fileSystems."/media/TapeDrive" = {
         device = "/dev/disk/by-id/ata-WDC_WD5000AACS-00ZUB0_WD-WCASU5339750-part1";
