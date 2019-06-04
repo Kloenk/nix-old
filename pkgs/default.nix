@@ -6,6 +6,7 @@ let
 
   newpkgs = {
     rifo = callPackage ./rifo { };
+    pytradfri = callPackage ./pytradfri { };
   };
 
 in newpkgs
