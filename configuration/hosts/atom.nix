@@ -7,8 +7,10 @@ in {
     ../../default.nix
     ../users.nix
     ../ssh.nix
-    ../server/nginx-common.nix
     ../collectd.nix
+
+    ../server/nginx-common.nix
+    ../server/home-assistant.nix
 
     ./atom.nfs.nix
 
