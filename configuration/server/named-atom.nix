@@ -13,10 +13,21 @@ $TTL 1H
                            2h )
                            NS LOCALHOST.
 
-www.yahoo.com       CNAME    .
-weather.yahoo.com   CNAME    *.
-stocks.yahoo.com    CNAME    www.google.com.
-ad.yahoo.com        A    127.0.0.1
+www.yahoo.com       CNAME   .
+weather.yahoo.com   CNAME   *.
+stocks.yahoo.com    CNAME   .
+ad.yahoo.com        CNAME   .
+
+ads.kelbyone.com    CNAME   .
+adsniper.ru         CNAME   .
+adsponse.de         CNAME   .
+
+displayads-formats.googleusercontent.com    CNAME   .
+tpc.googlesyndication.com   CNAME   .
+static.googleadsserving.cn  CNAME   .
+googleads.g.doubleclick.net CNAME   .
+blogergadgets.googlecode.com    CNAME   .
+googleads4.g.doubleclick.net    CNAME   .
     '';
 in {
     imports = [
@@ -24,7 +35,9 @@ in {
     ];
 
     services.bind = {
-        extraOptions = "response-policy { zone 'rpz'; };";
+        extraOptions = "response-policy { zone \"rpz\"; };";
+
+        cacheNetworks = [ "192.168.178.0/24" "192.168.42.0/24" ];
 
         zones = [{
             name = "rpz";
