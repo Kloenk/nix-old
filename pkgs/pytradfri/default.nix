@@ -2,6 +2,7 @@
 , buildPythonPackage
 , fetchPypi
 , aiocoap
+, cython
 }:
 
 buildPythonPackage rec{
@@ -13,7 +14,7 @@ buildPythonPackage rec{
     sha256 = "8e92254adc90e16d317988714a9f06669887e9a3f671c3d580c3c7e7535cb8c5";
   };
 
-  checkInputs = [ aiocoap ];
+  checkInputs = [ aiocoap cython ];
 
   doCheck = false;
   
