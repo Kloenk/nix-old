@@ -97,5 +97,5 @@
   };
 
 
-  home-manager.users.kloenk.home.file.".config/Code/User/settings.json".source = ./code-settings.json;
+  home-manager.users.kloenk.home.file.".config/VSCodium/User/settings.json".source = ./code-settings.json;
 }

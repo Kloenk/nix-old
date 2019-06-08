@@ -129,7 +129,6 @@ in {
     wine                   # can we ditch it?
     firefox                # used because of netflix :-(
     spotifywm              # spotify fixed for wms
-    vscode-with-extensions # code editor (unfree :-( )
     python                 # includes python2 as dependency for vscode
     platformio             # pio command
     openocd                # pio upload for stlink
@@ -147,11 +146,6 @@ in {
     docker
   ];
 
-  nixpkgs.config.packageOverrides = pkgs: rec {
-    vscodeCpp = pkgs.vscode-with-extensions.override {
-      vscodeExtensions = vscode-extensions: with vscode-extensions;[ ms-vscode.cpptools ];
-    };
-  };
 
   # docker fo
   virtualisation.docker.enable = true;
@@ -168,10 +162,6 @@ in {
   services.pcscd.enable = true;
   #services.pcscd.plugins = with pkgs; [ ccid pcsc-cyberjack ];
 
-
-  nixpkgs.config.allowUnfree = true; # allow unfree software
-  #nixpkgs.config.allowBroken = true; # for WideVine
-  #nixpkgs.config.chromium.enableWideVine = true;
 
   hardware.bluetooth.enable = true;
 
