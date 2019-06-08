@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   environment.systemPackages = [ pkgs.wireguard pkgs.wireguard-tools ];
