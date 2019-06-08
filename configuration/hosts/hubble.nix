@@ -21,7 +21,7 @@ in {
     ../server/transmission.nix
 
     # fallback for detection
-    <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+    <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
   ];
   swapDevices = [ { device = "/dev/vda2"; } ]; # todo: crypt
 
@@ -45,9 +45,13 @@ in {
    "aes_x86_64"
    "aesni_intel"
    "cryptd"
-   # fill up with hardware
+   "ata_piix"
+   "uhci_hcd"
+   "virtio_pci"
+   "sr_mod"
+   "virtio_blk"
   ];
-  nix.maxJobs = lib.mkDefault 4;
+  nix.maxJobs = lib.mkDefault 8;
 
   fileSystems."/" = {
     device = "/dev/mapper/cryptRoot";
