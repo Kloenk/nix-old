@@ -23,14 +23,17 @@ in {
     # fallback for detection
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
   ];
-  swapDevices = [ { device = "/dev/disk/by-id/ata-HTS721010G9SA00_MPDZN7Y0J7WN6L-part2"; } ];
+  swapDevices = [ { device = "/dev/vda2"; } ]; # todo: crypt
 
   boot.supportedFilesystems = [ "f2fs" "ext4" ];
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
-  boot.loader.grub.device = "/dev/disk/by-id/ata-HTS721010G9SA00_MPDZN7Y0J7WN6L";
+  boot.loader.grub.device = "/dev/vda";
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelParams = [ "ip=51.254.249.187::164.132.202.254:255.255.255.255:hubble::none:8.8.8.8:8.8.4.4:" ];
+  boot.kernelParams = [
+    #"ip=51.254.249.187::164.132.202.254:255.255.255.255:hubble::none:8.8.8.8:8.8.4.4:"
+    "ip=192.168.178.250::192.168.178.1:255.255.255.0:hubble::none:8.8.8.8:8.8.4.4:"
+  ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [
     config.boot.kernelPackages.wireguard
@@ -51,7 +54,7 @@ in {
     fsType = "ext4";
   };
 
-  boot.initrd.luks.devices."cryptRoot".device = "/dev/disk/";
+  boot.initrd.luks.devices."cryptRoot".device = "/dev/vda2";
   boot.initrd.network.enable = true;
   boot.initrd.network.ssh = {
     enable = true;
@@ -62,10 +65,12 @@ in {
 
   networking.hostName = "hubble";
   networking.dhcpcd.enable = false;
-  networking.interfaces.ens18.ipv4.addresses = [ { address = "51.254.249.187"; prefixLength = 32; } ];
-  networking.defaultGateway = { address = "164.132.202.254"; interface = netFace; };
-  networking.interfaces.ens0.ipv6.addresses = [ { address = "2001:41d0:1004:1629:1337:0187::"; prefixLength = 112; } ];
-  networking.defaultGateway6 = { address = "fe80::1"; interface = netFace; };
+  networking.interface.ens18.ipv4.address = [ { address = "192.168.178.250"; prefixLength = 32; } ];
+  networking.defaultGateway = { address = "192.168.178.1"; interface = netFace; };
+  #networking.interfaces.ens18.ipv4.addresses = [ { address = "51.254.249.187"; prefixLength = 32; } ];
+  #networking.defaultGateway = { address = "164.132.202.254"; interface = netFace; };
+  #networking.interfaces.ens0.ipv6.addresses = [ { address = "2001:41d0:1004:1629:1337:0187::"; prefixLength = 112; } ];
+  #networking.defaultGateway6 = { address = "fe80::1"; interface = netFace; };
   networking.nameservers = [ "8.8.8.8" ];
 
   services.nginx.virtualHosts."schule.kloenk.de" = {
