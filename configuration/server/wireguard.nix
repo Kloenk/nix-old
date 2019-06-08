@@ -10,7 +10,7 @@
     allowedUDPPorts = [ 51820 ];
 
     extraCommands = ''
-    iptables -t nat -A POSTROUTING -s 192.168.42.0/24 -o ${netFace} -j MASQUERADE
+    iptables -t nat -A POSTROUTING -s 192.168.42.0/24 -o ens18 -j MASQUERADE
     '';
   };
 
