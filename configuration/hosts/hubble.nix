@@ -18,6 +18,7 @@ in {
     ../server/monitoring.nix
     ../server/postgres.nix
     ../server/quassel.nix
+    ../server/transmission.nix
 
     # fallback for detection
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
@@ -66,6 +67,25 @@ in {
   networking.interfaces.ens0.ipv6.addresses = [ { address = "2001:41d0:1004:1629:1337:0187::"; prefixLength = 112; } ];
   networking.defaultGateway6 = { address = "fe80::1"; interface = netFace; };
   networking.nameservers = [ "8.8.8.8" ];
+
+  services.nginx.virtualHosts."schule.kloenk.de" = {
+    enableACME = true;
+    forceSSL = true;
+    root = "/srv/http/schule";
+    locations."/".extraConfig = "autoindex on;";
+  };
+
+  services.nginx.virtualHosts."fwd.kloenk.de" = {
+    enableACME = true;
+    forceSSL = true;
+    locations = {
+      "/status/lycus".extraConfig = "return 301 http://grafana.llg/d/OVH6Hfliz/lycus?refresh=10s&orgId=1;";
+      "/status/pluto".extraConfig = "return 301 https://munin.kloenk.de/llg/pluto/index.html;";
+      "/status/yg-adminpc".extraConfig = "return 301 http://grafana.llg/d/6cyIlJlmk/yg-adminpc?refresh=5s&orgId=1;";
+      "/status/hubble".extraConfig = "return 301 https://grafana.kloenk.de;";
+      "/video".extraConfig = "return 301 https://media.ccc.de/v/jh-berlin-2018-27-config_foo;";
+    };
+  };
   
 
   services.vnstat.enable = true;
