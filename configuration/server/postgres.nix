@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 
 let
-  sectrets = import /etc/nixos/secrets.nix;
+  secrets = import /etc/nixos/secrets.nix;
 in {
   services.postgresql = {
     enable = true;
