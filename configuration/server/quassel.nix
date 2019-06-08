@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-    networking.firewall.allowedTCPPort = [ 4242 ];
+    networking.firewall.allowedTCPPorts = [ 4242 ];
 
     services.quassel = {
         enable = true;

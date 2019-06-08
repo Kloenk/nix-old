@@ -16,7 +16,7 @@ in {
         domain = "git.kloenk.de";
         rootUrl = "https://git.kloenk.de";
         httpAddress = "127.0.0.1";
-        services.gitea.httpPort = 3003;
+        httpPort = 3003;
         cookieSecure = true;
 
         database = {
@@ -60,7 +60,7 @@ DISABLE_REGISTRATION = true
         '';
     };
 
-    services.nginx.virtualHost."git.kloenk.de" = {
+    services.nginx.virtualHosts."git.kloenk.de" = {
         enableACME = true;
         forceSSL = true;
         locations."/".proxyPass = "http://127.0.0.1:3003";

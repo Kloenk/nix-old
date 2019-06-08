@@ -45,7 +45,7 @@ in {
 
     systemd.services.grafana.after = [ "postgresql.service" ];
 
-    services.nginx.virtualHost."grafana.kloenk.de" = {
+    services.nginx.virtualHosts."grafana.kloenk.de" = {
         enableACME = true;
         forceSSL = true;
         locations."/".proxyPass = "http://127.0.0.1:3002";
