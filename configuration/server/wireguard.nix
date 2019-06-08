@@ -4,7 +4,7 @@
   environment.systemPackages = [ pkgs.wireguard pkgs.wireguard-tools ];
 
   networking.nat.enable = true;
-  networking.nat.externalInterface = netFace;
+  networking.nat.externalInterface = "ens18";
   networking.nat.internalInterfaces = [ "wg0" "wgFam" ];
   networking.firewall = {
     allowedUDPPorts = [ 51820 ];
