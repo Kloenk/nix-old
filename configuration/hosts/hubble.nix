@@ -58,7 +58,7 @@ in {
     fsType = "ext4";
   };
 
-  boot.initrd.luks.devices."cryptRoot".device = "/dev/vda2";
+  boot.initrd.luks.devices."cryptRoot".device = "/dev/vda1";
   boot.initrd.network.enable = true;
   boot.initrd.network.ssh = {
     enable = true;
