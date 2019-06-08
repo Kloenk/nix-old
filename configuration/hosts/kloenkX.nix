@@ -144,17 +144,24 @@ in {
 
     # docker controller
     docker
+    virtmanager
   ];
 
 
   # docker fo
   virtualisation.docker.enable = true;
 
+  virtualisation.libvirtd = {
+    enable = true;
+    onShutdown = "shutdown";
+  };
+
   users.users.kloenk.extraGroups = [
     "dialout"  # allowes serial connections
     "plugdev"  # allowes stlink connection
     "davfs2"   # webdav foo
     "docker"   # docker controll group
+    "libvirt"
   ];
 
   services.udev.packages = [ pkgs.openocd ];
