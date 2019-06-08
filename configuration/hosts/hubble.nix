@@ -12,6 +12,12 @@ in {
 
     ../server/common/nginx-common.nix
     ../server/wireguard.nix
+    ../server/named-hubble.nix
+    ../server/gitea.nix
+    ../server/mail.nix
+    ../server/monitoring.nix
+    ../server/postgres.nix
+    ../server/quassel.nix
 
     # fallback for detection
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
