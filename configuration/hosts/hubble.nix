@@ -32,7 +32,7 @@ in {
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [
     #"ip=51.254.249.187::164.132.202.254:255.255.255.255:hubble::none:8.8.8.8:8.8.4.4:"
-    "ip=192.168.178.206::192.168.178.1:255.255.255.0:hubble::none:8.8.8.8:8.8.4.4:"
+    "ip=192.168.178.206::192.168.178.1:255.255.255.0::ens18:none"
   ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [
@@ -59,7 +59,7 @@ in {
   };
 
   fileSystems."/boot" = {
-    device = "/dev/mapper/vda1";
+    device = "/dev/vda1";
     fsType = "ext2";
   };
 
@@ -74,6 +74,7 @@ in {
 
   networking.hostName = "hubble";
   networking.dhcpcd.enable = false;
+  networking.useDHCP = false;
   networking.interfaces.ens18.ipv4.addresses = [ { address = "192.168.178.206"; prefixLength = 32; } ];
   networking.defaultGateway = { address = "192.168.178.1"; interface = netFace; };
   #networking.interfaces.ens18.ipv4.addresses = [ { address = "51.254.249.187"; prefixLength = 32; } ];
