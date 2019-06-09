@@ -14,7 +14,7 @@ in {
     ../server/wireguard.nix
     ../server/named-hubble.nix
     ../server/gitea.nix
-    ../server/mail.nix
+    #../server/mail.nix
     ../server/monitoring.nix
     ../server/postgres.nix
     ../server/quassel.nix
@@ -23,7 +23,7 @@ in {
     # fallback for detection
     <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
   ];
-  swapDevices = [ { device = "/dev/vda2"; } ]; # todo: crypt
+  swapDevices = [ { device = "/dev/vda3"; } ]; # todo: crypt
 
   boot.supportedFilesystems = [ "f2fs" "ext4" ];
   boot.loader.grub.enable = true;
@@ -58,7 +58,12 @@ in {
     fsType = "ext4";
   };
 
-  boot.initrd.luks.devices."cryptRoot".device = "/dev/vda1";
+  fileSystems."/boot" = {
+    device = "/dev/mapper/vda1";
+    fsType = "ext2";
+  };
+
+  boot.initrd.luks.devices."cryptRoot".device = "/dev/vda2";
   boot.initrd.network.enable = true;
   boot.initrd.network.ssh = {
     enable = true;
