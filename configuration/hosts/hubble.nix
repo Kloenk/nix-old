@@ -69,13 +69,19 @@ in {
 
   networking.hostName = "hubble";
   networking.dhcpcd.enable = false;
-  networking.interfaces.ens18.ipv4.address = [ { address = "192.168.178.206"; prefixLength = 32; } ];
+  networking.interfaces.ens18.ipv4.addresses = [ { address = "192.168.178.206"; prefixLength = 32; } ];
   networking.defaultGateway = { address = "192.168.178.1"; interface = netFace; };
   #networking.interfaces.ens18.ipv4.addresses = [ { address = "51.254.249.187"; prefixLength = 32; } ];
   #networking.defaultGateway = { address = "164.132.202.254"; interface = netFace; };
   #networking.interfaces.ens0.ipv6.addresses = [ { address = "2001:41d0:1004:1629:1337:0187::"; prefixLength = 112; } ];
   #networking.defaultGateway6 = { address = "fe80::1"; interface = netFace; };
   networking.nameservers = [ "8.8.8.8" ];
+
+  services.nginx.virtualHosts."kloenk.de" = {
+    enableACME = true;
+    forceSSL = true;
+    root = "/srv/http/kloenk";
+  };
 
   services.nginx.virtualHosts."schule.kloenk.de" = {
     enableACME = true;
