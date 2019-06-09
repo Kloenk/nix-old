@@ -2,7 +2,7 @@
 
 let
   secrets = import /etc/nixos/secrets.nix;
-  netFace = "ens18";
+  netFace = "eth0";
 in {
   imports = [
     ../../default.nix
@@ -75,7 +75,7 @@ in {
   networking.hostName = "hubble";
   networking.dhcpcd.enable = false;
   networking.useDHCP = false;
-  networking.interfaces.ens18.ipv4.addresses = [ { address = "192.168.178.206"; prefixLength = 32; } ];
+  networking.interfaces.eth0.ipv4.addresses = [ { address = "192.168.178.206"; prefixLength = 32; } ];
   networking.defaultGateway = { address = "192.168.178.1"; interface = netFace; };
   #networking.interfaces.ens18.ipv4.addresses = [ { address = "51.254.249.187"; prefixLength = 32; } ];
   #networking.defaultGateway = { address = "164.132.202.254"; interface = netFace; };
