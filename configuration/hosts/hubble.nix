@@ -32,7 +32,7 @@ in {
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [
     #"ip=51.254.249.187::164.132.202.254:255.255.255.255:hubble::none:8.8.8.8:8.8.4.4:"
-    "ip=192.168.178.206::192.168.178.1:255.255.255.0::ens18:none"
+    "ip=192.168.178.206::192.168.178.1:255.255.255.0::ens18"
   ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [
