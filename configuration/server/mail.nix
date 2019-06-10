@@ -73,6 +73,10 @@ in {
           "ad@kloenk.de" = {
               hashedPassword = secrets.mail.ad;
 
+              aliases = [
+                  "llgcompanion@kloenk.de"
+              ];
+
               catchAll = [
                 "kloenk.de"
                 "ad.kloenk.de"
