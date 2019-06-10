@@ -18,6 +18,7 @@ in {
         httpAddress = "127.0.0.1";
         httpPort = 3003;
         cookieSecure = true;
+        useWizard = true;
 
         database = {
             type = "postgres";
