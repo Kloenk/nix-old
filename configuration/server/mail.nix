@@ -20,13 +20,7 @@ in {
           "kloenk@kloenk.de" = {
               hashedPassword = secrets.mail.kloenk;
 
-              aliases = [ ];
-          };
-
-          "finn@kloenk.de" = {
-              hashedPassword = secrets.mail.finn;
-
-              aliases = [
+              aliases = [ 
                   "admin@kloenk.de"
 
                   "postmaster@kloenk.de"
@@ -41,7 +35,13 @@ in {
                   "hostmaster@drachensegler.kloenk.de"
                   "webmasteer@drachensegler.kloenk.de"
                   "abuse@drachensegler.kloenk.de"
+              ];
+          };
 
+          "finn@kloenk.de" = {
+              hashedPassword = secrets.mail.finn;
+
+              aliases = [
                   "finn.behrens@kloenk.de"
                   "behrens.finn@kloenk.de"
                   "info@kloenk.de"
