@@ -75,6 +75,15 @@ in {
     };
   };
 
+
+  # borg backup
+  services.borgbackup.repos."TapeDrive" = {
+    path = "/media/TapeDrive/borg";
+    authorizedKeys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO4tq8hKBsGnbvaun7Jzf9o6WLY1iZf9HKyh9vScb/ho borg"
+    ];
+  };
+
   services.vnstat.enable = true;
   system.autoUpgrade.enable = true;
 
