@@ -23,9 +23,9 @@
       IgnoreSelected true
     </Plugin>
 
-    LoadPlugin "network"
-    <Plugin "network">
-      Server "192.168.42.1" "25826"
+    LoadPlugin "write_prometheus"
+    <Plugin "write_prometheus">
+      Port "9103"
     </Plugin>
 
     LoadPlugin "ping"
