@@ -24,6 +24,7 @@ in {
             name = "gitea";
             user = "gitea";
             passwordFile = "/etc/nixos/secrets/gitea-db.password";
+            createDatabase = false;
         };
 
         extraConfig = ''
