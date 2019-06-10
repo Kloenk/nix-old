@@ -1,5 +1,11 @@
 { config, pkgs, lib, ... }:
 
+# backupdirs:
+#  - /var/vmail
+#  - /var/dkim
+
+
+
 let
   secrets = import /etc/nixos/secrets.nix;
   netFace = "eth0";

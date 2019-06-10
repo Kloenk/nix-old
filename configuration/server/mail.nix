@@ -94,6 +94,10 @@ in {
                   "drachensegler.kloenk.de"
               ];
           };
+
+          "git@kloenk.de" = {
+              hashedPassword = secrets.mail.git;
+          };
       };
 
       extraVirtualAliases = {

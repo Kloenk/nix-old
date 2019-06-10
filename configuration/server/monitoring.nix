@@ -39,7 +39,7 @@ in {
             enable = true;
             fromAddress = "grafana@kloenk.de";
             user = "grafana@kloenk.de";
-            password = secrets.grafana.mailPassword;
+            passwordFile = "/etc/nixos/secrets/grafana-mail.password";
         };
     };
 
