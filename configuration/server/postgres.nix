@@ -26,5 +26,7 @@ in {
     CREATE ROLE grafana WITH LOGIN PASSWORD '${secrets.postgres.grafana}' CREATEDB;
     CREATE DATABASE grafana;
     GRANT ALL PRIVILEGES ON DATABASE grafana TO grafana;
+    CREATE ROLE root;
+    GRANT ALL PRIVILEGES TO root;
   '';
 }
