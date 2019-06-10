@@ -157,6 +157,7 @@ in {
         gis = "git status";
         gp = "git push";
         hubble = "mosh hubble";
+        atom = "ssh atom";
         ipa = "ip a";
         ipr = "ip r";
         lycus = "ssh lycus";
@@ -177,6 +178,15 @@ in {
           port = 62954;
           user = "finn";
           forwardAgent = true;
+        };
+        hubble-encrypt = {
+          hostname = "51.254.249.187";
+          port = 62954;
+          user = "root";
+          forwardAgent = false;
+          identityFile = "/etc/nixos/secrets/id_rsa";
+          checkHostIP = false;
+          extraOptions = { "UserKnownHostsFile" = "/dev/null"; };
         };
         lycus = {
           hostname = "ll.qc.to";
