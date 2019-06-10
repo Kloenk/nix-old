@@ -54,6 +54,7 @@ FROM = "Kloenks's Gitea" <gitea@kloenk.de>
 ALLOWED_TYPES = */*
 
 [service]
+SKIP_VERIFY = true
 REGISTER_EMAIL_CONFIRM = true
 ENABLE_NOTIFY_MAIL = true
 ENABLE_CAPTCHA = false
