@@ -20,4 +20,5 @@ secrets/
 result
 
 # vm image
-*.qcow2secrets/
+*.qcow2
+secrets/
