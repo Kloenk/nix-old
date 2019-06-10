@@ -4,6 +4,16 @@ let
     secrets = import /etc/nixos/secrets.nix;
 
 in {
+
+    # make sure dirs exists
+    system.activationScripts = {
+      gitea-repositories = {
+        text = ''mkdir -p /data/gitea/repositories;
+        chown -R gitea:nogroup /data/gitea/repositories'';
+        deps = [];
+      };
+    };
+
     networking.firewall.allowedTCPPorts = [
         22 # ssh
     ];
@@ -19,6 +29,7 @@ in {
         httpPort = 3003;
         cookieSecure = true;
         useWizard = true;
+        repositoryRoot = "/data/gitea/repositories";
 
         database = {
             type = "postgres";

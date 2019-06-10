@@ -29,18 +29,18 @@ in {
     # fallback for detection
     <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
   ];
-  swapDevices = [ { device = "/dev/vda3"; } ]; # todo: crypt
+  swapDevices = [ { device = "/dev/vda3"; randomEncryption = { enable = true; source = "/dev/random"; }; } ]; # change
 
   boot.supportedFilesystems = [ "f2fs" "ext4" ];
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
-  boot.loader.grub.device = "/dev/vda";
+  boot.loader.grub.device = "/dev/vda"; # change
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [
-    #"ip=51.254.249.187::164.132.202.254:255.255.255.255:hubble::none:8.8.8.8:8.8.4.4:"
-    "ip=192.168.178.206::192.168.178.1:255.255.255.0::eth0"
+    "ip=51.254.249.187::164.132.202.254:255.255.255.255::eth0"
+    #"ip=192.168.178.206::192.168.178.1:255.255.255.0::eth0"
   ];
-  boot.kernelModules = [ "kvm-intel" ];
+  #boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [
     config.boot.kernelPackages.wireguard
   ];
@@ -61,15 +61,26 @@ in {
 
   fileSystems."/" = {
     device = "/dev/mapper/cryptRoot";
-    fsType = "ext4";
+    fsType = "f2fs";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/vda1";
+    device = "/dev/vda1"; # change
     fsType = "ext2";
   };
 
-  boot.initrd.luks.devices."cryptRoot".device = "/dev/vda2";
+  fileSystems."/data" = {
+    device = "/dev/mapper/cryptData";
+    fsType = "ext4";
+    encrypt = {
+      enable = true;
+      blkDev = "/dev/"; # change
+      label = "cryptData";
+      keyFile = "/etc/nixos/secrets/cryptData.key";
+    };
+  };
+
+  boot.initrd.luks.devices."cryptRoot".device = "/dev/vda2"; # change
   boot.initrd.network.enable = true;
   boot.initrd.network.ssh = {
     enable = true;
@@ -81,24 +92,33 @@ in {
   networking.hostName = "hubble";
   networking.dhcpcd.enable = false;
   networking.useDHCP = false;
-  networking.interfaces.eth0.ipv4.addresses = [ { address = "192.168.178.206"; prefixLength = 32; } ];
-  networking.defaultGateway = { address = "192.168.178.1"; interface = netFace; };
-  #networking.interfaces.ens18.ipv4.addresses = [ { address = "51.254.249.187"; prefixLength = 32; } ];
-  #networking.defaultGateway = { address = "164.132.202.254"; interface = netFace; };
+  #networking.interfaces.eth0.ipv4.addresses = [ { address = "192.168.178.206"; prefixLength = 32; } ];
+  #networking.defaultGateway = { address = "192.168.178.1"; interface = netFace; };
+  networking.interfaces.eth0.ipv4.addresses = [ { address = "51.254.249.187"; prefixLength = 32; } ];
+  networking.defaultGateway = { address = "164.132.202.254"; interface = netFace; };
   #networking.interfaces.ens0.ipv6.addresses = [ { address = "2001:41d0:1004:1629:1337:0187::"; prefixLength = 112; } ];
   #networking.defaultGateway6 = { address = "fe80::1"; interface = netFace; };
   networking.nameservers = [ "8.8.8.8" ];
 
+  # make sure dirs exists
+  system.activationScripts = {
+    data-http = {
+      text = ''mkdir -p /data/http/kloenk /data/http/schule;
+      chown -R nginx:nginx /data/http/'';
+      deps = [];
+    };
+  };
+
   services.nginx.virtualHosts."kloenk.de" = {
     enableACME = true;
     forceSSL = true;
-    root = "/srv/http/kloenk";
+    root = "/data/http/kloenk";
   };
 
   services.nginx.virtualHosts."schule.kloenk.de" = {
     enableACME = true;
     forceSSL = true;
-    root = "/srv/http/schule";
+    root = "/data/http/schule";
     locations."/".extraConfig = "autoindex on;";
   };
 
