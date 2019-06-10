@@ -14,7 +14,7 @@ in {
     ../server/wireguard.nix
     ../server/named-hubble.nix
     ../server/gitea.nix
-    #../server/mail.nix
+    ../server/mail.nix
     ../server/monitoring.nix
     ../server/postgres.nix
     ../server/quassel.nix
