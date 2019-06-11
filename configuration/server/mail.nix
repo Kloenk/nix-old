@@ -25,15 +25,15 @@ in {
 
                   "postmaster@kloenk.de"
                   "hostmaster@kloenk.de"
-                  "webmasteer@kloenk.de"
+                  "webmaster@kloenk.de"
                   "abuse@kloenk.de"
                   "postmaster@ad.kloenk.de"
                   "hostmaster@ad.kloenk.de"
-                  "webmasteer@ad.kloenk.de"
+                  "webmaster@ad.kloenk.de"
                   "abuse@ad.kloenk.de"
                   "postmaster@drachensegler.kloenk.de"
                   "hostmaster@drachensegler.kloenk.de"
-                  "webmasteer@drachensegler.kloenk.de"
+                  "webmaster@drachensegler.kloenk.de"
                   "abuse@drachensegler.kloenk.de"
               ];
           };
