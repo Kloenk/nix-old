@@ -70,16 +70,16 @@ in {
     fsType = "ext2";
   };
 
-  fileSystems."/data" = {
-    device = "/dev/mapper/cryptData";
-    fsType = "ext4";
-    encrypted = {
-      enable = true;
-      blkDev = "/dev/vda1"; # change
-      label = "cryptData";
-      keyFile = "/etc/nixos/secrets/cryptData.key";
-    };
-  };
+  #fileSystems."/data" = {
+  #  device = "/dev/mapper/cryptData";
+  #  fsType = "ext4";
+  #  encrypted = {
+  #    enable = true;
+  #    blkDev = "/dev/vda1"; # change
+  #    label = "cryptData";
+  #    keyFile = "/etc/nixos/secrets/cryptData.key";
+  #  };
+  #};
 
   boot.initrd.luks.devices."cryptRoot".device = "/dev/vdb2"; # change
   boot.initrd.network.enable = true;
