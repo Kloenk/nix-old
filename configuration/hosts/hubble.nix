@@ -73,7 +73,7 @@ in {
   fileSystems."/data" = {
     device = "/dev/mapper/cryptData";
     fsType = "ext4";
-    encrypt = {
+    encrypted = {
       enable = true;
       blkDev = "/dev/disk/by-uuid/0eba2623-9e61-460e-bd92-ec2eea9e39e7"; # change
       label = "cryptData";
