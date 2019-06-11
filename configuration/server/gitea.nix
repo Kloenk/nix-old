@@ -26,7 +26,7 @@ in {
         domain = "git.kloenk.de";
         rootUrl = "https://git.kloenk.de";
         httpAddress = "127.0.0.1";
-        httpPort = 3003;
+        httpPort = 3000;
         cookieSecure = true;
         useWizard = true;
         repositoryRoot = "/data/gitea/repositories";
@@ -77,7 +77,7 @@ DISABLE_REGISTRATION = true
     services.nginx.virtualHosts."git.kloenk.de" = {
         enableACME = true;
         forceSSL = true;
-        locations."/".proxyPass = "http://127.0.0.1:3003";
+        locations."/".proxyPass = "http://127.0.0.1:3000";
     };
 
     systemd.services.gitea.serviceConfig.AmbientCapabilities = "cap_net_bind_service";
