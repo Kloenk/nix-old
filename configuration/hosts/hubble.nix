@@ -25,6 +25,7 @@ in {
     ../server/postgres.nix
     ../server/quassel.nix
     ../server/transmission.nix
+    ../server/minecraft.nix
 
     # fallback for detection
     <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
