@@ -134,6 +134,10 @@ in {
       "/video".extraConfig = "return 301 https://media.ccc.de/v/jh-berlin-2018-27-config_foo;";
     };
   };
+
+  # mosh
+  programs.mosh.enable = true;
+  programs.mosh.withUtempter = true;
   
 
   services.vnstat.enable = true;
