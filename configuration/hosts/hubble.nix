@@ -20,17 +20,17 @@ in {
     ../server/wireguard.nix
     ../server/named-hubble.nix
     ../server/gitea.nix
-    ../server/mail.nix
+    #../server/mail.nix
     ../server/monitoring.nix
     ../server/postgres.nix
     ../server/quassel.nix
     ../server/transmission.nix
-    ../server/minecraft.nix
+    #../server/minecraft.nix
 
     # fallback for detection
     <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
   ];
-  swapDevices = [ { device = "/dev/disk/by-path/virtio-pci-0000:00:0a.0-part2"; randomEncryption = { enable = true; source = "/dev/random"; }; } ]; # change
+  #swapDevices = [ { device = "/dev/vda2"; randomEncryption = { enable = true; source = "/dev/random"; }; } ]; # change
 
   boot.supportedFilesystems = [ "f2fs" "ext4" "ext2" ];
   boot.loader.grub.enable = true;
