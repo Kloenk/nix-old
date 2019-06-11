@@ -30,12 +30,12 @@ in {
     # fallback for detection
     <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
   ];
-  #swapDevices = [ { device = "/dev/vda2"; randomEncryption = { enable = true; source = "/dev/random"; }; } ]; # change
+  swapDevices = [ { device = "/dev/vda2"; randomEncryption = { enable = true; source = "/dev/random"; }; } ]; # change
 
   boot.supportedFilesystems = [ "f2fs" "ext4" "ext2" ];
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
-  boot.loader.grub.device = "/dev/disk/by-path/virtio-pci-0000:00:0b.0"; # change
+  boot.loader.grub.device = "/dev/vdb"; # change
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [
     "ip=51.254.249.187::164.132.202.254:255.255.255.255::eth0"
@@ -66,7 +66,7 @@ in {
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-path/virtio-pci-0000:00:0b.0-part1";
+    device = "/dev/vdb1";
     fsType = "ext2";
   };
 
@@ -75,13 +75,13 @@ in {
     fsType = "ext4";
     encrypted = {
       enable = true;
-      blkDev = "/dev/disk/by-uuid/0eba2623-9e61-460e-bd92-ec2eea9e39e7"; # change
+      blkDev = "/dev/vda1"; # change
       label = "cryptData";
       keyFile = "/etc/nixos/secrets/cryptData.key";
     };
   };
 
-  boot.initrd.luks.devices."cryptRoot".device = "/dev/disk/by-uuid/0762c1e4-11c2-41a6-aa9c-66e3fb3d285f"; # change
+  boot.initrd.luks.devices."cryptRoot".device = "/dev/vdb2"; # change
   boot.initrd.network.enable = true;
   boot.initrd.network.ssh = {
     enable = true;
