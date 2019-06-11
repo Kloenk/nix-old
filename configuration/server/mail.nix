@@ -88,6 +88,10 @@ in {
 
               aliases = [
                   "drachensegler@kloenk.de"
+                  "dlrg@drachensegler.kloenk.de"
+                  "tjaard@drachensegler.kloenk.de"
+                  "tjaard@kloenk.de"
+                  "schule@drachensegler.kloenk.de"
               ];
 
               catchAll = [
