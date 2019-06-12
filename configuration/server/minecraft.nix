@@ -19,7 +19,7 @@ in {
         dataDir = "/data/minecraft";
         eula = true;
         openFirewall = true;
-        package = pkgs.minecraft-server;
+        package = pkgs.minecraft-server_1_14_2;
         serverProperties = {
             spawn-protection = 0;
             max-tick-time = 60000;
