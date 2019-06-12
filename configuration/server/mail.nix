@@ -102,6 +102,10 @@ in {
           "git@kloenk.de" = {
               hashedPassword = secrets.mail.git;
           };
+
+          "information@kloenk.de" = {
+              hashedPassword = secrets.mail.information;
+          };
       };
 
       extraVirtualAliases = {
