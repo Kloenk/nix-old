@@ -125,6 +125,13 @@ in {
     locations."/".extraConfig = "autoindex on;";
   };
 
+  services.nginx.virtualHosts."politics.schule.kloenk.de" = {
+    enableACME = true;
+    forceSSL = true;
+    root = "/data/http/schule/sw/information/";
+    locations."/".extraConfig = "autoindex on;";
+  };
+
   services.nginx.virtualHosts."fwd.kloenk.de" = {
     enableACME = true;
     forceSSL = true;
