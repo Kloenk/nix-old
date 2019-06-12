@@ -45,6 +45,7 @@ in {
         whitelist = {
             "Kloenk" = "c16d92b1-eca1-4387-93de-4f27de56ff03";
             "LenniAConrad" = "2a1db818-6a56-48af-99f6-d1c7436bad5b";
+            "ekkebaer" = "0a70a4f8-b098-4a9f-beeb-ae521fca1b23";
         };
     };
 }
