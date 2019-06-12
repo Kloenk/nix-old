@@ -1,6 +1,10 @@
 { ... }:
 
 {
+  networking.firewall.interfaces = {
+    "wg0" = { allowedTCPPorts = [ 9091 ]; };
+  };
+
     # make sure dirs exists
     system.activationScripts = {
       transmission-downloads = {
