@@ -91,7 +91,7 @@ in {
     port = 62954;
   };
   # setup network
-  boot.initrd.preLVMCommands = mkBefore (''
+  boot.initrd.preLVMCommands = lib.mkBefore (''
 ip addr add 51.254.249.187/32 dev eth0
 ip route add 164.132.202.254/32 dev eth0
 ip route add default via 164.132.202.254 dev eth0 && hasNetwork=1 
