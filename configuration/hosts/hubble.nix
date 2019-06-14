@@ -104,10 +104,13 @@ ip route add default via 164.132.202.254 dev eth0 && hasNetwork=1
   networking.useDHCP = false;
   #networking.interfaces.eth0.ipv4.addresses = [ { address = "192.168.178.206"; prefixLength = 32; } ];
   #networking.defaultGateway = { address = "192.168.178.1"; interface = netFace; };
-  networking.interfaces.eth0.ipv4.addresses = [ { address = "51.254.249.187"; prefixLength = 32; } ];
-  networking.defaultGateway = { address = "164.132.202.254"; interface = netFace; };
-  networking.interfaces.eth0.ipv6.addresses = [ { address = "2001:41d0:1004:1629:1337:0187::"; prefixLength = 112; } ];
-  networking.defaultGateway6 = { address = "2001:41d0:1004:16ff:ff:ff:ff:ff"; interface = netFace; };
+  #networking.interfaces.eth0.ipv4.addresses = [ { address = "51.254.249.187"; prefixLength = 32; } ];
+  #networking.defaultGateway = { address = "164.132.202.254"; interface = netFace; };
+  #networking.interfaces.eth0.ipv6.addresses = [ { address = "2001:41d0:1004:1629:1337:0187::"; prefixLength = 112; } ];
+  #networking.defaultGateway6 = { address = "2001:41d0:1004:16ff:ff:ff:ff:ff"; interface = netFace; };
+  powerManagement.powerUpCommands = "${pkgs.iproute}/bin/ip -6 addr add 2001:41d0:1004:1629:1337:0187::/112 dev eth0";
+  powerManagement.powerUpCommands = "${pkgs.iproute}/bin/ip -6 route add 2001:41d0:1004:16ff:ff:ff:ff:ff/128 dev eth0";
+  powerManagement.powerUpCommands = "${pkgs.iproute}/bin/ip -6 route add default via 2001:41d0:1004:16ff:ff:ff:ff:ff dev eth0";
   networking.nameservers = [ "8.8.8.8" ];
 
   # make sure dirs exists
