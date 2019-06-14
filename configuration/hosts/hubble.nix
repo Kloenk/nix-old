@@ -38,7 +38,7 @@ in {
   boot.loader.grub.device = "/dev/vdb"; # change
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [
-    "ip=51.254.249.187::164.132.202.254:255.255.255.255::eth0"
+    #"ip=51.254.249.187::164.132.202.254:255.255.255.255::eth0"
     #"ip=192.168.178.206::192.168.178.1:255.255.255.0::eth0"
   ];
   #boot.kernelModules = [ "kvm-intel" ];
@@ -90,6 +90,12 @@ in {
     authorizedKeys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDdSaiG/HVCTp4QTaAd+ZG6UNyKvMjOTRp1ILdJQQQ4a7bDW48bU9V6KxR3Ra5nhegG/UJHLheGKnh80SS3e0/Ftc4N1YjmzaSBud7JVJFG7dJtGjHPiMkqoaE9qKFtGchNCOuv0gF1AlDJ0iCI3aK0hncoXo9m/FXl703a/4Ljy457ww/KD53nallkbAAL9uAn8bVCocfxCsVHj3RPHHovL3xh8/2YaP21RxRoM4CJsdOesfmj9QSFMNP4SFpDuM1f3o8/I5AvE19fyNdgWo1nRRzeRRtoRZtudKDp6FxRf40H16t1DIaNFDt0pS1NpBNJw1I1Le64cQa0UInSWjfEXYhAa0ZTtb3q/9CvMRehHoTBACC6l5bFTE6DhRnkiJr9BucXy8eVrnF6E6JokVnqMbAM7MsOv5Z2vGTprfdXnv1eSOVSAvTxOk797fwIa3PDg/Auy8Xbwd1kSoXoDlzcc7u3WBeaxQmkpOEI2nM0KvqRy9+ISGdBwdYX4VrnWALrQhfT20yu/OmgbPwOwDXzww72+OovvtaEXIP55SzpVN0keSt6u/Y9/pc7wazxEx0BEuTfjtj9+hXXx4W6zT5ykdd0h7drObklkdEea4M/wCaa8gUNL/EKk3lNnXjwr7zZ1uIHOMsZND6T8X1VTpIx8MTuqiqgktLPxQxSzpgiCw== encrypt@hubble-initrd" ];
     port = 62954;
   };
+  # setup network
+  boot.initrd.preLVMCommands = mkBefore (''
+ip addr add 51.254.249.187/32 dev eth0
+ip route add 164.132.202.254/32 dev eth0
+ip route add default via 164.132.202.254 dev eth0 && hasNetwork=1 
+'');
 
 
   networking.hostName = "hubble";
@@ -125,7 +131,7 @@ in {
     locations."/".extraConfig = "autoindex on;";
   };
 
-  services.nginx.virtualHosts."politics.schule.kloenk.de" = {
+  services.nginx.virtualHosts."politics.kloenk.de" = {
     enableACME = true;
     forceSSL = true;
     root = "/data/http/schule/sw/information/";
