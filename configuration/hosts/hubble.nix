@@ -112,16 +112,6 @@ ip route add default via 164.132.202.254 dev eth0 && hasNetwork=1
 #${pkgs.iproute}/bin/ip -6 addr add 2001:41d0:1004:1629:1337:0187::/112 dev eth0
 #${pkgs.iproute}/bin/ip -6 route add 2001:41d0:1004:16ff:ff:ff:ff:ff/128 dev eth0
 #${pkgs.iproute}/bin/ip -6 route add default via 2001:41d0:1004:16ff:ff:ff:ff:ff dev eth0'';
-  system.activationScripts = {
-    network = {
-      text = ''
-#${pkgs.iproute}/bin/ip -6 addr add 2001:41d0:1004:1629:1337:0187::/112 dev eth0
-#${pkgs.iproute}/bin/ip -6 route add 2001:41d0:1004:16ff:ff:ff:ff:ff/128 dev eth0
-#${pkgs.iproute}/bin/ip -6 route add default via 2001:41d0:1004:16ff:ff:ff:ff:ff dev eth0
-'';
-      deps = [ pkgs.iproute ];
-    };
-  };
   networking.nameservers = [ "8.8.8.8" ];
 
   # make sure dirs exists
@@ -130,6 +120,14 @@ ip route add default via 164.132.202.254 dev eth0 && hasNetwork=1
       text = ''mkdir -p /data/http/kloenk /data/http/schule;
       chown -R nginx:nginx /data/http/'';
       deps = [];
+    };
+    network = {
+      text = ''
+#${pkgs.iproute}/bin/ip -6 addr add 2001:41d0:1004:1629:1337:0187::/112 dev eth0
+#${pkgs.iproute}/bin/ip -6 route add 2001:41d0:1004:16ff:ff:ff:ff:ff/128 dev eth0
+#${pkgs.iproute}/bin/ip -6 route add default via 2001:41d0:1004:16ff:ff:ff:ff:ff dev eth0
+'';
+      deps = [ pkgs.iproute ];
     };
   };
 
