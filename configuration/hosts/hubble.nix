@@ -26,6 +26,7 @@ in {
     ../server/quassel.nix
     ../server/transmission.nix
     ../server/minecraft.nix
+    ../server/llgcompanion.nix
 
     # fallback for detection
     <nixpkgs/nixos/modules/profiles/qemu-guest.nix>

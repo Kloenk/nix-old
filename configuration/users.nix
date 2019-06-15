@@ -145,7 +145,7 @@ in {
     programs.fish = {
       enable = true;
       shellInit = ''
-        
+        set PAGER less
       '';
       shellAbbrs = {
         admin-YouGen = "ssh admin-yougen";
@@ -176,7 +176,7 @@ in {
         hubble = {
           hostname = "kloenk.de";
           port = 62954;
-          user = "finn";
+          user = "kloenk";
           forwardAgent = true;
         };
         hubble-encrypt = {

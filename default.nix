@@ -2,7 +2,7 @@
 
 {
   imports = [
-    #./modules
+    ./modules
     #"./configuration/hosts/${config.networking.hostName}"
   ];
 

@@ -73,7 +73,7 @@
 
   users.users.kloenk.extraGroups = [ "wireshark" "adbusers" "nitrokey" ];
   programs.wireshark.enable = true;
-  programs.wireshark.package = pkgs.wireshark-gtk;
+  programs.wireshark.package = pkgs.wireshark-qt;
   nixpkgs.config.android_sdk.accept_license = true;
   programs.adb.enable = true;
   programs.chromium = { enable = true; extensions = [

@@ -6,8 +6,13 @@ in {
   services.nginx.virtualHosts."llgcompanion.kloenk.de" = {
     enableACME = true;
     forceSSL = true;
-    locations."/".proxyPass = "http://localhost:3004";
   };
 
-  
+  services.llgcompanion = {
+    enable = true;
+    users = secrets.llgcompanion.users;
+    config = secrets.llgcompanion.config;
+    configureNginx = true;
+    appDomain = "llgcompanion.kloenk.de";
+  };
 }
