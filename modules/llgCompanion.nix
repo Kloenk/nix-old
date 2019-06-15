@@ -14,13 +14,13 @@ in
         enable = mkEnableOption "llgCompanion";
 
         package = mkOption {
-          type = types.package;
+          type = types.path;
           default = pkgs.llgCompanion;
           description = "llgCompanion Package";
         };
 
         node = mkOption {
-          type = types.package;
+          type = types.path;
           default = pkgs.nodejs-11_x;
           description = ''node package to use'';
         };
