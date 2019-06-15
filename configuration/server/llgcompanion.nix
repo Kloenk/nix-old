@@ -1,14 +1,14 @@
 { ... }:
 
 let
-  setcrets = import /etc/nixos/secrets.nix
+  secrets = import /etc/nixos/secrets.nix;
 in {
   services.nginx.virtualHosts."llgcompanion.kloenk.de" = {
     enableACME = true;
     forceSSL = true;
   };
 
-  services.llgcompanion = {
+  services.llgCompanion = {
     enable = true;
     users = secrets.llgcompanion.users;
     config = secrets.llgcompanion.config;
