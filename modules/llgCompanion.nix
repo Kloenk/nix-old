@@ -14,13 +14,13 @@ in
         enable = mkEnableOption "llgCompanion";
 
         package = mkOption {
-          type = types.path;
+          type = types.str;
           default = pkgs.llgCompanion;
           description = "llgCompanion Package";
         };
 
         node = mkOption {
-          type = types.path;
+          type = types.str;
           default = pkgs.nodejs-11_x;
           description = ''node package to use'';
         };
@@ -56,7 +56,7 @@ in
         };
 
         usersFile = mkOption {
-          type = types.path;
+          type = types.str;
           default = usersFileInt;
           description = ''user file to use'';
         };
@@ -95,13 +95,13 @@ in
         };
 
         configFile = mkOption {
-          type = types.path;
+          type = types.str;
           default = configFileInt;
           description = ''configuration file for llg companion'';
         };
 
         subsFile = mkOption {
-          type = types.path;
+          type = types.str;
           default = "/tmp/llgCompanion/subs.json";
           description = ''file to use for dsb cache'';
         };
@@ -132,12 +132,12 @@ in
 
       systemd.services.llgcompanion = {
         serviceConfig = {
-          ExecStart = "${toString(cfg.node)}/bin/node ${toString(cfg.package)}/server.js --config ${toString(cfg.configFile)} --users ${toString(cfg.usersFile)} --subs ${toString(cfg.subsFile)}";
+          ExecStart = "${cfg.node}/bin/node ${cfg.package}/server.js --config ${cfg.configFile} --users ${cfg.usersFile} --subs ${cfg.subsFile}";
           Restart = "always";
           RestartSec = "20s";
           User = cfg.user;
           Group = cfg.group;
-          WorkingDirectory = "${toString(cfg.package)}";
+          WorkingDirectory = "${cfg.package}";
         };
         after = [ "llgcompanion-init.service" "network.target" ];
         wantedBy = [ "multi-user.target" ];
