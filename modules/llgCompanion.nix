@@ -132,12 +132,12 @@ in
 
       systemd.services.llgcompanion = {
         serviceConfig = {
-          ExecStart = "${cfg.node}/bin/node ${cfg.package}/server.js --config ${cfg.configFile} --users ${cfg.usersFile} --subs ${cfg.subsFile}";
+          ExecStart = "${toString(cfg.node)}/bin/node ${toString(cfg.package)}/server.js --config ${toString(cfg.configFile)} --users ${toString(cfg.usersFile)} --subs ${toString(cfg.subsFile)}";
           Restart = "always";
           RestartSec = "20s";
           User = cfg.user;
           Group = cfg.group;
-          WorkingDirectory = "${cfg.package}";
+          WorkingDirectory = "${toString(cfg.package)}";
         };
         after = [ "llgcompanion-init.service" "network.target" ];
         wantedBy = [ "multi-user.target" ];
@@ -146,7 +146,7 @@ in
       services.nginx = lib.mkIf cfg.configureNginx {
         enable = true;
         virtualHosts."${cfg.appDomain}" = {
-          locations."/".proxyPass = "http://127.0.0.1:${toString(cfg.port)}/";
+          locations."/".proxyPass = "http://127.0.0.1:${toString(cfg.config.listenPort)}/";
         };
       };
 

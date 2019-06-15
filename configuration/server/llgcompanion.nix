@@ -12,6 +12,7 @@ in {
     enable = true;
     users = secrets.llgcompanion.users;
     config = secrets.llgcompanion.config;
+    config.listenPort = 3004;
     configureNginx = true;
     appDomain = "llgcompanion.kloenk.de";
   };
