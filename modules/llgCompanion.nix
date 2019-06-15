@@ -137,7 +137,7 @@ in
           RestartSec = "20s";
           User = cfg.user;
           Group = cfg.group;
-          WorkingDirectory = cfg.package;
+          WorkingDirectory = "${cfg.package}";
         };
         after = [ "llgcompanion-init.service" "network.target" ];
         wantedBy = [ "multi-user.target" ];
