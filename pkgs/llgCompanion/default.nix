@@ -1,3 +1,4 @@
-{ pkgs, callPackage, fetchFromGitHub, lib }:
+{ callPackage, fetchFromGitHub, lib }:
 
-callPackage (fetchFromGitHub (lib.importJSON ./source.json)) { pkgs = pkgs; }
+callPackage (fetchFromGitHub (lib.importJSON ./source.json)) {}
+

@@ -26,7 +26,7 @@ in {
     ../server/quassel.nix
     ../server/transmission.nix
     ../server/minecraft.nix
-    ../server/llgcompanion.nix
+    #../server/llgcompanion.nix
 
     # fallback for detection
     <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
@@ -140,6 +140,13 @@ ip route add default via 164.132.202.254 dev eth0 && hasNetwork=1
     forceSSL = true;
     root = "/data/http/kloenk";
   };
+
+  services.nginx.virtualHosts."llgcompanion.kloenk.de" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/".proxyPass = "http://127.0.0.1:3004/";
+  };
+
 
   services.nginx.virtualHosts."schule.kloenk.de" = {
     enableACME = true;

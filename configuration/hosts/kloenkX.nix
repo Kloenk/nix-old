@@ -17,7 +17,7 @@ in {
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
   ];
 
-  #nix.nixPath = [ "nixpkgs=/home/pbb/proj/nixpkgs" "nixos=/home/pbb/proj/nixpkgs" ];
+  nix.nixPath = [ "nixpkgs=/home/kloenk/nix/nixpkgs" "nixos=/home/kloenk/nix/nixpkgs" "nixos-config=/etc/nixos/configuration.nix" ];
 
   hardware.cpu.intel.updateMicrocode = true;
 
@@ -88,12 +88,12 @@ in {
 
   networking.wireguard.interfaces = {
     wg0 = {
-      ips = [ "192.168.42.6/24" ];
+      ips = [ "192.168.42.6/24" "2001:41d0:1004:1629:1337:187:1:6/120" ];
       privateKeyFile = "/etc/nixos/secrets/wg0.key";
       peers = [ 
         {
           publicKey = "MUsPCkTKHBGvCI62CevFs6Wve+cXBLQIl/C3rW3PbVM=";
-          allowedIPs = [ "192.168.42.0/24" ];
+          allowedIPs = [ "192.168.42.0/24" "2001:41d0:1004:1629:1337:187:1:0/120" "2001:41d0:1004:1629:1337:187:0:1/128" ];
           endpoint = "51.254.249.187:51820";
           persistentKeepalive = 21;
           presharedKeyFile = "/etc/nixos/secrets/wg0.psk";
