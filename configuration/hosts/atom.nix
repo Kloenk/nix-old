@@ -75,6 +75,19 @@ in {
     };
   };
 
+  networking.firewall.allowedTCPPorts = [ 4317 3702 ];
+  networking.firewall.allowedUDPPorts = [ 3702 ];
+
+  sound.enable = true;
+  hardware.pulseaudio = {
+    enable = true;
+    systemWide = true;
+    package = pkgs.pulseaudio;
+    tcp.enable = true;
+    tcp.anonymousClients.allowAll = true;
+    zeroconf.publish.enable = true;
+  };
+
   services.vnstat.enable = true;
   system.autoUpgrade.enable = true;
 
