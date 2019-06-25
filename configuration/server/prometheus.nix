@@ -2,8 +2,8 @@
 
 {
   networking.firewall.allowedTCPPorts = [
-      9090  # prometheus grap endpoint
-      9093  # prometheus alert manager
+      #9090  # prometheus grap endpoint
+      #9093  # prometheus alert manager
     ];
 
   services.prometheus = {
@@ -29,7 +29,15 @@
                 "localhost:9100"
               ];
               labels = {
-                alias = "prometheus.vm";
+                alias = "kloenk.de";
+              };
+            }
+            {
+              targets = [
+                "localhost:9999"
+              ];
+              labels = {
+                alias = "opentracker";
               };
             }
           ];

@@ -22,6 +22,7 @@ in {
     ../server/gitea.nix
     ../server/mail.nix
     ../server/monitoring.nix
+    ../server/prometheus.nix
     ../server/postgres.nix
     ../server/quassel.nix
     ../server/transmission.nix
