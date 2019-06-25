@@ -14,6 +14,10 @@ in {
                 job_name = "nginx";
                 static_configs = [{ targets = [ "127.0.0.1:9113" ] ; } ];
             }
+            {
+                job_name = "opentracker";
+                static_configs = [{targets = [ "127.0.0.1:9999" ] ; } ];
+            }
         ];
     };
 
