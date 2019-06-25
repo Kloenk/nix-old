@@ -12,11 +12,19 @@ in {
         scrapeConfigs = [
             {
                 job_name = "nginx";
-                static_configs = [{ targets = [ "127.0.0.1:9113" ] ; } ];
+                static_configs = [ { targets = [ "127.0.0.1:9113" ] ; } ];
             }
             {
                 job_name = "opentracker";
-                static_configs = [{targets = [ "127.0.0.1:9999" ] ; } ];
+                static_configs = [ { targets = [ "127.0.0.1:9999" ] ; } ];
+            }
+            {
+                job_name = "collectd";
+                static_configs = [ { targets = [
+                    "127.0.0.1:9103"
+                    "192.168.42.6:9103"
+                    "192.168.42.7:9103"    
+                ] ; } ];
             }
         ];
     };
