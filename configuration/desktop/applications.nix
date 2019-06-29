@@ -90,7 +90,6 @@
   # steam hardware
   hardware.steam-hardware.enable = true;
   hardware.opengl.driSupport32Bit = true;
-  hardware.pulseaudio.support32Bit = true;
 
   home-manager.users.kloenk.programs.git.signing = {
         key = "0xC9546F9D";
@@ -103,6 +102,7 @@
   sound.enable = true;
   hardware.pulseaudio = {
     enable = true;
+    support32Bit = true;
 
     # NixOS allows either a lightweight build (default) or full build of PulseAudio to be installed.
     # Only the full build has Bluetooth support, so it must be selected here.
