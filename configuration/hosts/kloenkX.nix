@@ -7,8 +7,9 @@ in {
     ../../default.nix
     ../users.nix
     ../ssh.nix
-    ../desktop/i3.nix
+    ../desktop/xmonad.nix
     ../desktop/applications.nix
+    ../desktop/multimon.nix
     ../collectd.nix
 
     # x230 configuration
@@ -17,7 +18,7 @@ in {
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
   ];
 
-  nix.nixPath = [ "nixpkgs=/home/kloenk/nix/nixpkgs" "nixos=/home/kloenk/nix/nixpkgs" "nixos-config=/etc/nixos/configuration.nix" ];
+  nix.nixPath = [ "nixpkgs=/home/kloenk/nix/nixpkgs" "nixos=/home/kloenk/nix/nixpkgs" "nixos-config=/etc/nixos/configuration.nix" "/nix/var/nix/profiles/per-user/root/channels" ];
 
   hardware.cpu.intel.updateMicrocode = true;
 
@@ -86,6 +87,10 @@ in {
   #systemd.services.dhcpcd.serviceConfig.ExecStart = lib.mkForce "@${pkgs.dhcpcd}/sbin/dhcpcd dhcpcd -b -q -A -z wlp3s0";
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
 
+  networking.firewall.interfaces."wg0" = {
+    allowedTCPPortRanges = [ { from = 1; to = 65534; } ];
+    allowedUDPPortRanges = [ { from = 1; to = 65534; } ];
+  };
   networking.wireguard.interfaces = {
     wg0 = {
       ips = [ "192.168.42.6/24" "2001:41d0:1004:1629:1337:187:1:6/120" ];
@@ -177,6 +182,7 @@ in {
     [General]
     Enable=Source,Sink,Media,Socket
   ";
+  hardware.pulseaudio.zeroconf.discovery.enable = true;
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
