@@ -69,6 +69,10 @@
 
     # KiCad pcb layout tool
     kicad
+
+    # xmobar for xmonad
+    xmobar
+    taffybar
   ];
 
 
