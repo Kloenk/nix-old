@@ -32,6 +32,7 @@ in {
     extraGroups = [
       "wheel"
       "bluetooth"
+      "libvirt"
     ];
     shell = pkgs.fish;
     hashedPassword = secrets.hashedPasswords.kloenk;
@@ -65,6 +66,7 @@ in {
       nix-prefetch-git
       pass-otp
       gopass
+      neofetch
       # dovecot_pigeonhole
       sl
     ];
