@@ -20,9 +20,10 @@
     "workbench.colorTheme": "Visual Studio Dark",
     "git-graph.fetchAvatars": true,
     "files.autoSaveDelay": 100,
-    "rust.mode": "rls",
-    "rust.rustup": {
-        "toolchain": "stable-x86_64-unknown-linux-gnu",
-        "nightlyToolchain": "nightly-x86_64-unknown-linux-gnu"
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
     }
 }

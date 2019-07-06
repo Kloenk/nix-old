@@ -360,8 +360,8 @@ in {
                             -- , ("<XF86AudioPrev>", spawn "cmus prev")
                             -- , ("<XF86AudioNext>", spawn "cmus next")
                             -- , ("<XF86AudioMute>",   spawn "${pkgs.alsaUtils}/bin/amixer set Master toggle")  -- Bug prevents it from toggling correctly in 12.04.
-                            , ("<XF86AudioLowerVolume>", spawn "${pkgs.alsaUtils}/bin/amixer set Master 5%- unmute")
-                            , ("<XF86AudioRaiseVolume>", spawn "${pkgs.alsaUtils}/bin/amixer set Master 5%+ unmute")
+                            --, ("<XF86AudioLowerVolume>", spawn "${pkgs.alsaUtils}/bin/amixer set Master 5%- unmute")
+                            --, ("<XF86AudioRaiseVolume>", spawn "${pkgs.alsaUtils}/bin/amixer set Master 5%+ unmute")
                             , ("<XF86HomePage>", spawn "${pkgs.chromium}/bin/chromium")
                             , ("<XF86Search>", safeSpawn "${pkgs.chromium}/bin/chromium" ["https://www.google.com/"])
                             , ("<XF86Calculator>", runOrRaise "gcalctool" (resource =? "gcalctool"))
@@ -384,7 +384,7 @@ in {
                                    $ ["dev", "www", "sys", "doc", "vbox", "chat", "media", "mail", "telegram"]
                       where                                                                      
                             clickable l = [ "<action=${pkgs.xdotool}/bin/xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
-                                          (i,ws) <- zip [1..8] l,                                        
+                                          (i,ws) <- zip [1..9] l,                                        
                                           let n = i ] 
                     myManageHook :: Query (Data.Monoid.Endo WindowSet)
                     myManageHook = composeAll
@@ -395,7 +395,7 @@ in {
                           , className =? "cmus"        --> doShift "<action=${pkgs.xdotool}/bin/xdotool key super+7>media</action>"
                           , className =? "vlc"         --> doShift "<action=${pkgs.xdotool}/bin/xdotool key super+7>media</action>"
                           , className =? "mpv"         --> doShift "<action=${pkgs.xdotool}/bin/xdotool key super+7>media</action>"
-                          , className =? "spotify"         --> doShift "<action=${pkgs.xdotool}/bin/xdotool key super+7>media</action>"
+                          , className =? "spotify"     --> doShift "<action=${pkgs.xdotool}/bin/xdotool key super+7>media</action>"
                           , className =? "Virtualbox"  --> doFloat
                           , className =? "Gimp"        --> doFloat
                           , className =? "Gimp"        --> doShift "<action=${pkgs.xdotool}/bin/xdotool key super+8>gfx</action>"
@@ -412,14 +412,14 @@ in {
                                      myDefaultLayout = tall ||| grid ||| threeCol ||| threeRow ||| oneBig ||| noBorders monocle ||| space ||| floats
 
 
-                    tall       = renamed [Replace "tall"]     $ limitWindows 12 $ spacing 6 $ ResizableTall 1 (3/100) (1/2) []
-                    grid       = renamed [Replace "grid"]     $ limitWindows 12 $ spacing 6 $ mkToggle (single MIRROR) $ Grid (16/10)
-                    threeCol   = renamed [Replace "threeCol"] $ limitWindows 3  $ ThreeCol 1 (3/100) (1/2) 
-                    threeRow   = renamed [Replace "threeRow"] $ limitWindows 3  $ Mirror $ mkToggle (single MIRROR) zoomRow
-                    oneBig     = renamed [Replace "oneBig"]   $ limitWindows 6  $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (5/9) (8/12)
-                    monocle    = renamed [Replace "monocle"]  $ limitWindows 20 $ Full
-                    space      = renamed [Replace "space"]    $ limitWindows 4  $ spacing 12 $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (2/3) (2/3)
-                    floats     = renamed [Replace "floats"]   $ limitWindows 20 $ simplestFloat
+                    tall       = renamed [Replace "<action=${pkgs.xdotool}/bin/xdotool key super+space>tall</action>"]     $ limitWindows 12 $ spacing 6 $ ResizableTall 1 (3/100) (1/2) []
+                    grid       = renamed [Replace "<action=${pkgs.xdotool}/bin/xdotool key super+space>grid</action>"]     $ limitWindows 12 $ spacing 6 $ mkToggle (single MIRROR) $ Grid (16/10)
+                    threeCol   = renamed [Replace "<action=${pkgs.xdotool}/bin/xdotool key super+space>ThreeCol</action>"] $ limitWindows 3  $ ThreeCol 1 (3/100) (1/2) 
+                    threeRow   = renamed [Replace "<action=${pkgs.xdotool}/bin/xdotool key super+space>ThreeRow</action>"] $ limitWindows 3  $ Mirror $ mkToggle (single MIRROR) zoomRow
+                    oneBig     = renamed [Replace "<action=${pkgs.xdotool}/bin/xdotool key super+space>oneBig</action>"]   $ limitWindows 6  $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (5/9) (8/12)
+                    monocle    = renamed [Replace "<action=${pkgs.xdotool}/bin/xdotool key super+space>monocle</action>"]  $ limitWindows 20 $ Full
+                    space      = renamed [Replace "<action=${pkgs.xdotool}/bin/xdotool key super+space>space</action>"]    $ limitWindows 4  $ spacing 12 $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (2/3) (2/3)
+                    floats     = renamed [Replace "<action=${pkgs.xdotool}/bin/xdotool key super+space>floats</action>"]   $ limitWindows 20 $ simplestFloat
 
                     ------------------------------------------------------------------------
                     ---SCRATCHPADS
