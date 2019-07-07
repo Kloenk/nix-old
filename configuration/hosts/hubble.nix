@@ -24,7 +24,7 @@ in {
     ../server/monitoring.nix
     ../server/postgres.nix
     ../server/quassel.nix
-    ../server/transmission.nix
+    ../server/deluge.nix
     ../server/minecraft.nix
     #../server/llgcompanion.nix
 
