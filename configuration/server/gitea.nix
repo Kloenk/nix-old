@@ -28,7 +28,6 @@ in {
         httpAddress = "127.0.0.1";
         httpPort = 3000;
         cookieSecure = true;
-        useWizard = true;
         repositoryRoot = "/data/gitea/repositories";
 
         database = {
