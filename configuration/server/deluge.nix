@@ -29,3 +29,4 @@
 
   networking.firewall.allowedTCPPorts = [ 58846 60000 ];
   networking.firewall.allowedUDPPorts = [ 60000 ];
+}
