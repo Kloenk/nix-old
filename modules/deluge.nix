@@ -45,6 +45,12 @@ in {
           description = "Deluge package";
         };
 
+        hostName = mkOption {
+            type = types.str;
+            default = config.networking.hostName;
+            description = "set hostname for nginx";
+        };
+
         configureNginx = mkEnableOption "Use nginx to serve downloads directory";
 
         downloadsBasicAuthFile = mkOption {
@@ -100,7 +106,7 @@ in {
     };
 
     services.nginx = mkIf cfg.configureNginx {
-      virtualHosts."${config.networking.hostName}" = {
+      virtualHosts."${cfg.hostName}" = {
         locations."/Downloads/" = {
           root = "/var/lib/deluge";
           extraConfig = ''

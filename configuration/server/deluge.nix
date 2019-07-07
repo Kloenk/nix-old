@@ -6,6 +6,7 @@
     configureNginx = true;
     downloadsBasicAuthFile = "/etc/nixos/secrets/downloadsBasicAuthFile.deluge";
     web.enable = true;
+    hostName = "kloenk.de";
   };
 
   services.nginx.virtualHosts."kloenk.de" = {
