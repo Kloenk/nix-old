@@ -174,6 +174,8 @@ in {
     programs.ssh = {
       enable = true;
       forwardAgent = false;
+      controlMaster = "auto";
+      controlPersist = "15m";
       matchBlocks = {
         hubble = {
           hostname = "kloenk.de";
