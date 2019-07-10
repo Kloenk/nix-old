@@ -36,6 +36,7 @@ in {
                   "webmaster@drachensegler.kloenk.de"
                   "abuse@drachensegler.kloenk.de"
                   "delta@kloenk.de"
+                  "mail@kloenk.de"
               ];
           };
 
