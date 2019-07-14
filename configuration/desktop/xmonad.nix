@@ -314,7 +314,7 @@ in {
                         -- Main Run Apps
                             , ("M-<Return>", spawn myTerminalExec)
                             , ("M-<KP_Insert>", spawn "dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'")
-                            , ("M-d", spawn "${pkgs.rofi}/bin/rofi -show drun")
+                            , ("M-d", spawn "${pkgs.rofi}/bin/rofi -show combi")
                         
                         -- Pass apps
                             , ("M-p", spawn "${pkgs.rofi-pass}/bin/rofi-pass")
@@ -480,6 +480,43 @@ in {
 
         programs.fish.shellAbbrs = {
             startx = "exec startx";
+        };
+
+        programs.rofi = {
+            enable = true;
+            padding = 15;
+            font = "DejaVu Sans 13";
+            scrollbar = false;
+            terminal = "${pkgs.termite}/bin/termite";
+            #colors = {
+            #    window = {
+            #        background = "argb:e0000000";
+            #        border = "argb:00000000";
+            #        separator = "argb:00000000";
+            #    };
+            #    rows = {
+            #        normal = {
+            #            background = "argb:00000000";
+            #            foreground = "#ffffff";
+            #            backgroundAlt = "argb:00000000";
+            #            highlight.background = "argb:00000000";
+            #            highlight.foreground = "#567eff";
+            #        };
+            #    };
+            #};
+            theme = "${pkgs.rofi}/share/rofi/themes/Arc-Dark.rasi";
+            extraConfig = ''
+                rofi.fake-transparency: true
+                rofi.show-icons: true
+                rofi.modi: combi,drun,ssh,window
+                rofi.combi-modi: drun,ssh,window
+                rofi.sidebar-mode: true
+                rofi.auto-select: false
+                rofi.ssh-command: ${pkgs.termite}/bin/termite -e "${pkgs.openssh}/bin/ssh {host}"
+
+                rofi.color-window:      argb:e0000000,argb:00000000,argb:00000000
+                rofi.color-normal:      argb:00000000,#ffffff,argb:00000000,argb:00000000,#567eff
+            '';
         };
     };
 
