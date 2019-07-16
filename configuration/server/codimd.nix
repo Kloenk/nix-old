@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
 
-{
+let
+  secrets = import /etc/nixos/secrets.nix;
+
+in {
     services.codimd = {
         enable = true;
         workDir = "/data/codimd/";
@@ -11,6 +14,8 @@
             dialect = "sqlite";
             storage = "/data/codimd/db.codimd.sqlite";
         };
+        configuration.github.clientID = secrets.codi.github.id;
+        configuration.github.clientSecret = secrets.codi.github.secret;
     };
 
     services.nginx.virtualHosts."codi.kloenk.de" = {
