@@ -5,7 +5,7 @@
         enable = true;
         workDir = "/data/codimd/";
         configuration.port = 3001;
-        configuration.domain = "codi.kloenk.de";
+        configuration.domain = "https://codi.kloenk.de/";
         configuration.db = {
             dialect = "sqlite";
             storage = "/data/codimd/db.codimd.sqlite";
