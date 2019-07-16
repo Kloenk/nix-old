@@ -26,6 +26,7 @@ in {
     ../server/quassel.nix
     ../server/deluge.nix
     ../server/minecraft.nix
+    ../server/codimd.nix
     #../server/llgcompanion.nix
 
     # fallback for detection
