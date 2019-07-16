@@ -50,5 +50,24 @@
           }
       ];
     };
+    wgFam = {
+      ips = [ "192.168.30.1/24" "2001:41d0:1004:1629:1337:187:30:0/120" ];
+
+      listenPort = 51821;
+
+      privateKeyFile = "/etc/nixos/secrets/wgFam.key";
+
+      peers = [
+        { # Namu raspi
+          publicKey = "VUb1id67AUBzA8W4zulMGQMAS8sd1Lk7UbIfZAJWoV4=";
+
+          allowedIPs = [ "192.168.30.222/32" "2001:41d0:1004:1629:1337:187:30:222/128"];
+
+          presharedKeyFile = "/etc/nixos/secrets/wgFam.namu.psk";
+
+          persistentKeepalive = 21;
+        }
+      ];
+    };
   };
 }
