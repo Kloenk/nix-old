@@ -12,4 +12,10 @@
             storage = "/data/codimd/db.codimd.sqlite";
         };
     };
+
+    services.nginx.virtualHosts."codi.kloenk.de" = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/".proxyPass = "http://unix:/var/run/codimd.sock";
+    };
 }
