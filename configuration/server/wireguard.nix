@@ -67,6 +67,15 @@
 
           persistentKeepalive = 21;
         }
+        { # IPhone mum
+          publicKey = "2Yz6+oEqP01haMf9yuh99/Ojt+81CJtLFyr+BPtK+X4=";
+
+          allowedIPs = [ "192.168.30.212/32" "2001:41d0:1004:1629:1337:187:30:212/128"];
+
+          presharedKeyFile = "/etc/nixos/secrets/wgFam.imum.psk";
+
+          persistentKeepalive = 21;
+        }
       ];
     };
   };
