@@ -7,7 +7,7 @@ in {
     ../../default.nix
     ../users.nix
     ../ssh.nix
-    ../desktop/xmonad.nix
+    ../desktop/dwm.nix
     ../desktop/applications.nix
     ../desktop/multimon.nix
     ../collectd.nix
