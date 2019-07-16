@@ -30,6 +30,6 @@
 
   networking.firewall.allowedTCPPorts = [ 58846 60000 ];
   networking.firewall.allowedUDPPorts = [ 60000 ];
-  networking.firewall.allowedTCPPortRanges = [ { from = 6881; to = 6891; } ];
-  networking.firewall.allowedUDPPortRanges = [ { from = 6881; to = 6891; } ];
+  networking.firewall.allowedTCPPortRanges = [ { from = 6001; to = 6891; } ];
+  networking.firewall.allowedUDPPortRanges = [ { from = 6001; to = 6891; } ];
 }

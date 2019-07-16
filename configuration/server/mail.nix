@@ -77,6 +77,7 @@ in {
 
               aliases = [
                   "llgcompanion@kloenk.de"
+                  "lkml@kloenk.de"
               ];
 
               catchAll = [
