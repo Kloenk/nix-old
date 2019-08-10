@@ -27,6 +27,7 @@ in {
     ../server/deluge.nix
     ../server/minecraft.nix
     ../server/codimd.nix
+    ../server/firefox.nix
     #../server/llgcompanion.nix
 
     # fallback for detection
