@@ -19,7 +19,7 @@ in {
     ../server/common/nginx-common.nix
     ../server/wireguard.nix
     ../server/named-hubble.nix
-    ../server/gitea.nix
+    ../server/gitlab.nix
     ../server/mail.nix
     ../server/monitoring.nix
     ../server/postgres.nix

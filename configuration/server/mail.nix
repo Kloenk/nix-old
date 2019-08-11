@@ -72,6 +72,10 @@ in {
               hashedPassword = secrets.mail.grafana;
           };
 
+          "gitlab@kloenk.de" = {
+              hashedPassword = secrets.mail.gitlab;
+          };
+
           "ad@kloenk.de" = {
               hashedPassword = secrets.mail.ad;
 
