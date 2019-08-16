@@ -43,10 +43,11 @@
     pass-otp
     mosh
     chromium
-    libreoffice
+    #libreoffice
     blueman
     mkpasswd
-    lxappearance
+    lxappearance-gtk3
+    dino
 
     # java
     jre8_headless
@@ -63,16 +64,16 @@
     # picture viewving
     sxiv
     feh
+    rofi-pass
 
     # audio
     audacity
 
     # KiCad pcb layout tool
-    kicad
+    #kicad
 
-    # xmobar for xmonad
-    xmobar
-    taffybar
+    # vs code (mit license)
+    vscodium
   ];
 
 

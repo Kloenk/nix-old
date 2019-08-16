@@ -13,7 +13,7 @@ in {
     ../collectd.nix
 
     # x230 configuration
-    <nixos-hardware/lenovo/thinkpad/x230> 
+    #<nixos-hardware/lenovo/thinkpad/x230> 
     # fallback for detection
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
   ];
@@ -32,6 +32,7 @@ in {
 
   # taken from hardware-configuration.nix
   boot.initrd.availableKernelModules = [
+   "i915"         # fixes coreboot stage 1 graphics
    "aes_x86_64"
    "aesni_intel"
    "cryptd"
@@ -50,27 +51,33 @@ in {
   ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/b5265276-b78f-45d0-a34e-2775467766f5";
+    { device = "/dev/disk/by-uuid/b08058b8-9449-4ca7-9c75-d3951f9f6cbc";
       fsType = "f2fs";
     };
 
-  boot.initrd.luks.devices."cryptRoot".device = "/dev/disk/by-uuid/5faab799-5559-452b-af82-d169f21a4d00";
+  boot.initrd.luks.reusePassphrases = true;
+  boot.initrd.luks.devices."cryptRoot".device = "/dev/disk/by-uuid/1459400b-e15a-4fc0-87a1-d03ae5cbd337";
+  boot.initrd.luks.devices."cryptHome".device = "/dev/disk/by-uuid/685221e0-dbeb-4d1a-bbef-990f0193c0b8";
 
   fileSystems."/boot"  = {
 
-    device = "/dev/disk/by-uuid/09e9d51a-eb4c-4baa-aff7-7f7df01c8bad";
+    device = "/dev/disk/by-uuid/9f05583b-9bc4-4be3-8e1c-9bb1e7dc5240";
     fsType = "ext2";
   };
 
+  fileSystems."/home" = {
+    device = "/dev/mapper/cryptHome";
+    fsType = "f2fs";
+  };
+
   swapDevices = [
-    { device = "/dev/disk/by-id/ata-SAMSUNG_MZ7WD240HAFV-00003_S16LNYADB02059-part1"; randomEncryption= { enable = true; source = "/dev/random"; }; }
-    { device = "/dev/disk/by-id/ata-SAMSUNG_SSD_PM871_mSATA_128GB_S20FNXAGC19931-part2"; randomEncryption= { enable = true; source = "/dev/random"; }; }
+    { device = "/dev/disk/by-id/ata-SAMSUNG_SSD_PM871_mSATA_128GB_S20FNXAGC19931-part3"; randomEncryption= { enable = true; source = "/dev/random"; }; }
   ];
 
   nix.maxJobs = lib.mkDefault 4;
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
-  # set battery threshold
-  powerManagement.powerUpCommands = "${pkgs.tlp}/bin/tlp setcharge 70 90 bat0";
+  # set battery threshold (not supported by coreboot)
+  #powerManagement.powerUpCommands = "${pkgs.tlp}/bin/tlp setcharge 70 90 bat0";
   # enable autotune for linux with powertop (intel)
   #powerManagement.powertop.enable = true; # auto tune software
 
@@ -106,6 +113,8 @@ in {
       ];
     };
   };
+
+  nixpkgs.config.allowUnfree = true;
 
   environment.etc.qemu-ifup.source = pkgs.writeText "qemu-ifup" ''
     #!${pkgs.stdenv.shell}

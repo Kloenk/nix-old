@@ -69,6 +69,7 @@ in {
       neofetch
       # dovecot_pigeonhole
       sl
+      exa
     ];
   };
 
@@ -168,6 +169,14 @@ in {
         ssy = "sudo systemctl";
         sy = "systemctl";
         v = "vim";
+      };
+      shellAliases = {
+	ls = "exa";
+	l = "exa -a";
+	ll = "exa -lgh";
+	la = "exa -lagh";
+	lt = "exa -T";
+	lg = "exa -lagh --git";
       };
     };
 
