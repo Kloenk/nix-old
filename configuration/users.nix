@@ -171,12 +171,12 @@ in {
         v = "vim";
       };
       shellAliases = {
-	ls = "exa";
-	l = "exa -a";
-	ll = "exa -lgh";
-	la = "exa -lagh";
-	lt = "exa -T";
-	lg = "exa -lagh --git";
+        ls = "exa";
+        l = "exa -a";
+        ll = "exa -lgh";
+        la = "exa -lagh";
+        lt = "exa -T";
+        lg = "exa -lagh --git";
       };
     };
 

@@ -32,7 +32,7 @@ in {
 
   # taken from hardware-configuration.nix
   boot.initrd.availableKernelModules = [
-   "i915"         # fixes coreboot stage 1 graphics
+   #"i915"         # fixes coreboot stage 1 graphics
    "aes_x86_64"
    "aesni_intel"
    "cryptd"
@@ -77,7 +77,7 @@ in {
   nix.maxJobs = lib.mkDefault 4;
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
   # set battery threshold (not supported by coreboot)
-  #powerManagement.powerUpCommands = "${pkgs.tlp}/bin/tlp setcharge 70 90 bat0";
+  powerManagement.powerUpCommands = "${pkgs.tlp}/bin/tlp setcharge 70 90 bat0";
   # enable autotune for linux with powertop (intel)
   #powerManagement.powertop.enable = true; # auto tune software
 
@@ -150,7 +150,7 @@ in {
     teamspeak_client       # team speak
 
     # steam
-    steam
+    #steam
     steamcontroller    
 
     # minecraft
