@@ -27,7 +27,7 @@ in {
     ../server/postgres.nix
     ../server/quassel.nix
     ../server/deluge.nix
-    ../server/minecraft.nix
+    #../server/minecraft.nix
     ../server/codimd.nix
     ../server/firefox.nix
     #../server/llgcompanion.nix

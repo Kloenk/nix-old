@@ -233,13 +233,13 @@ in {
           forwardAgent = true;
           proxyJump = "lycus";
         };
-        volta = {
+        io = {
           hostname = "10.0.0.4";
           port = 62954;
           user = "kloenk";
           forwardAgent = true;
         };
-        volta-lycus = {
+        io-lycus = {
           hostname = "10.0.0.4";
           port = 62954;
           user = "kloenk";
