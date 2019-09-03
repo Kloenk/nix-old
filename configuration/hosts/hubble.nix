@@ -159,6 +159,13 @@ ip route add default via 164.132.202.254 dev eth0 && hasNetwork=1
     locations."/".extraConfig = "autoindex on;";
   };
 
+  services.nginx.virtualHosts."ftb.kloenk.de" = {
+    enableACME = true;
+    forceSSL = true;
+    root = "/data/http/ftb";
+    locations."/".extraConfig = "autoindex on;";
+  };
+
   services.nginx.virtualHosts."politics.kloenk.de" = {
     enableACME = true;
     forceSSL = true;
