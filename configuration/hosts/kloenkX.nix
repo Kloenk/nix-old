@@ -18,7 +18,7 @@ in {
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
   ];
 
-  nix.nixPath = [ "nixpkgs=/home/kloenk/nix/nixpkgs" "nixos=/home/kloenk/nix/nixpkgs" "nixos-config=/etc/nixos/configuration.nix" "/nix/var/nix/profiles/per-user/root/channels" ];
+  #nix.nixPath = [ "nixpkgs=/home/kloenk/nix/nixpkgs" "nixos=/home/kloenk/nix/nixpkgs" "nixos-config=/etc/nixos/configuration.nix" "/nix/var/nix/profiles/per-user/root/channels" ];
 
   hardware.cpu.intel.updateMicrocode = true;
 
@@ -69,6 +69,36 @@ in {
     device = "/dev/mapper/cryptHome";
     fsType = "f2fs";
   };
+
+  # nfs foo
+  fileSystems."/export/home" = {
+    device = "/home";
+    options = [ "bind" ];
+  };
+
+  services.nfs.server.enable = true;
+  services.nfs.server.exports = ''
+    /export		192.168.178.65(rw,fsid=0,no_subtree_check) 192.168.178.245(rw,fsid=0,no_subtree_check)
+    /export/home 	192.168.178.65(rw,no_subtree_check,no_root_squash)
+  '';
+  services.nfs.server.mountdPort = 4002;
+  services.nfs.server.lockdPort = 4001;
+  services.nfs.server.statdPort = 4000;
+  
+  networking.firewall.allowedUDPPorts = [
+    4000 # statd
+    4001 # lockd
+    4002 # mountd
+    111
+    2049
+  ];
+  networking.firewall.allowedTCPPorts = [
+    4000 # statd
+    4001 # lockd
+    4002 # mountd
+    111
+    2049
+  ];
 
   swapDevices = [
     { device = "/dev/disk/by-id/ata-SAMSUNG_SSD_PM871_mSATA_128GB_S20FNXAGC19931-part3"; randomEncryption= { enable = true; source = "/dev/random"; }; }
@@ -197,5 +227,5 @@ in {
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "19.03";
+  system.stateVersion = "19.09";
 }

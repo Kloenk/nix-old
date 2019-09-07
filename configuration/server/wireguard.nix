@@ -32,6 +32,15 @@
 
             persistentKeepalive = 21;
           }
+	  { # titan
+		publicKey = "4SUbImacuAjRwiK/G3CTmczirJQCI20EdJvPwJfCQxQ=";
+
+		allowedIPs = [ "192.168.42.3/32" "2001:41d0:1004:1629:1337:187:1:3/128" ];
+
+		presharedKeyFile = "/etc/nixos/secrets/wg0.titan.psk";
+
+                persistentKeepalive = 21;
+	  }
           { # atom
             publicKey = "AeMU4WkxJh/r1LR4jl3ROKIsuSLzYYUw4hOwbK/k8gY=";
 

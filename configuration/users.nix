@@ -70,6 +70,7 @@ in {
       # dovecot_pigeonhole
       sl
       exa
+      todo-txt-cli
     ];
   };
 

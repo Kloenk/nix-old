@@ -74,6 +74,9 @@
 
     # vs code (mit license)
     vscodium
+
+    # web browser
+    firefox
   ];
 
 
