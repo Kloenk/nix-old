@@ -57,7 +57,7 @@ in {
  # };
 
   fileSystems."/home" = {
-    device = "192.168.178.65:/home"
+    device = "192.168.178.65:/home";
     fsType = "nfs";
   };
 
@@ -82,7 +82,7 @@ in {
     192.168.178.248	atom atom.fritz.box
   '';
   networking.nameservers = [ "192.168.178.248" "1.0.0.1" ];
-  networking.search = [ "fritz.box" "internal.kloenk.de" ]
+  networking.search = [ "fritz.box" "internal.kloenk.de" ];
 
   networking.firewall.interfaces."wg0" = {
     allowedTCPPortRanges = [ { from = 1; to = 65534; } ];
@@ -125,7 +125,7 @@ in {
 
     # minecraft
     multimc
-    ftb
+    #ftb
 
     # docker controller
     docker

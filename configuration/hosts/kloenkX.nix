@@ -78,8 +78,8 @@ in {
 
   services.nfs.server.enable = true;
   services.nfs.server.exports = ''
-    /export		192.168.178.65(rw,fsid=0,no_subtree_check) 192.168.178.245(rw,fsid=0,no_subtree_check)
-    /export/home 	192.168.178.65(rw,no_subtree_check,no_root_squash)
+    /export		192.168.178.65(rw,fsid=0,no_subtree_check) 192.168.178.245(rw,fsid=0,no_subtree_check) 192.168.178.171(rw,fsid=0,no_subtree_check)
+    /export/home 	192.168.178.65(rw,no_subtree_check,no_root_squash) 192.168.178.171(rw,no_subtree_check,no_root_squash)
   '';
   services.nfs.server.mountdPort = 4002;
   services.nfs.server.lockdPort = 4001;
