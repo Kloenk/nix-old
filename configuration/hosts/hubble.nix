@@ -143,6 +143,8 @@ ip route add default via 164.132.202.254 dev eth0 && hasNetwork=1
     enableACME = true;
     forceSSL = true;
     root = "/data/http/kloenk";
+    locations."/PL".extraConfig = "return 301 https://www.dropbox.com/sh/gn1thweryxofoh3/AAC3ZW_vstHieX-9JIYIBP_ra;";
+    locations."/pl".extraConfig = "return 301 https://www.dropbox.com/sh/gn1thweryxofoh3/AAC3ZW_vstHieX-9JIYIBP_ra;";
   };
 
   services.nginx.virtualHosts."llgcompanion.kloenk.de" = {
