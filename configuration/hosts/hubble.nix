@@ -103,6 +103,8 @@ ip route add 164.132.202.254/32 dev eth0
 ip route add default via 164.132.202.254 dev eth0 && hasNetwork=1 
 '');
 
+  networking.firewall.allowedTCPPorts = [ 9092 ];
+
 
   networking.hostName = "hubble";
   networking.dhcpcd.enable = false;
