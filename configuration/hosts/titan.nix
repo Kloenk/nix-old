@@ -15,15 +15,17 @@ in {
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
   ];
 
+
   hardware.cpu.amd.updateMicrocode = true;
 
   #boot.loader.systemd-boot.enable = true;
-  #boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sdb"; # FIXME
+  boot.loader.grub.version = 2;
+  boot.loader.grub.device = "/dev/disk/by-id/ata-Samsung_SSD_860_EVO_1TB_S3Z9NB0M344364P";
+  boot.loader.grub.useOSProber = true;
 
   # f2fs support
-  boot.supportedFilesystems = [ "f2fs" "ext2" "nfs" "ext4" ];
+  boot.supportedFilesystems = [ "f2fs" "nfs" "ntfs" ];
 
   # taken from hardware-configuration.nix
   boot.initrd.availableKernelModules = [
@@ -44,21 +46,23 @@ in {
   ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-label/nixos"; #FIXME
-      fsType = "ext4"; #"f2fs";
+    { device = "/dev/disk/by-id/ata-Samsung_SSD_860_EVO_1TB_S3Z9NB0M344364P-part3";
+      fsType = "f2fs";
     };
 
   #boot.initrd.luks.reusePassphrases = true;
-  #boot.initrd.luks.devices."cryptRoot".device = "/dev/disk/by-uuid/1459400b-e15a-4fc0-87a1-d03ae5cbd337";
+  #boot.initrd.luks.devices."cryptRoot".device = "/dev/sda4";
 
- # fileSystems."/boot"  = {
- #   device = "/dev/disk/by-uuid/9f05583b-9bc4-4be3-8e1c-9bb1e7dc5240"; # FIXME
- #   fsType = "ext2";
- # };
 
-  fileSystems."/home" = {
-    device = "192.168.178.65:/home";
+  fileSystems."/boot"  = {
+    device = "/dev/disk/by-id/ata-Samsung_SSD_860_EVO_1TB_S3Z9NB0M344364P-part1";
+    fsType = "ntfs";
+  };
+
+  fileSystems."/home/kloenk/kloenkX" = {
+    device = "192.168.178.65:/kloenk";
     fsType = "nfs";
+    options = ["x-systemd.automount" "noauto"];
   };
 
   swapDevices = [
@@ -104,7 +108,6 @@ in {
     };
   };
 
-  nixpkgs.config.allowUnfree = true;
 
   # make autoupdates
   #system.autoUpgrade.enable = true;
@@ -125,7 +128,7 @@ in {
 
     # minecraft
     multimc
-    #ftb
+    ftb
 
     # docker controller
     docker

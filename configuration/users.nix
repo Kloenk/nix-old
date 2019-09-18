@@ -71,6 +71,7 @@ in {
       sl
       exa
       todo-txt-cli
+      llvmPackages.bintools
     ];
   };
 
@@ -170,6 +171,7 @@ in {
         ssy = "sudo systemctl";
         sy = "systemctl";
         v = "vim";
+        jrnl = " jrnl";
       };
       shellAliases = {
         ls = "exa";
@@ -255,6 +257,12 @@ in {
         };
         atom-wg = {
           hostname = "192.168.42.7";
+          port = 62954;
+          user = "kloenk";
+          forwardAgent = true;
+        };
+        kloenkX-fritz = {
+          hostname = "192.168.178.65";
           port = 62954;
           user = "kloenk";
           forwardAgent = true;

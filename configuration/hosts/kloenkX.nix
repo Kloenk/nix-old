@@ -76,10 +76,18 @@ in {
     options = [ "bind" ];
   };
 
+  fileSystems."/export/kloenk" = {
+    device = "/home/kloenk";
+    options = [ "bind" ];
+  };
+
+  services.logind.lidSwitchDocked = "ignore";
+
   services.nfs.server.enable = true;
   services.nfs.server.exports = ''
     /export		192.168.178.65(rw,fsid=0,no_subtree_check) 192.168.178.245(rw,fsid=0,no_subtree_check) 192.168.178.171(rw,fsid=0,no_subtree_check)
     /export/home 	192.168.178.65(rw,no_subtree_check,no_root_squash) 192.168.178.171(rw,no_subtree_check,no_root_squash)
+    /export/kloenk	192.168.178.65(rw,no_subtree_check,no_root_squash) 192.168.178.171(rw,no_subtree_check,no_root_squash)
   '';
   services.nfs.server.mountdPort = 4002;
   services.nfs.server.lockdPort = 4001;
@@ -205,7 +213,7 @@ in {
     "plugdev"  # allowes stlink connection
     "davfs2"   # webdav foo
     "docker"   # docker controll group
-    "libvirt"
+    "libvirtd" # libvirt group
   ];
 
   services.udev.packages = [ pkgs.openocd ];
