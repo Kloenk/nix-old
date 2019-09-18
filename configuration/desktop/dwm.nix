@@ -20,7 +20,7 @@ in {
         xsession = {
             enable = true;
             scriptPath = ".xinitrc";
-            windowManager.command = "/home/kloenk/nix/dwm/dwm";
+            windowManager.command = "${pkgs.dwm}/bin/dwm";
             initExtra = ''
                 ${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources
                 ${pkgs.feh}/bin/feh --bg-fill ~/.wallpaper-image

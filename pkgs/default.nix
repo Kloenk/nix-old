@@ -6,6 +6,8 @@ let
 
   newpkgs = {
     rifo = callPackage ./rifo { };
+    rwm = callPackage ./rwm { };
+    dwm = callPackage ./dwm { rwm = newpkgs.rwm; };
     ftb = callPackage ./ftb { libXxf86vm = pkgs.xorg.libXxf86vm; };
     llgCompanion = callPackage ./llgCompanion { };
     pytradfri = callPackage ./pytradfri { buildPythonPackage = pkgs.python37Packages.buildPythonPackage; fetchPypi = pkgs.python37Packages.fetchPypi; cython = pkgs.python37Packages.cython; };

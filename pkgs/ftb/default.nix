@@ -45,6 +45,6 @@ in stdenv.mkDerivation {
     description = "ftb";
     homepage = https://minecraft.net;
     maintainers = with maintainers; [ cpages ryantm infinisil ];
-    license = licenses.unfreeRedistributable;
+ #   license = licenses.unfreeRedistributable;
   };
 }
