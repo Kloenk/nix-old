@@ -185,7 +185,7 @@ in {
     platformio             # pio command
     openocd                # pio upload for stlink
     stlink                 # stlink software
-    teamspeak_client       # team speak
+    #teamspeak_client       # team speak
 
     # steam
     #steam
