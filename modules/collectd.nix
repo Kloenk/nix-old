@@ -8,13 +8,25 @@ let
   conf = pkgs.writeText "collectd.conf" ''
     BaseDir "${cfg.dataDir}"
     AutoLoadPlugin ${boolToString cfg.autoLoadPlugin}
-    HostName "${cfg.networking.hostName}"
+    HostName "${config.networking.hostName}"
 
-    LoadPlugin syslog
-    <Plugin "syslog">
-      LogLevel "info"
-      NotifyLevel "OKAY"
-    </Plugin>
+    ${optionalString cfg.enableSyslog ''
+      ${optionalString (cfg.autoLoadPlugin == false) ''LoadPlugin "syslog"''}
+      <Plugin "syslog">
+        LogLevel "info"
+        NotifyLevel "OKAY"
+      </Plugin>
+    ''}
+
+    ${concatStringsSep "\n" (mapAttrsToList (name: conf:  ''
+      ${optionalString (cfg.autoLoadPlugin == false) ''LoadPlugin "${name}"''}
+      ${if conf.hasConfig then ''
+        <Plugin "${name}">
+          ${concatStringsSep "\n" (mapAttrsToList (name: value: ''
+            ${name} ${if (isBool value) then boolToString value else "\"${value}\""}
+          '') conf.options)}
+        </Plugin>'' else if cfg.autoLoadPlugin then "LoadPlugin \"${name}\"" else ""} 
+    '') cfg.plugins)}
 
     ${concatMapStrings (f: ''
     Include "${f}"
@@ -23,9 +35,36 @@ let
     ${cfg.extraConfig}
   '';
 
+  pluginOpts = { name, ... }: {
+
+    options = {
+      name = mkOption {
+        example = "ping";
+        type = types.str;
+        description = "Name of the plugin";
+      };
+
+      options = mkOption {
+        default = {};
+        type = with types; attrsOf (nullOr (either str (either path bool)));
+        example = { Host = "1.1.1.1"; };
+        description = "Config inside a plugin blog";
+      };
+
+      hasConfig = mkOption {
+        default = true;
+        type = with types; bool;
+        example = false;
+        description = "option to load config without options";
+      };
+    };
+  };
+
 in {
   options.services.collectd2 = with types; {
     enable = mkEnableOption "collectd agent";
+
+    enableSyslog = mkEnableOption "enable syslog loging";
 
     package = mkOption {
         default = pkgs.collectd;
@@ -74,6 +113,15 @@ in {
       '';
       type = lines;
     };
+
+    plugins = mkOption {
+      default = {};
+      example = { ping.config.Host = "1.1.1.1"; };
+      description = ''
+        configuration for each plugin
+      '';
+      type = with types; loaOf (submodule pluginOpts);
+    };
   };
 
   config = mkIf cfg.enable {
@@ -90,7 +138,7 @@ in {
 
     systemd.services.collectd = {
       description = "Collectd Monitoring Agent";
-      after = [ "network.target" ];
+      after = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
      
       serviceConfig = {

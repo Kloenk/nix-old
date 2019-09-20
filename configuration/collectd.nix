@@ -1,37 +1,23 @@
 { config, pkgs, ... }:
 
 {
-  services.collectd.enable = true;
+  services.collectd2.enable = true;
+  services.collectd2.enableSyslog = true;
 
-  services.collectd.extraConfig = ''
-    LoadPlugin "cpu"
-    <Plugin "cpu">
-      ValuesPercentage true
-    </Plugin>
-
-    LoadPlugin "memory"
-    LoadPlugin "swap"
-    LoadPlugin "interface"
-    LoadPlugin "df"
-    LoadPlugin "load"
-    LoadPlugin "uptime"
-    LoadPlugin "entropy"
-    LoadPlugin "dns"
-    LoadPlugin "users"
-
-    <Plugin "disk">
-      IgnoreSelected true
-    </Plugin>
-
-    LoadPlugin "write_prometheus"
-    <Plugin "write_prometheus">
-      Port "9103"
-    </Plugin>
-
-    LoadPlugin "ping"
-    <Plugin "ping">
-      Host "1.1.1.1"
-      Host "8.8.8.8"
-    </Plugin>
-  '';
+  services.collectd2.plugins = {
+    ping.options.Host = "1.1.1.1";
+    cpu.options.ValuesPercentage = true;
+    disk.options.IgnoreSelected = true;
+    write_prometheus.options.Port = "9103";
+    
+    memory.hasConfig = false;
+    swap.hasConfig = false;
+    interface.hasConfig = false;
+    df.hasConfig = false;
+    load.hasConfig = false;
+    uptime.hasConfig = false;
+    entropy.hasConfig = false;
+    dns.hasConfig = false;
+    users.hasConfig = false;
+  };
 }
