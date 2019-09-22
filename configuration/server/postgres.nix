@@ -17,13 +17,13 @@ in {
   };
 
   services.postgresql.initialScript = pkgs.writeText "postgres-initScript" ''
-    CREATE ROLE quassel WITH LOGIN PASSWORD '${secrets.postgres.quassel}' CREATEDB;
+    CREATE ROLE quassel LOGIN CREATEDB;
     CREATE DATABASE quassel;
     GRANT ALL PRIVILEGES ON DATABASE quassel TO quassel;
-    CREATE ROLE gitea WITH LOGIN PASSWORD '${secrets.postgres.gitea}' CREATEDB;
+    CREATE ROLE gitea LOGIN CREATEDB;
     CREATE DATABASE gitea;
     GRANT ALL PRIVILEGES ON DATABASE gitea TO gitea;
-    CREATE ROLE grafana WITH LOGIN PASSWORD '${secrets.postgres.grafana}' CREATEDB;
+    CREATE ROLE grafana LOGIN CREATEDB;
     CREATE DATABASE grafana;
     GRANT ALL PRIVILEGES ON DATABASE grafana TO grafana;
   '';

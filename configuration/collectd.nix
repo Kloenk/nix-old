@@ -5,10 +5,9 @@
   services.collectd2.enableSyslog = true;
 
   services.collectd2.plugins = {
-    ping.options.Host = "1.1.1.1";
-    cpu.options.ValuesPercentage = true;
+    ping.options.Host = "51.254.249.187";
+    cpu.options.ValuesPercentage = false;
     disk.options.IgnoreSelected = true;
-    write_prometheus.options.Port = "9103";
     
     memory.hasConfig = false;
     swap.hasConfig = false;

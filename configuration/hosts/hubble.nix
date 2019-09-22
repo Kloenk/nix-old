@@ -204,6 +204,14 @@ ip route add default via 164.132.202.254 dev eth0 && hasNetwork=1
   # fix tar gz error in autoupdate
   systemd.services.nixos-upgrade.path = with pkgs; [  gnutar xz.bin gzip config.nix.package.out ];
 
+  # collectd write to prometheus
+  services.collectd2.plugins.write_prometheus.options.Port = "9103";
+  services.collectd2.plugins.network.options = {
+    Listen = "0.0.0.0";
+  };
+  networking.firewall.allowedUDPPorts = [ 25826 ];
+
+
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
