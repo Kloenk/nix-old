@@ -231,6 +231,9 @@ in {
   ";
   hardware.pulseaudio.zeroconf.discovery.enable = true;
 
+  # write to collect server
+  services.collectd2.plugins.network.options.Server = "51.254.249.187";
+
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
