@@ -71,7 +71,7 @@ in {
       sl
       exa
       todo-txt-cli
-      llvmPackages.bintools
+      #llvmPackages.bintools
     ];
   };
 

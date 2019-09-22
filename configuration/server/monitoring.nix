@@ -26,12 +26,6 @@ in {
                 static_configs = [ { targets = [
                     "127.0.0.1:9103" 
                 ] ; } ];
-                relabel_configs = [
-                    {
-                        source_labels = [ "instance" ];
-                        target_label = "collectd_instance";
-                    }
-                ];
             }
         ];
     };
