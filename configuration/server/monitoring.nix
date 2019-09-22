@@ -28,7 +28,7 @@ in {
                 ] ; } ];
                 relabel_configs = [
                     {
-                        source_labels = "instance";
+                        source_labels = [ "instance" ];
                         target_label = "collectd_instance";
                     }
                 ];
