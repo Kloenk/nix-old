@@ -56,8 +56,14 @@ in {
     };
 
   boot.initrd.luks.reusePassphrases = true;
-  boot.initrd.luks.devices."cryptRoot".device = "/dev/disk/by-uuid/1459400b-e15a-4fc0-87a1-d03ae5cbd337";
-  boot.initrd.luks.devices."cryptHome".device = "/dev/disk/by-uuid/685221e0-dbeb-4d1a-bbef-990f0193c0b8";
+  boot.initrd.luks.devices."cryptRoot" = {
+    allowDiscards = true;
+    device = "/dev/disk/by-uuid/1459400b-e15a-4fc0-87a1-d03ae5cbd337";
+  };
+  boot.initrd.luks.devices."cryptHome" = {
+    allowDiscards = true;
+    device = "/dev/disk/by-uuid/685221e0-dbeb-4d1a-bbef-990f0193c0b8";
+  };
 
   fileSystems."/boot"  = {
 
@@ -164,8 +170,10 @@ in {
   '';
   environment.etc.qemu-ifup.mode = "0755";
   environment.etc.qemu-ifdown.mode = "0755";
+  security.wrappers.spice-client-glib-usb-acl-helper.source = "${pkgs.spice_gtk}/bin/spice-client-glib-usb-acl-helper";
 
   environment.systemPackages = with pkgs; [
+    spice_gtk
     davfs2
   ];
 
@@ -188,7 +196,7 @@ in {
     #teamspeak_client       # team speak
 
     # steam
-    #steam
+    steam
     steamcontroller    
 
     # minecraft
@@ -236,6 +244,10 @@ in {
     network.options.Server = "51.254.249.187";
     sensors.hasConfig = false;
     processes.hasConfig = false;
+    virt.options = {
+      Connection = "qemu:///system";
+      HostnameFormat = "name";
+    };
   };
 
   # This value determines the NixOS release with which your system is to be
