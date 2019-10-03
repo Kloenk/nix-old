@@ -11,10 +11,6 @@ in {
 
         scrapeConfigs = [
             {
-                job_name = "nginx";
-                static_configs = [ { targets = [ "127.0.0.1:9113" ] ; } ];
-            }
-            {
                 job_name = "grafana";
                 static_configs = [ { targets = [
                   "127.0.0.1:3002"
@@ -68,4 +64,17 @@ in {
         forceSSL = true;
         locations."/".proxyPass = "http://127.0.0.1:3002";
     };
+
+    services.nginx.virtualHosts."localhost" = {
+        enableACME = false;
+        forceSSL = false;
+        listen = [ { addr = "127.0.0.1"; port = 9113; } ];
+        locations."/nginx_status".extraConfig = ''
+          stub_status on;
+          allow 127.0.0.1;
+          deny all;
+        '';
+    };
+
+    services.collectd2.plugins.nginx.options.URL = "https://localhost:9113";
 }
