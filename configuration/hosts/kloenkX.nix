@@ -158,6 +158,18 @@ in {
     };
   };
 
+  security.sudo.extraConfig = ''
+    collectd ALL=(root) NOPASSWD: ${pkgs.wireguard-tools}/bin/wg show all transfer
+  '';
+
+  services.collectd2.extraConfig = ''
+    LoadPlugin exec
+
+    <Plugin exec>
+      Exec collectd "${pkgs.collectd-wireguard}/bin/collectd-wireguard"
+    </Plugin>
+  '';
+
   nixpkgs.config.allowUnfree = true;
 
   environment.etc.qemu-ifup.source = pkgs.writeText "qemu-ifup" ''

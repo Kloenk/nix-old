@@ -2,14 +2,18 @@
   pkgs ? import <nixpkgs> { inherit system; }, ... }:
 
 let
-  callPackage = pkgs.lib.callPackageWith (pkgs // newpkgs);
+  lib = pkgs.lib;
+  callPackage = lib.callPackageWith (pkgs // newpkgs);
 
   newpkgs = {
+    collectd-wireguard = callPackage ./collectd-wireguard { };
     rifo = callPackage ./rifo { };
     rwm = callPackage ./rwm { };
     dwm = callPackage ./dwm { rwm = newpkgs.rwm; };
     ftb = callPackage ./ftb { libXxf86vm = pkgs.xorg.libXxf86vm; };
-    llgCompanion = callPackage ./llgCompanion { };
+    #flameshot = pkgs.libsForQt5.callPackage ./flameshot { };
+    #llgCompanion = callPackage ./llgCompanion { };
+    shelfie = callPackage ./shelfie { };
     pytradfri = callPackage ./pytradfri { buildPythonPackage = pkgs.python37Packages.buildPythonPackage; fetchPypi = pkgs.python37Packages.fetchPypi; cython = pkgs.python37Packages.cython; };
     aiocoap = callPackage ./aiocoap { buildPythonPackage = pkgs.python37Packages.buildPythonPackage; fetchPypi = pkgs.python37Packages.fetchPypi; cython = pkgs.python37Packages.cython; };
     inherit (callPackage ./minecraft-server { })

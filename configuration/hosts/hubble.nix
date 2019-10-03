@@ -204,6 +204,18 @@ ip route add default via 164.132.202.254 dev eth0 && hasNetwork=1
   # fix tar gz error in autoupdate
   systemd.services.nixos-upgrade.path = with pkgs; [  gnutar xz.bin gzip config.nix.package.out ];
 
+  security.sudo.extraConfig = ''
+     collectd ALL=(root) NOPASSWD: ${pkgs.wireguard-tools}/bin/wg show all transfer
+   '';
+
+   services.collectd2.extraConfig = ''
+     LoadPlugin exec
+
+     <Plugin exec>
+       Exec collectd "${pkgs.collectd-wireguard}/bin/collectd-wireguard"
+     </Plugin>
+   '';
+
   # collectd write to prometheus
   services.collectd2.plugins.write_prometheus.options.Port = "9103";
   services.collectd2.plugins.network.options = {
