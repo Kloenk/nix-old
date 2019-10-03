@@ -32,9 +32,10 @@ in {
                 export GPG_TTY=$(tty)
 
                 ${pkgs.notify-osd}/usr/lib/notify-osd/notify-osd &
-                ${pkgs.blueman}/bin/blueman-applet &
-                ${pkgs.pasystray}/bin/pasystray &
             '';
+            #    ${pkgs.blueman}/bin/blueman-applet &
+            #    ${pkgs.pasystray}/bin/pasystray &
+            #'';
         };
 
         services.compton = {
