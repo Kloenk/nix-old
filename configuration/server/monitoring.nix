@@ -76,5 +76,5 @@ in {
         '';
     };
 
-    services.collectd2.plugins.nginx.options.URL = "https://localhost:9113";
+    services.collectd2.plugins.nginx.options.URL = "https://localhost:9113/nginx_status";
 }
