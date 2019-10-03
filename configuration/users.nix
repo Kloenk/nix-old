@@ -205,7 +205,7 @@ in {
           extraOptions = { "UserKnownHostsFile" = "/dev/null"; };
         };
         lycus = {
-          hostname = "ll.qc.to";
+          hostname = "10.0.0.4";
           port = 62954;
           user = "kloenk";
           forwardAgent = true;
@@ -237,13 +237,13 @@ in {
           proxyJump = "lycus";
         };
         io = {
-          hostname = "10.0.0.4";
+          hostname = "10.0.0.2";
           port = 62954;
           user = "kloenk";
           forwardAgent = true;
         };
         io-lycus = {
-          hostname = "10.0.0.4";
+          hostname = "10.0.0.2";
           port = 62954;
           user = "kloenk";
           forwardAgent = true;
