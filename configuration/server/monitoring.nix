@@ -15,10 +15,15 @@ in {
                 static_configs = [ { targets = [ "127.0.0.1:9113" ] ; } ];
             }
             {
-                job_name = "opentracker";
+                job_name = "grafana";
                 static_configs = [ { targets = [
-                  "127.0.0.1:9999"
-                  "127.0.0.1:9998"
+                  "127.0.0.1:3002"
+                ] ; } ];
+            }
+            {
+                job_name = "prometheus";
+                static_configs = [ { targets = [
+                  "127.0.0.1:9090"
                 ] ; } ];
             }
             {
