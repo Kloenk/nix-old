@@ -5,6 +5,8 @@ let
 in {
     services.prometheus = {
         enable = true;
+        
+        globalConfig.scrape_interval = "10s";
 
         exporters = {
         };
