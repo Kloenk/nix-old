@@ -26,13 +26,14 @@ in {
   #boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sdb";
+  boot.loader.grub.splashImage = ../boot.png;
 
   # f2fs support
   boot.supportedFilesystems = [ "f2fs" "ext2" "nfs" "cifs" ];
 
   # taken from hardware-configuration.nix
   boot.initrd.availableKernelModules = [
-   #"i915"         # fixes coreboot stage 1 graphics
+   "i915"         # fixes coreboot stage 1 graphics
    "aes_x86_64"
    "aesni_intel"
    "cryptd"
@@ -187,6 +188,8 @@ in {
   environment.systemPackages = with pkgs; [
     spice_gtk
     davfs2
+    geogebra
+    gtk-engine-murrine
   ];
 
   # make autoupdates
@@ -217,6 +220,9 @@ in {
     # docker controller
     docker
     virtmanager
+
+    # paint software
+    krita
   ];
 
 
