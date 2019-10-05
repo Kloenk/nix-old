@@ -14,7 +14,7 @@ in {
         home.keyboard.layout = "de";
         home.keyboard.options = [ "altwin:swap_lalt_lwin" ];
 
-        home.file.".wallpaper-image".source = ./wallpaper-image;
+        home.file.".wallpaper-image".source = ./wallpaper-image-hdmi.png;
         home.file.".Xresources".source = ./Xresources;
 
         xsession = {
