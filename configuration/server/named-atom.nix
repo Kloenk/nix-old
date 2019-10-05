@@ -10,7 +10,12 @@ in {
     ];
 
     services.bind = {
-        extraOptions = "response-policy { zone \"rpz\"; };";
+      extraOptions = ''
+        response-policy { zone \"rpz\"; };
+        statistics-channels {
+          inet 127.0.0.1 port 8053;
+        };
+      '';
 
         cacheNetworks = [ "127.0.0.0/24" "192.168.178.0/24" "192.168.42.0/24" ];
 
