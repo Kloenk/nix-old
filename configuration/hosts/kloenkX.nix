@@ -139,6 +139,10 @@ in {
   #systemd.services.dhcpcd.serviceConfig.ExecStart = lib.mkForce "@${pkgs.dhcpcd}/sbin/dhcpcd dhcpcd -b -q -A -z wlp3s0";
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
 
+  networking.bonds."bond0" = {
+    interfaces = [ "eno0" "wlp2s0" ];
+  };
+
   networking.firewall.interfaces."wg0" = {
     allowedTCPPortRanges = [ { from = 1; to = 65534; } ];
     allowedUDPPortRanges = [ { from = 1; to = 65534; } ];
