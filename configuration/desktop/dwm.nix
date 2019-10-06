@@ -32,6 +32,8 @@ in {
                 export GPG_TTY=$(tty)
 
                 ${pkgs.notify-osd}/usr/lib/notify-osd/notify-osd &
+
+                ${pkgs.slstatus}/bin/slstatus &
             '';
             #    ${pkgs.blueman}/bin/blueman-applet &
             #    ${pkgs.pasystray}/bin/pasystray &

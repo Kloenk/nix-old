@@ -10,6 +10,7 @@ let
     rifo = callPackage ./rifo { };
     rwm = callPackage ./rwm { };
     dwm = callPackage ./dwm { rwm = newpkgs.rwm; };
+    slstatus = callPackage ./slstatus { };
     ftb = callPackage ./ftb { libXxf86vm = pkgs.xorg.libXxf86vm; };
     #flameshot = pkgs.libsForQt5.callPackage ./flameshot { };
     #llgCompanion = callPackage ./llgCompanion { };
