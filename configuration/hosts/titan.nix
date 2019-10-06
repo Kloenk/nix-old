@@ -60,7 +60,7 @@ in {
   };
 
   fileSystems."/home/kloenk/kloenkX" = {
-    device = "192.168.178.65:/kloenk";
+    device = "192.168.178.43:/kloenk";
     fsType = "nfs";
     options = ["x-systemd.automount" "noauto"];
   };

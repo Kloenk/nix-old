@@ -262,7 +262,7 @@ in {
           forwardAgent = true;
         };
         kloenkX-fritz = {
-          hostname = "192.168.178.65";
+          hostname = "192.168.178.43";
           port = 62954;
           user = "kloenk";
           forwardAgent = true;
