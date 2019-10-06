@@ -122,7 +122,16 @@ in {
   nix.maxJobs = lib.mkDefault 4;
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
   # set battery threshold (not supported by coreboot)
-  powerManagement.powerUpCommands = "${pkgs.tlp}/bin/tlp setcharge 70 90 bat0";
+  #powerManagement.powerUpCommands = "${pkgs.tlp}/bin/tlp setcharge 70 90 bat0";
+  systemd.services.coreboot-battery-threshold = {
+    serviceConfig.Type = "oneshot";
+    wantedBy = [ "multi-user.target" ];
+    path = with pkgs; [ ectool ];
+    script = ''
+      ectool -w 0xb0 -z 0x46
+      ectool -w 0xb1 -z 0x5a
+    '';
+  };
   # enable autotune for linux with powertop (intel)
   #powerManagement.powertop.enable = true; # auto tune software
 
@@ -130,8 +139,11 @@ in {
   boot.kernelParams = [ "quiet" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  boot.tmpOnTmpfs = true;
+
   networking.hostName = "KloenkX";
   networking.wireless.enable = true;
+  networking.wireless.interfaces = [ "wlp2s0" ];
   networking.wireless.networks = secrets.wifiNetworks;
   networking.extraHosts = ''
     172.16.0.1 airlink.local unit.local
@@ -195,6 +207,18 @@ in {
     geogebra
     gtk-engine-murrine
   ];
+
+  services.xserver.wacom.enable = true;
+  services.xserver.config = ''
+    Section "InputClass"
+        Identifier	"calibration"
+        MatchProduct	"Wacom ISDv4 90 Pen stylus"
+        Option	"MinX"	"69"
+        Option	"MaxX"	"27558"
+        Option	"MinY"	"193"
+        Option	"MaxY"	"15654"
+    EndSection
+  '';
 
   # make autoupdates
   #system.autoUpgrade.enable = true;
