@@ -14,9 +14,10 @@ let
     ftb = callPackage ./ftb { libXxf86vm = pkgs.xorg.libXxf86vm; };
     #flameshot = pkgs.libsForQt5.callPackage ./flameshot { };
     #llgCompanion = callPackage ./llgCompanion { };
-    shelfie = callPackage ./shelfie { };
+    #shelfie = callPackage ./shelfie { };
     pytradfri = callPackage ./pytradfri { buildPythonPackage = pkgs.python37Packages.buildPythonPackage; fetchPypi = pkgs.python37Packages.fetchPypi; cython = pkgs.python37Packages.cython; };
     aiocoap = callPackage ./aiocoap { buildPythonPackage = pkgs.python37Packages.buildPythonPackage; fetchPypi = pkgs.python37Packages.fetchPypi; cython = pkgs.python37Packages.cython; };
+    netbox = pkgs.python37Packages.callPackage ./netbox { };
     inherit (callPackage ./minecraft-server { })
       minecraft-server_1_14_2;
   };
