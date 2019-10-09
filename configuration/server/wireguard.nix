@@ -104,6 +104,12 @@
 
           persistentKeepalive = 21;
         }
+        { # kloenkX
+          publicKey = "MYNYNLmxTBsr30JsHV1qSqKqA3Gk54wLaKJn/uwBBiY=";
+          allowedIPs = [ "192.168.43.10" "2001:41d0:1004:1629:1337:187:43:10/120" ];
+          presharedKeyFile = "/etc/nixos/secrets/llg0.kloenkx.psk";
+          persistentKeepalive = 21;
+        }
       ];
     };
   };

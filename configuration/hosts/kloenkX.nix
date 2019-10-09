@@ -147,6 +147,7 @@ in {
   networking.wireless.networks = secrets.wifiNetworks;
   networking.extraHosts = ''
     172.16.0.1 airlink.local unit.local
+    192.168.43.2  git.yougen.de grafana.yougen.de netbox.yougen.de
   '';
   #systemd.services.dhcpcd.serviceConfig.ExecStart = lib.mkForce "@${pkgs.dhcpcd}/sbin/dhcpcd dhcpcd -b -q -A -z wlp3s0";
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
@@ -166,13 +167,24 @@ in {
       peers = [ 
         {
           publicKey = "MUsPCkTKHBGvCI62CevFs6Wve+cXBLQIl/C3rW3PbVM=";
-          allowedIPs = [ "192.168.42.0/24" "2001:41d0:1004:1629:1337:187:1:0/120" "2001:41d0:1004:1629:1337:187:0:1/128" "192.168.43.0/24" "2001:41d0:1004:1629:1337:187:43:0/120" ];
+          allowedIPs = [ "192.168.42.0/24" "2001:41d0:1004:1629:1337:187:1:0/120" "2001:41d0:1004:1629:1337:187:0:1/128" ];
           endpoint = "51.254.249.187:51820";
           persistentKeepalive = 21;
           presharedKeyFile = "/etc/nixos/secrets/wg0.psk";
         }
       ];
     };
+    llg0 = {
+      ips = [ "192.168.43.10" "2001:41d0:1004:1629:1337:187:43:10/120" ];
+      privateKeyFile = "/etc/nixos/secrets/llg0.key";
+      peers = [ {
+        publicKey = "Ll0Zb5I3L8H4WCzowkh13REiXcxmoTgSKi01NrzKiCM=";
+        allowedIPs = [ "192.168.43.0/24" "2001:41d0:1004:1629:1337:187:43:0/120" ];
+        endpoint = "51.254.249.187:51822";
+        persistentKeepalive = 21;
+        presharedKeyFile = "/etc/nixos/secrets/llg0.psk";
+      } ];
+    }
   };
 
   security.sudo.extraConfig = ''
