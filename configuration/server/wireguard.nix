@@ -90,7 +90,7 @@
     llg0 = {
       ips = [ "192.168.43.1/24" "2001:41d0:1004:1629:1337:187:43:0/120" ];
 
-      listenport = 51822;
+      listenPort = 51822;
 
       privateKeyFile = "/etc/nixos/secrets/llg0.key";
 
@@ -105,6 +105,6 @@
           persistentKeepalive = 21;
         }
       ];
-    }
+    };
   };
 }
