@@ -7,7 +7,7 @@
   networking.nat.externalInterface = "eth0";
   networking.nat.internalInterfaces = [ "wg0" "wgFam" ];
   networking.firewall = {
-    allowedUDPPorts = [ 51820 51821 ];
+    allowedUDPPorts = [ 51820 51821 51822 ];
 
     extraCommands = ''
     iptables -t nat -A POSTROUTING -s 192.168.42.0/24 -o ens18 -j MASQUERADE
@@ -87,5 +87,24 @@
         }
       ];
     };
+    llg0 = {
+      ips = [ "192.168.43.1/24" "2001:41d0:1004:1629:1337:187:43:0/120" ];
+
+      listenport = 51822;
+
+      privateKeyFile = "/etc/nixos/secrets/llg0.key";
+
+      peers = [
+        { # io
+          publicKey = "rzyPnz6iliO5hyggfUJcmDrNeFPtMDeWRsq3liEfdQ4=";
+
+          allowedIPs = [ "192.168.43.2" "2001:41d0:1004:1629:1337:187:43:2/120" ];
+
+          presharedKeyFile = "/etc/nixos/secrets/llg0.io.psk";
+
+          persistentKeepalive = 21;
+        }
+      ];
+    }
   };
 }
