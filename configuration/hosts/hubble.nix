@@ -18,6 +18,7 @@ in {
 
     ../server/common/nginx-common.nix
     ../server/wireguard.nix
+    ../server/nat.nix
     ../server/named-hubble.nix
     ../server/docker.nix
     #../server/gitlab.nix
