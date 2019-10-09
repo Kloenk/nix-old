@@ -221,7 +221,7 @@ in {
           port = 62954;
           user = "kloenk";
           forwardAgent = true;
-          proxyJump = "lycus";
+          proxyJump = "io-llg0";
         };
         pluto = {
           hostname = "10.0.0.3";
@@ -234,7 +234,7 @@ in {
           port = 62954;
           user = "kloenk";
           forwardAgent = true;
-          proxyJump = "lycus";
+          proxyJump = "io-llg0";
         };
         io = {
           hostname = "10.0.0.2";
@@ -242,8 +242,8 @@ in {
           user = "kloenk";
           forwardAgent = true;
         };
-        io-lycus = {
-          hostname = "10.0.0.2";
+        io-llg0 = {
+          hostname = "192.168.43.2";
           port = 62954;
           user = "kloenk";
           forwardAgent = true;
