@@ -166,7 +166,7 @@ in {
       peers = [ 
         {
           publicKey = "MUsPCkTKHBGvCI62CevFs6Wve+cXBLQIl/C3rW3PbVM=";
-          allowedIPs = [ "192.168.42.0/24" "2001:41d0:1004:1629:1337:187:1:0/120" "2001:41d0:1004:1629:1337:187:0:1/128" ];
+          allowedIPs = [ "192.168.42.0/24" "2001:41d0:1004:1629:1337:187:1:0/120" "2001:41d0:1004:1629:1337:187:0:1/128" "192.168.43.0/24" "2001:41d0:1004:1629:1337:187:43:0/120" ];
           endpoint = "51.254.249.187:51820";
           persistentKeepalive = 21;
           presharedKeyFile = "/etc/nixos/secrets/wg0.psk";
