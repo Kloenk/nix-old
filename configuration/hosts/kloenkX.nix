@@ -184,7 +184,7 @@ in {
         persistentKeepalive = 21;
         presharedKeyFile = "/etc/nixos/secrets/llg0.psk";
       } ];
-    }
+    };
   };
 
   security.sudo.extraConfig = ''
