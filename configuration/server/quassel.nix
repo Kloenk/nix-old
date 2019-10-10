@@ -8,6 +8,8 @@
         package = pkgs.quasselDaemon;
         interfaces = [ "0.0.0.0" "::"];
         dataDir = "/srv/quassel";
+        certificateFile = "/srv/quassel/quasselCert.pem";
+        requireSSL = true;
     };
 
 
