@@ -89,6 +89,13 @@ in {
   };
 
   services.vnstat.enable = true;
+
+  services.collectd2.plugins = {
+    network.options.Server = "51.254.249.187";
+    sensors.hasConfig = false;
+    processes.hasConfig = false;
+  };
+
   system.autoUpgrade.enable = true;
 
   system.stateVersion = "19.03";
