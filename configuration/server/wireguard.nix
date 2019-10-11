@@ -98,7 +98,7 @@
         { # io
           publicKey = "rzyPnz6iliO5hyggfUJcmDrNeFPtMDeWRsq3liEfdQ4=";
 
-          allowedIPs = [ "192.168.43.2" "2001:41d0:1004:1629:1337:187:43:2/120" ];
+          allowedIPs = [ "192.168.43.2" "2001:41d0:1004:1629:1337:187:43:2/128" ];
 
           presharedKeyFile = "/etc/nixos/secrets/llg0.io.psk";
 
@@ -106,13 +106,13 @@
         }
         { # kloenkX
           publicKey = "MYNYNLmxTBsr30JsHV1qSqKqA3Gk54wLaKJn/uwBBiY=";
-          allowedIPs = [ "192.168.43.10" "2001:41d0:1004:1629:1337:187:43:10/120" ];
+          allowedIPs = [ "192.168.43.10" "2001:41d0:1004:1629:1337:187:43:10/128" ];
           presharedKeyFile = "/etc/nixos/secrets/llg0.kloenkx.psk";
           persistentKeepalive = 21;
         }
         { # mobile
           publicKey = "XF/HSMyhMEPLFHLoEdZ6WhXaj2dL3EMBrNPTjx3PwGU=";
-          allowedIPs = [ "192.168.43.11/24" "2001:41d0:1004:1629:1337:187:43:11/120" ];
+          allowedIPs = [ "192.168.43.11/32" "2001:41d0:1004:1629:1337:187:43:11/128" ];
           presharedKeyFile = "/etc/nixos/secrets/llg0.mobile.psk";
           persistentKeepalive = 21;
         }
