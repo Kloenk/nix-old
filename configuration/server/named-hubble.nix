@@ -21,6 +21,7 @@ allow-transfer { 159.69.179.160; 51.254.249.185; 192.168.42.4; 51.254.249.182; 1
 statistics-channels {
   inet 127.0.0.1 port 8053;
 };
+response-policy { zone \"rpz\"; };
         '';
         cacheNetworks = [ "any" ];
 
@@ -39,6 +40,11 @@ statistics-channels {
         #    master = false;
         #    masters = [ "87.79.92.36" ];
         #}
+        {
+          name = "rpz";
+          master = true;
+          file = "/etc/nixos/secrets/rpz.zone";
+        }
         ];
   };
   services.collectd2.extraConfig = ''
