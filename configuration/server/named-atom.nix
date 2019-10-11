@@ -11,7 +11,7 @@ in {
 
     services.bind = {
       extraOptions = ''
-        response-policy { zone \"rpz\"; };
+        response-policy { zone "rpz"; };
         statistics-channels {
           inet 127.0.0.1 port 8053;
         };
