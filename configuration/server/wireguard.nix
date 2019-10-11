@@ -112,9 +112,9 @@
         }
         { # mobile
           publicKey = "XF/HSMyhMEPLFHLoEdZ6WhXaj2dL3EMBrNPTjx3PwGU=";
-          allowedIPs = [ "192.168.43.11/24", "2001:41d0:1004:1629:1337:187:43:11/120" ];
+          allowedIPs = [ "192.168.43.11/24" "2001:41d0:1004:1629:1337:187:43:11/120" ];
           presharedKeyFile = "/etc/nixos/secrets/llg0.mobile.psk";
-          persistenKeepalive = 21;
+          persistentKeepalive = 21;
         }
       ];
     };
