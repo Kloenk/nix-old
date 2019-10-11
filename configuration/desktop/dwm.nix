@@ -10,11 +10,15 @@ in {
         displayManager.startx.enable = true;
     };
 
+    services.dbus.packages = with pkgs; [ gnome3.dconf ];
+
     home-manager.users.kloenk = {
         home.keyboard.layout = "de";
         home.keyboard.options = [ "altwin:swap_lalt_lwin" ];
 
-        home.file.".wallpaper-image".source = ./wallpaper-image-hdmi.png;
+        home.file.".wallpaper-image-hdmi".source = ./wallpaper-image-hdmi.png;
+        home.file.".wallpaper-image".source = ./wallpaper-image;
+        home.file.".config/quassel-irc.org/Dracula.qss".source = ./Dracula.qss;
         home.file.".Xresources".source = ./Xresources;
 
         xsession = {

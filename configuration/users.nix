@@ -118,11 +118,11 @@ in {
         nnoremap <space> za
   
         " Code styling
-        filetype plugin indent on
+        "filetype plugin indent on
         syntax on
   
         " Completion
-        set autoindent
+        "set autoindent
         inoremap { {<CR>}<ESC>O
   
         " SBT integration
@@ -247,7 +247,6 @@ in {
           port = 62954;
           user = "kloenk";
           forwardAgent = true;
-          proxyJump = "lycus";
         };
         atom = {
           hostname = "192.168.178.248";
