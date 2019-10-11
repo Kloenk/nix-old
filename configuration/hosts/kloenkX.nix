@@ -191,6 +191,10 @@ in {
     collectd ALL=(root) NOPASSWD: ${pkgs.wireguard-tools}/bin/wg show all transfer
   '';
 
+  services.fprintd.enable = true;
+  security.pam.services.login.fprintAuth = true;
+  security.pam.services.xtrlock-pam.fprintAuth = true;
+
   services.collectd2.extraConfig = ''
     LoadPlugin exec
 
