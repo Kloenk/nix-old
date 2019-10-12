@@ -61,12 +61,12 @@ in {
 
   networking.wireguard.interfaces = {
     wg0 = {
-      ips = [ "192.168.42.7/24" ];
+      ips = [ "192.168.42.7/24" "2001:41d0:1004:1629:1337:187:1:7/128" ];
       privateKeyFile = "/etc/nixos/secrets/wg0.key";
       peers = [ 
         {
           publicKey = "MUsPCkTKHBGvCI62CevFs6Wve+cXBLQIl/C3rW3PbVM=";
-          allowedIPs = [ "192.168.42.0/24" ];
+          allowedIPs = [ "192.168.42.0/24" "2001:41d0:1004:1629:1337:187:1:0/120" ];
           endpoint = "51.254.249.187:51820";
           persistentKeepalive = 21;
           presharedKeyFile = "/etc/nixos/secrets/wg0.psk";

@@ -42,7 +42,7 @@
                 persistentKeepalive = 21;
 	  }
           { # atom
-            publicKey = "AeMU4WkxJh/r1LR4jl3ROKIsuSLzYYUw4hOwbK/k8gY=";
+            publicKey = "009Wk3RP7zOmu61Zc7ZCeS6lJyhUcXZwZsBJoadHOA0=";
 
             allowedIPs = [ "192.168.42.7/32" "2001:41d0:1004:1629:1337:187:1:7/128" ]; # TODO: add local net
 
