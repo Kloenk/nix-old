@@ -43,7 +43,7 @@ in {
           };
 
           "beddiesInvestments@kloenk.de" = {
-            hashedPasswords = secrets.mail.beddiesInvestments;
+            hashedPassword = secrets.mail.beddiesInvestments;
           };
 
           "finn@kloenk.de" = {
