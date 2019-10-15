@@ -8,7 +8,9 @@ in {
     (builtins.fetchTarball "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/v2.2.1/nixos-mailserver-v2.2.1.tar.gz")
   ];
 
-  networking.firewall.allowedTCPPorts = [ 143 587 25 993 ];
+  networking.firewall.allowedTCPPorts = [ 143 587 25 465 993 ];
+
+  services.postfix.submissionOptions.smtpd_tls_wrappermode = "yes";
 
   mailserver = {
       enable = true;
@@ -38,6 +40,10 @@ in {
                   "delta@kloenk.de"
                   "mail@kloenk.de"
               ];
+          };
+
+          "beddiesInvestments@kloenk.de" = {
+            hashedPasswords = secrets.mail.beddiesInvestments;
           };
 
           "finn@kloenk.de" = {
@@ -82,6 +88,8 @@ in {
               aliases = [
                   "llgcompanion@kloenk.de"
                   "lkml@kloenk.de"
+                  "telegram@kloenk.de"
+                  "fff@kloenk.de"
               ];
 
               catchAll = [
