@@ -12,6 +12,7 @@ let
     dwm = callPackage ./dwm { rwm = newpkgs.rwm; };
     slstatus = callPackage ./slstatus { };
     ftb = callPackage ./ftb { libXxf86vm = pkgs.xorg.libXxf86vm; };
+    groupmanagement-bot = callPackage ./Groupmanagement-Bot {};
     #flameshot = pkgs.libsForQt5.callPackage ./flameshot { };
     #llgCompanion = callPackage ./llgCompanion { };
     #shelfie = callPackage ./shelfie { };
@@ -20,6 +21,7 @@ let
     netbox = pkgs.python37Packages.callPackage ./netbox { };
     inherit (callPackage ./minecraft-server { })
       minecraft-server_1_14_2;
+      
   };
 
 in newpkgs
