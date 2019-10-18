@@ -4,10 +4,6 @@ let
   secrets = import /etc/nixos/secrets.nix;
 in {
   imports = [
-    (builtins.fetchGit {
-      url = "https://github.com/rycee/home-manager.git";
-      rev = "8b15f1899356762187ce119980ca41c0aba782bb";
-    } + "/nixos/default.nix")
   ];
   i18n = {
     consoleFont = "Lat2-Terminus16";

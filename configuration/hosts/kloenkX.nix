@@ -10,6 +10,7 @@ in {
     ../desktop/dwm.nix
     ../desktop/applications.nix
     ../desktop/multimon.nix
+    ../desktop/spotifyd.nix
     ../collectd.nix
 
     # x230 configuration

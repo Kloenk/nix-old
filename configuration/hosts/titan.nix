@@ -9,6 +9,7 @@ in {
     ../ssh.nix
     ../desktop/dwm.nix
     ../desktop/applications.nix
+    ../desktop/spotifyd.nix
     ../collectd.nix
 
     # fallback for detection

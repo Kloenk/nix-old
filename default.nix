@@ -3,6 +3,7 @@
 {
   imports = [
     ./modules
+    ./home-manager/nixos/default.nix
     #"./configuration/hosts/${config.networking.hostName}"
   ];
 

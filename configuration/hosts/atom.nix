@@ -9,6 +9,8 @@ in {
     ../ssh.nix
     ../collectd.nix
 
+    ../desktop/spotifyd.nix
+
     ../server/common/nginx-common.nix
     #../server/home-assistant.nix
     ../server/named-atom.nix
