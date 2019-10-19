@@ -118,7 +118,7 @@
         }
 	{ # vepi
 	  publicKey = "a7rQr9woO8tXBf0jfPF4F39zDgskoEJJGCbkGCcgKTo=";
-	  allowedIPs = [ "192.168.43.240", "2001:41d0:1004:1629:1337:187:43:240/128" ];
+	  allowedIPs = [ "192.168.43.240" "2001:41d0:1004:1629:1337:187:43:240/128" ];
           presharedKeyFile = "/etc/nixos/secrets/llg0.vepi.psk";
           persistentKeepalive = 21;
 	}
