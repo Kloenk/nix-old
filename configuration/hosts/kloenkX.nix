@@ -11,6 +11,7 @@ in {
     ../desktop/applications.nix
     ../desktop/multimon.nix
     ../desktop/spotifyd.nix
+    ../desktop/kitty.nix
     ../collectd.nix
 
     # x230 configuration
@@ -107,6 +108,7 @@ in {
     4002 # mountd
     111
     2049
+    24800
   ];
   networking.firewall.allowedTCPPorts = [
     4000 # statd
@@ -114,6 +116,7 @@ in {
     4002 # mountd
     111
     2049
+    24800
   ];
 
   swapDevices = [
