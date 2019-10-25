@@ -71,6 +71,7 @@
 
     # KiCad pcb layout tool
     #kicad
+    openscad
 
     # vs code (mit license)
     vscodium
