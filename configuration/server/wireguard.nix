@@ -98,7 +98,7 @@
         { # io
           publicKey = "rzyPnz6iliO5hyggfUJcmDrNeFPtMDeWRsq3liEfdQ4=";
 
-          allowedIPs = [ "192.168.43.2" "2001:41d0:1004:1629:1337:187:43:2/128" ];
+          allowedIPs = [ "192.168.43.2" "2001:41d0:1004:1629:1337:187:43:2/128" "10.0.0.0/8" ];
 
           presharedKeyFile = "/etc/nixos/secrets/llg0.io.psk";
 
