@@ -98,7 +98,7 @@
         { # io
           publicKey = "rzyPnz6iliO5hyggfUJcmDrNeFPtMDeWRsq3liEfdQ4=";
 
-          allowedIPs = [ "192.168.43.2" "2001:41d0:1004:1629:1337:187:43:2/128" ];
+          allowedIPs = [ "192.168.43.2" "2001:41d0:1004:1629:1337:187:43:2/128" "10.0.0.0/8" ];
 
           presharedKeyFile = "/etc/nixos/secrets/llg0.io.psk";
 
@@ -114,6 +114,11 @@
           publicKey = "XF/HSMyhMEPLFHLoEdZ6WhXaj2dL3EMBrNPTjx3PwGU=";
           allowedIPs = [ "192.168.43.11/32" "2001:41d0:1004:1629:1337:187:43:11/128" ];
           presharedKeyFile = "/etc/nixos/secrets/llg0.mobile.psk";
+          persistentKeepalive = 21;
+        }
+        { # ecue
+          publicKey = "3/NO8zVeTISHcgtE4CoQojkpvAOJE52FlAatOOAL6CI=";
+          allowedIPs = [ "192.168.43.241" ];
           persistentKeepalive = 21;
         }
 	{ # vepi
