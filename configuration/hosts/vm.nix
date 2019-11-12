@@ -7,8 +7,7 @@ in {
     ../../default.nix
     ../users.nix
     ../ssh.nix
-    ../server/prometheus.nix
-    ../server/grafana.nix
+    ../server/monitoring.nix
   ];
 
   boot.loader.grub.enable = true;
