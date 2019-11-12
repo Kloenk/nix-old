@@ -86,11 +86,6 @@ in {
     #};
   };
 
-  fileSystems."/nix" = {
-    device = "/data/nix";
-    options = [ "bind" ];
-  };
-
   boot.initrd.luks.reusePassphrases = true;
   boot.initrd.luks.devices."cryptData".device = "/dev/vda1";
   boot.initrd.luks.devices."cryptRoot".device = "/dev/vdb2"; # change
