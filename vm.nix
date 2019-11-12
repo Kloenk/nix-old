@@ -33,8 +33,8 @@ in
   #  cores = 2;
   #  diskSize = 4000;
   #}
-  mkVM "atom" {
-    configuration = ./configuration/hosts/atom.nix;
+  mkVM "vm" {
+    configuration = ./configuration/hosts/vm.nix;
     memorySize = 4096;
     cores = 4;
     diskSize = 4000;
