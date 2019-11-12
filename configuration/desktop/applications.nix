@@ -55,9 +55,6 @@
     # Archives (e.g., tar.gz and zip)
     ark
 
-    # This is needed for graphical dialogs used to enter GPG passphrases
-    pinentry_qt5
-
     # mail
     thunderbird
 
