@@ -27,7 +27,7 @@ in {
   #boot.loader.systemd-boot.enable = true;
   #boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sdb";
+  boot.loader.grub.device = "nodev";
   boot.loader.grub.splashImage = ../boot.png;
 
   # f2fs support
@@ -183,7 +183,7 @@ in {
       privateKeyFile = "/etc/nixos/secrets/llg0.key";
       peers = [ {
         publicKey = "Ll0Zb5I3L8H4WCzowkh13REiXcxmoTgSKi01NrzKiCM=";
-        allowedIPs = [ "192.168.43.0/24" "2001:41d0:1004:1629:1337:187:43:0/120" ];
+        allowedIPs = [ "192.168.43.0/24" "2001:41d0:1004:1629:1337:187:43:0/120" "10.1.0.0/16" ];
         endpoint = "51.254.249.187:51822";
         persistentKeepalive = 21;
         presharedKeyFile = "/etc/nixos/secrets/llg0.psk";
@@ -320,5 +320,5 @@ in {
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "19.09";
+  system.stateVersion = "20.03";
 }
