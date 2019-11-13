@@ -14,7 +14,7 @@ in {
 
     home-manager.users.kloenk = {
         #manager-dwm.home.file.".wallpaper-image-hdmi".source = ./wallpaper-image-hdmi.png;
-        home = manager-dwm.home // { file.".wallpaper-image-hdmi".source = ./wallpaper-image-hdmi.png; };
+        home = lib.recursiveUpdate manager-dwm.home { file.".wallpaper-image-hdmi".source = ./wallpaper-image-hdmi.png; };
 
         xsession = manager-dwm.xsession;
 
