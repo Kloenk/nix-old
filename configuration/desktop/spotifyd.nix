@@ -5,10 +5,12 @@ let
 in {
   home-manager.users.kloenk.services.spotifyd = {
     enable = true;
-    user = "kloenk1";
-    password = secrets.spotifyd;
-    name = "${config.networking.hostName}_spotify";
-    cache = "/home/kloenk/.cache/spotifyd";
-    bitrate = 320;
+    settings.global = {
+      user = "kloenk1";
+      password = secrets.spotifyd;
+      device_name = "${config.networking.hostName}_spotify";
+      cache = "/home/kloenk/.cache/spotifyd";
+      bitrate = "320";
+    };
   };
 }
