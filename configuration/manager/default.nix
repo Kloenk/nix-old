@@ -1,13 +1,20 @@
 {
-  pkgs
+  pkgs,
+  lib,
+  dwm ? false
 }:
 
+with lib;
+
 let 
-  programs = {
+  manager-dwm = import ./dwm.nix { pkgs = pkgs; };
+  mergeDWM = lhs: rhs: 
+    if dwm then lib.recursiveUpdate lhs rhs else lhs;
+  programs = mergeDWM {
     git = {
       enable = true;
       userName = "Kloenk";
-      userEmail = "kloenk@kloenk.de";
+      userEmail = "klshellInitoenk@kloenk.de";
       extraConfig = {
         core.editor = "${pkgs.vim}/bin/vim";
         color.ui = true;
@@ -219,9 +226,9 @@ let
         :com! CargoCheck !cargo check
       '';
     };
-  };
+  } manager-dwm.programs;
 
-  services = {
+  services = mergeDWM {
     gpg-agent = {
       enable = true;
       defaultCacheTtl = 300; # 5 min
@@ -231,7 +238,11 @@ let
         pinentry-program ${pkgs.pinentry-qt}/bin/pinentry-qt
       '';
     };
-  };
+  } manager-dwm.services;
+
+  home = mergeDWM { } manager-dwm.home;
+
+  xsession = mergeDWM { } manager-dwm.xsession;
 in {
-  inherit programs services;
+  inherit programs services home xsession;
 }
