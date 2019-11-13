@@ -27,7 +27,7 @@ let
         export XDG_CURRENT_DESKTOP=KDE
         export GPG_TTY=$(tty)
 
-        ${pkgs.notify-osd}/usr/lib/notify-osd/notify-osd &
+        ${pkgs.notify-osd}/bin/notify-osd &
 
         ${pkgs.slstatus}/bin/slstatus &
       '';
