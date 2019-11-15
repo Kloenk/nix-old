@@ -189,6 +189,12 @@ ip route add default via 164.132.202.254 dev eth0 && hasNetwork=1
     };
   };
 
+  services.nginx.virtualHosts."buenentechnik.kloenk.de" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/".proxyPass = "http://127.0.0.1:3004/";
+  };
+
   # mosh
   programs.mosh.enable = true;
   programs.mosh.withUtempter = true;
