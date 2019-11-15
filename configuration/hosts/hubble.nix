@@ -28,8 +28,8 @@ in {
     ../server/quassel.nix
     ../server/deluge.nix
     #../server/minecraft.nix
-    ../server/codimd.nix
-    ../server/firefox.nix
+    #../server/codimd.nix
+    #../server/firefox.nix
     #../server/llgcompanion.nix
 
     # fallback for detection
@@ -42,11 +42,6 @@ in {
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/vdb"; # change
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelParams = [
-    #"ip=51.254.249.187::164.132.202.254:255.255.255.255::eth0"
-    #"ip=192.168.178.206::192.168.178.1:255.255.255.0::eth0"
-  ];
-  #boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [
     config.boot.kernelPackages.wireguard
   ];
@@ -67,7 +62,7 @@ in {
 
   fileSystems."/" = {
     device = "/dev/mapper/cryptRoot";
-    fsType = "f2fs";
+    fsType = "ext4";
   };
 
   fileSystems."/boot" = {
@@ -75,20 +70,14 @@ in {
     fsType = "ext2";
   };
 
-  fileSystems."/data" = {
+  fileSystems."/ssd" = {
     device = "/dev/mapper/cryptData";
-    fsType = "ext4";
-    #:encrypted = {
-    #  enable = true;
-    #  blkDev = "/dev/vda1"; # change
-    #  label = "cryptData";
-    #  keyFile = "/etc/nixos/secrets/cryptData.key";
-    #};
+    fsType = "f2fs";
   };
 
   boot.initrd.luks.reusePassphrases = true;
-  boot.initrd.luks.devices."cryptData".device = "/dev/vda1";
-  boot.initrd.luks.devices."cryptRoot".device = "/dev/vdb2"; # change
+  boot.initrd.luks.devices."cryptData".device = "/dev/vdb2";
+  boot.initrd.luks.devices."cryptRoot".device = "/dev/vda1"; # change
   boot.initrd.network.enable = true;
   boot.initrd.network.ssh = {
     enable = true;
@@ -97,11 +86,11 @@ in {
   };
   # setup network
   boot.initrd.preLVMCommands = lib.mkBefore (''
-ip li set eth0 up
-ip addr add 51.254.249.187/32 dev eth0
-ip route add 164.132.202.254/32 dev eth0
-ip route add default via 164.132.202.254 dev eth0 && hasNetwork=1 
-'');
+    ip li set eth0 up
+    ip addr add 51.254.249.187/32 dev eth0
+    ip route add 164.132.202.254/32 dev eth0
+    ip route add default via 164.132.202.254 dev eth0 && hasNetwork=1 
+  '');
 
   networking.firewall.allowedTCPPorts = [ 9092 ];
 
@@ -109,27 +98,10 @@ ip route add default via 164.132.202.254 dev eth0 && hasNetwork=1
   networking.hostName = "hubble";
   networking.dhcpcd.enable = false;
   networking.useDHCP = false;
-  #networking.interfaces.eth0.ipv4.addresses = [ { address = "192.168.178.206"; prefixLength = 32; } ];
-  #networking.defaultGateway = { address = "192.168.178.1"; interface = netFace; };
-  #networking.interfaces.eth0.ipv4.addresses = [ { address = "51.254.249.187"; prefixLength = 32; } ];
-  #networking.defaultGateway = { address = "164.132.202.254"; interface = netFace; };
-  #networking.interfaces.eth0.ipv6.addresses = [ { address = "2001:41d0:1004:1629:1337:0187::"; prefixLength = 112; } ];
-  #networking.defaultGateway6 = { address = "2001:41d0:1004:16ff:ff:ff:ff:ff"; interface = netFace; };
 #  powerManagement.powerUpCommands = ''
 #${pkgs.iproute}/bin/ip -6 addr add 2001:41d0:1004:1629:1337:0187::/112 dev eth0
 #${pkgs.iproute}/bin/ip -6 route add 2001:41d0:1004:16ff:ff:ff:ff:ff/128 dev eth0
 #${pkgs.iproute}/bin/ip -6 route add default via 2001:41d0:1004:16ff:ff:ff:ff:ff dev eth0'';
-  systemd.services.network = {
-    description = "setup ipv6 network address";
-    preStart = ''
-#${pkgs.iproute}/bin/ip -6 addr add 2001:41d0:1004:1629:1337:0187::/112 dev eth0
-#${pkgs.iproute}/bin/ip -6 route add 2001:41d0:1004:16ff:ff:ff:ff:ff/128 dev eth0
-#${pkgs.iproute}/bin/ip -6 route add default via 2001:41d0:1004:16ff:ff:ff:ff:ff dev eth0'';
-    serviceConfig = {
-      ExecStart = "ping -6 google.com -c 2";
-      Type = "oneshot";
-    };
-  };
   networking.nameservers = [ "8.8.8.8" ];
 
   # make sure dirs exists
@@ -205,7 +177,7 @@ ip route add default via 164.132.202.254 dev eth0 && hasNetwork=1
   # auto update/garbage collector
   system.autoUpgrade.enable = true;
   nix.gc.automatic = true;
-  nix.gc.options = "--delete-older-than 30d";
+  nix.gc.options = "--delete-older-than 14d";
 
   # fix tar gz error in autoupdate
   systemd.services.nixos-upgrade.path = with pkgs; [  gnutar xz.bin gzip config.nix.package.out ];
@@ -234,5 +206,5 @@ ip route add default via 164.132.202.254 dev eth0 && hasNetwork=1
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "19.09";
+  system.stateVersion = "20.03";
 }
