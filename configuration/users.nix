@@ -2,7 +2,7 @@
 
 let
   secrets = import /etc/nixos/secrets.nix;
-  manager = import ./manager { pkgs = pkgs; };
+  manager = import ./manager { pkgs = pkgs; lib = lib; };
 in {
   imports = [
   ];
