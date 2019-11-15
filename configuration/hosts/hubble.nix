@@ -164,7 +164,13 @@ in {
   services.nginx.virtualHosts."buenentechnik.kloenk.de" = {
     enableACME = true;
     forceSSL = true;
-    locations."/".proxyPass = "http://127.0.0.1:3004/";
+    locations."/".proxyPass = "http://127.0.0.1:3005/";
+  };
+
+  services.nginx.virtualHosts."punkte.kloenk.de" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/".proxyPass = "http://127.0.0.1:3006/";
   };
 
   # mosh
