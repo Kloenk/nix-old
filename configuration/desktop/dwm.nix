@@ -24,5 +24,9 @@ in {
     };
 
     fonts.fonts = with pkgs; [ noto-fonts noto-fonts-emoji source-code-pro ];
-    programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
+    programs.gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+      pinentryFlavor = "gtk2";
+    };
 }
