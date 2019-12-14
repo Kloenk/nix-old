@@ -8,6 +8,7 @@ in {
     ../users.nix
     ../ssh.nix
     ../desktop/dwm.nix
+    ../desktop/sway.nix
     ../desktop/applications.nix
     ../desktop/multimon.nix
     ../desktop/spotifyd.nix
