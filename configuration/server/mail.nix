@@ -90,6 +90,9 @@ in {
 
           "eljoy@kloenk.de" = {
               hashedPassword = secrets.mail.eljoy;
+              aliases = [
+                "eljoy2@kloenk.de"
+              ];
           };
 
           "noreply-punkte@kloenk.de" = {
