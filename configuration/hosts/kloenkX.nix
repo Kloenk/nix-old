@@ -150,6 +150,7 @@ in {
   networking.wireless.enable = true;
   networking.wireless.interfaces = [ "wlp2s0" ];
   networking.wireless.networks = secrets.wifiNetworks;
+  networking.wireless.userControlled.enable = true;
   networking.extraHosts = ''
     172.16.0.1 airlink.local unit.local
     192.168.43.2  git.yougen.de grafana.yougen.de netbox.yougen.de
