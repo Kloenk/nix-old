@@ -48,6 +48,9 @@
     mkpasswd
     lxappearance-gtk3
     dino
+    spotify-tui
+
+    onefetch
 
     # java
     jre8_headless
@@ -62,6 +65,9 @@
     sxiv
     feh
     rofi-pass
+    xclip
+    xorg.xmodmap
+    
 
     # audio
     audacity
@@ -75,6 +81,7 @@
 
     # web browser
     firefox
+    qutebrowser
   ];
 
 

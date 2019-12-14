@@ -11,12 +11,26 @@
   '';
 
   users.users.kloenk.packages = with pkgs; [
+    (redshift.overrideAttrs (oldAttrs: {  # wayland redshift
+      src = pkgs.fetchFromGitHub {
+        owner = "minus7";
+        repo = "redshift";
+        rev = "eecbfedac48f827e96ad5e151de8f41f6cd3af66";
+        sha256 = "0rs9bxxrw4wscf4a8yl776a8g880m5gcm75q06yx2cn3lw2b7v22";
+      };
+    }))
     wofi
     mako
     waybar
+    swaylock
+    brightnessctl
   ];
+
+  fonts.fonts = with pkgs; [ dejavu_fonts liberation_ttf noto-fonts noto-fonts-emoji font-awesome_4 ];
 
   home-manager.users.kloenk = {
     xdg.configFile."sway/config".source = ./config.sway;
+    xdg.configFile."waybar/config".source = ./config.waybar;
+    xdg.configFile."waybar/style.css".source = ./style.waybar;
   };
 }
