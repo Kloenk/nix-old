@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  networking.firewall.interface."docker0" = {
+  networking.firewall.interfaces."docker0" = {
     allowedTCPPortRanges = [ { from = 1; to = 65534; } ];
     allowedUDPPortRanges = [ { from = 1; to = 65534; } ];
   };
