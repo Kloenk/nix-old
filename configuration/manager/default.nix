@@ -234,9 +234,6 @@ let
       defaultCacheTtl = 300; # 5 min
       defaultCacheTtlSsh = 600; # 10 min
       maxCacheTtl = 7200; # 2h
-      extraConfig = ''
-        pinentry-program ${pkgs.pinentry-gtk2}/bin/pinentry-gtk-2
-      '';
     };
   } manager-dwm.services;
 
