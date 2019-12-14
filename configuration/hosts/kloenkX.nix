@@ -195,9 +195,9 @@ in {
     collectd ALL=(root) NOPASSWD: ${pkgs.wireguard-tools}/bin/wg show all transfer
   '';
 
-  services.fprintd.enable = true;
-  security.pam.services.login.fprintAuth = true;
-  security.pam.services.xtrlock-pam.fprintAuth = true;
+  #services.fprintd.enable = true;
+  #security.pam.services.login.fprintAuth = true;
+  #security.pam.services.xtrlock-pam.fprintAuth = true;
 
   services.collectd2.extraConfig = ''
     LoadPlugin exec
@@ -226,6 +226,9 @@ in {
     davfs2
     geogebra
     gtk-engine-murrine
+    tango-icon-theme
+    breeze-icons
+    gnome3.adwaita-icon-theme
   ];
 
   services.xserver.wacom.enable = true;
@@ -290,7 +293,12 @@ in {
     "libvirtd" # libvirt group
   ];
 
+  # ssh key from yg-adminpc
+  users.users.kloenk.openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPhvJ6hdf4pgsFl8c5lMuDAzUVmJwtSY/O66nDDRAK6J kloenk@adminpc" ];
+
   services.udev.packages = [ pkgs.openocd ];
+
+  services.dbus.socketActivated = true;
 
   services.pcscd.enable = true;
   #services.pcscd.plugins = with pkgs; [ ccid pcsc-cyberjack ];
