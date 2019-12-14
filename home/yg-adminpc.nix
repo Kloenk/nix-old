@@ -3,7 +3,7 @@
 }:
 
 let
-  manager = import ../configuration/manager { pkgs = pkgs; dwm = true; };
+  manager = import ../configuration/manager { pkgs = pkgs; lib = lib; dwm = true; };
 in {
   nixpkgs.overlays = [
     (self: super: import ../pkgs { inherit super; })
