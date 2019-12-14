@@ -14,6 +14,7 @@ in {
     ../../default.nix
     ../users.nix
     ../ssh.nix
+    ../server/sshguard.nix
     ../collectd.nix
 
     ../server/common/nginx-common.nix
@@ -94,6 +95,7 @@ in {
 
   networking.firewall.allowedTCPPorts = [ 9092 ];
 
+  services.openssh.passwordAuthentication = false;
 
   networking.hostName = "hubble";
   networking.dhcpcd.enable = false;
@@ -167,10 +169,22 @@ in {
     locations."/".proxyPass = "http://127.0.0.1:3005/";
   };
 
+  services.nginx.virtualHosts."buehnentechnik.kloenk.de" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/".proxyPass = "http://127.0.0.1:3305/";
+  };
+
   services.nginx.virtualHosts."punkte.kloenk.de" = {
     enableACME = true;
     forceSSL = true;
     locations."/".proxyPass = "http://127.0.0.1:3006/";
+  };
+  
+  services.nginx.virtualHosts."punkte.landratlucas.de" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/".proxyPass = "http://127.0.0.1:3306/";
   };
 
   # mosh
