@@ -8,6 +8,7 @@ in {
     ../users.nix
     ../ssh.nix
     ../desktop/dwm.nix
+    ../desktop/sway.nix
     ../desktop/applications.nix
     ../desktop/spotifyd.nix
     ../collectd.nix
@@ -89,6 +90,9 @@ in {
   networking.nameservers = [ "192.168.178.248" "1.0.0.1" ];
   networking.search = [ "fritz.box" "internal.kloenk.de" ];
 
+  # disable firewall
+  networking.firewall.enable = false;
+
   networking.firewall.interfaces."wg0" = {
     allowedTCPPortRanges = [ { from = 1; to = 65534; } ];
     allowedUDPPortRanges = [ { from = 1; to = 65534; } ];
@@ -126,6 +130,8 @@ in {
     # steam
     steam
     steamcontroller    
+
+    barrier
 
     # minecraft
     multimc
@@ -176,5 +182,5 @@ in {
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "19.09";
+  system.stateVersion = "20.03";
 }
