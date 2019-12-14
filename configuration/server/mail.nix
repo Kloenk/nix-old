@@ -47,9 +47,6 @@ in {
               ];
           };
 
-          "beddiesInvestments@kloenk.de" = {
-            hashedPassword = secrets.mail.beddiesInvestments;
-          };
 
           "finn@kloenk.de" = {
               hashedPassword = secrets.mail.finn;
@@ -87,14 +84,26 @@ in {
               hashedPassword = secrets.mail.gitlab;
           };
 
+          "lkml@kloenk.de" = {
+              hashedPassword = secrets.mail.lkml;
+          };
+
+          "eljoy@kloenk.de" = {
+              hashedPassword = secrets.mail.eljoy;
+          };
+
+          "noreply-punkte@kloenk.de" = {
+            hashedPassword = secrets.mail.nrpunkte;
+          };
+
           "ad@kloenk.de" = {
               hashedPassword = secrets.mail.ad;
 
               aliases = [
                   "llgcompanion@kloenk.de"
-                  "lkml@kloenk.de"
                   "telegram@kloenk.de"
                   "fff@kloenk.de"
+                  "punkte@kloenk.de"
               ];
 
               catchAll = [
