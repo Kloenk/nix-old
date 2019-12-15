@@ -119,6 +119,9 @@ in {
     config.source("${jblock}/jblock/integrations/qutebrowser.py")
   '';
 
+  home-manager.users.kloenk.home.packages = [ pkgs.kitty ];
+  home-manager.users.kloenk.xdg.configFile."kitty/kitty.conf".source = ./kitty.conf;
+
   sound.enable = true;
   hardware.pulseaudio = {
     enable = true;

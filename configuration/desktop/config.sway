@@ -20,16 +20,6 @@ set $term kitty
 set $menu wofi --show drun | xargs swaymsg exec --
 set $menu-pass rofi-pass
 
-### Output configuration
-#
-# Default wallpaper
-#output * bg ~/.config/sway/backgrounds/Sway_Wallpaper_Blue_1920x1080.png fill
-#
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
 
 ### Idle configuration
 #
@@ -210,7 +200,7 @@ bindsym XF86MonBrightnessUp exec brightnessctl set +2%
 #bindsym $mod+f exec telegram-desktop;
 bindsym $mod+q exec qutebrowser
 
-bindsym $mod+z exec swaylock -i ~/.wallpaper-imag
+bindsym $mod+z exec swaylock -i ~/.wallpaper-image
 
 #
 # Status Bar:

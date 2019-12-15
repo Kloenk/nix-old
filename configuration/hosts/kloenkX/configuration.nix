@@ -4,141 +4,21 @@ let
   #secrets = import /etc/nixos/secrets.nix;
 in {
   imports = [
+    ./hardware-configuration.nix
+    ./wireguard.nix
+
     ../../default.nix
-    ../../common/users.nix
-    ../../common/ssh.nix
+    ../../common
     ../../desktop/sway.nix
-    ../../desktop/applications.nix
+    ../../desktop
     #../desktop/spotifyd.nix
-    ../../desktop/kitty.nix
     #../../common/collectd.nix
 
-    # fallback for detection
-    <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
   ];
 
-  environment.variables.NIX_PATH = lib.mkForce "/var/source";
-
-  hardware.cpu.intel.updateMicrocode = true;
-
-  #boot.loader.systemd-boot.enable = true;
-  #boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "nodev";
-  boot.loader.grub.splashImage = ../../boot.png;
-
-  # f2fs support
-  boot.supportedFilesystems = [ "f2fs" "ext2" "nfs" "cifs" ];
-
-  # taken from hardware-configuration.nix
-  boot.initrd.availableKernelModules = [
-   "i915"         # fixes coreboot stage 1 graphics
-   "aes_x86_64"
-   "aesni_intel"
-   "cryptd"
-   "xhci_pci"
-   "ehci_pci"
-   "ahci"
-   "usb_storage"
-   "sd_mod"
-   "sdhci_pci"
-  ];
-  boot.kernelModules = [ "kvm-intel" "acpi_call" ];
-  boot.extraModulePackages = [
-    config.boot.kernelPackages.acpi_call
-    config.boot.kernelPackages.tp_smapi
-    config.boot.kernelPackages.wireguard
-  ];
-
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/b08058b8-9449-4ca7-9c75-d3951f9f6cbc";
-      fsType = "f2fs";
-    };
-
-  boot.initrd.luks.reusePassphrases = true;
-  boot.initrd.luks.devices."cryptRoot" = {
-    allowDiscards = true;
-    device = "/dev/disk/by-uuid/1459400b-e15a-4fc0-87a1-d03ae5cbd337";
-  };
-  boot.initrd.luks.devices."cryptHome" = {
-    allowDiscards = true;
-    device = "/dev/disk/by-uuid/685221e0-dbeb-4d1a-bbef-990f0193c0b8";
-  };
-
-  fileSystems."/boot"  = {
-
-    device = "/dev/disk/by-uuid/9f05583b-9bc4-4be3-8e1c-9bb1e7dc5240";
-    fsType = "ext2";
-  };
-
-  fileSystems."/home" = {
-    device = "/dev/mapper/cryptHome";
-    fsType = "f2fs";
-  };
-
-  # nfs foo
-  fileSystems."/export/home" = {
-    device = "/home";
-    options = [ "bind" ];
-  };
-
-  fileSystems."/export/kloenk" = {
-    device = "/home/kloenk";
-    options = [ "bind" ];
-  };
+  environment.variables.NIX_PATH = lib.mkForce "/var/src";
 
   services.logind.lidSwitchDocked = "ignore";
-
-  services.nfs.server.enable = true;
-  services.nfs.server.exports = ''
-    /export		192.168.178.65(rw,fsid=0,no_subtree_check) 192.168.178.245(rw,fsid=0,no_subtree_check) 192.168.178.171(rw,fsid=0,no_subtree_check)
-    /export/home 	192.168.178.65(rw,no_subtree_check,no_root_squash) 192.168.178.171(rw,no_subtree_check,no_root_squash)
-    /export/kloenk	192.168.178.65(rw,no_subtree_check,no_root_squash) 192.168.178.171(rw,no_subtree_check,no_root_squash)
-  '';
-  services.nfs.server.mountdPort = 4002;
-  services.nfs.server.lockdPort = 4001;
-  services.nfs.server.statdPort = 4000;
-  
-  networking.firewall.allowedUDPPorts = [
-    4000 # statd
-    4001 # lockd
-    4002 # mountd
-    111
-    2049
-    24800
-  ];
-  networking.firewall.allowedTCPPorts = [
-    4000 # statd
-    4001 # lockd
-    4002 # mountd
-    111
-    2049
-    24800
-  ];
-
-  swapDevices = [
-    { device = "/dev/disk/by-id/ata-SAMSUNG_SSD_PM871_mSATA_128GB_S20FNXAGC19931-part3"; randomEncryption= { enable = true; source = "/dev/random"; }; }
-  ];
-
-  nix.maxJobs = lib.mkDefault 4;
-  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
-  # set battery threshold (not supported by coreboot)
-  #powerManagement.powerUpCommands = "${pkgs.tlp}/bin/tlp setcharge 70 90 bat0";
-  systemd.services.coreboot-battery-threshold = {
-    serviceConfig.Type = "oneshot";
-    wantedBy = [ "multi-user.target" ];
-    path = with pkgs; [ ectool ];
-    script = ''
-      ectool -w 0xb0 -z 0x46
-      ectool -w 0xb1 -z 0x5a
-    '';
-  };
-  # enable autotune for linux with powertop (intel)
-  #powerManagement.powertop.enable = true; # auto tune software
-
-  boot.consoleLogLevel = 0;
-  boot.kernelParams = [ "quiet" ];
-  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.tmpOnTmpfs = true;
 
@@ -152,43 +32,13 @@ in {
     192.168.43.2  git.yougen.de grafana.yougen.de netbox.yougen.de
     192.168.42.6 kloenkX.kloenk.de
   '';
-  #systemd.services.dhcpcd.serviceConfig.ExecStart = lib.mkForce "@${pkgs.dhcpcd}/sbin/dhcpcd dhcpcd -b -q -A -z wlp3s0";
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
 
   networking.bonds."bond0" = {
     interfaces = [ "eno0" "wlp2s0" ];
   };
 
-  networking.firewall.interfaces."wg0" = {
-    allowedTCPPortRanges = [ { from = 1; to = 65534; } ];
-    allowedUDPPortRanges = [ { from = 1; to = 65534; } ];
-  };
-  networking.wireguard.interfaces = {
-    wg0 = {
-      ips = [ "192.168.42.6/24" "2001:41d0:1004:1629:1337:187:1:6/120" ];
-      privateKeyFile = "/etc/nixos/secrets/wg0.key";
-      peers = [ 
-        {
-          publicKey = "MUsPCkTKHBGvCI62CevFs6Wve+cXBLQIl/C3rW3PbVM=";
-          allowedIPs = [ "192.168.42.0/24" "2001:41d0:1004:1629:1337:187:1:0/120" "2001:41d0:1004:1629:1337:187:0:1/128" ];
-          endpoint = "51.254.249.187:51820";
-          persistentKeepalive = 21;
-          presharedKeyFile = "/etc/nixos/secrets/wg0.psk";
-        }
-      ];
-    };
-    llg0 = {
-      ips = [ "192.168.43.10" "2001:41d0:1004:1629:1337:187:43:10/120" ];
-      privateKeyFile = "/etc/nixos/secrets/llg0.key";
-      peers = [ {
-        publicKey = "Ll0Zb5I3L8H4WCzowkh13REiXcxmoTgSKi01NrzKiCM=";
-        allowedIPs = [ "192.168.43.0/24" "2001:41d0:1004:1629:1337:187:43:0/120" "10.1.0.0/16" ];
-        endpoint = "51.254.249.187:51822";
-        persistentKeepalive = 21;
-        presharedKeyFile = "/etc/nixos/secrets/llg0.psk";
-      } ];
-    };
-  };
+  
 
   security.sudo.extraConfig = ''
     collectd ALL=(root) NOPASSWD: ${pkgs.wireguard-tools}/bin/wg show all transfer
@@ -251,6 +101,7 @@ in {
 
   #services.logind.lidSwitch = "ignore";
   services.tlp.enable = true;
+  users.users.kloenk.initialPassword = "foobaar";
   users.users.kloenk.packages = with pkgs; [
     lm_sensors
     tpacpi-bat

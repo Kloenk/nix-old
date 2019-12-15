@@ -1,10 +1,28 @@
 { config, pkgs, lib, ... }:
 
-let
-  #secrets = import <secrets>;
-in {
+{
   imports = [
+    <modules>
+    <sources/home-manager/nixos>
   ];
+
+  nixpkgs.overlays = [
+    (self: super: import <pkgs> { pkgs = super; })
+  ];
+
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+  nix.gc.automatic = lib.mkDefault true;
+  nix.gc.options = lib.mkDefault "--delete-older-than 7d";
+  nix.trustedUsers = [ "root" "@wheel" ];
+
+  services.openssh.enable = true;
+  services.openssh.ports = [ 62954 ];
+  services.openssh.passwordAuthentication = lib.mkDefault false;
+  services.openssh.challengeResponseAuthentication = false;
+  services.openssh.permitRootLogin = lib.mkDefault "no";
+  services.vnstat.enable = lib.mkDefault true;
+  security.sudo.wheelNeedsPassword = false;
+
   i18n = {
     consoleFont = "Lat2-Terminus16";
     consoleKeyMap = "neo";
@@ -18,13 +36,12 @@ in {
     kitty.terminfo
     rxvt_unicode.terminfo
     restic
+    tmux
+    exa
   ];
-
-  security.sudo.wheelNeedsPassword = false;
 
   environment.variables.EDITOR = "vim";
 
-  users.mutableUsers = true; # disallow change of users by user
   users.users.kloenk = {
     isNormalUser = true;
     uid = 1000;
@@ -34,7 +51,9 @@ in {
       "libvirt"
     ];
     shell = pkgs.fish;
-    initialPassword = "foobaar";
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIISCKsWIhN2UBenk0kJ1Hnc+fCZC/94l6bX9C4KFyKZN cardno:FFFE43212945"
+    ];
     packages = with pkgs; [
       wget
       vim
@@ -67,9 +86,7 @@ in {
       gopass
       neofetch
       sl
-      exa
       todo-txt-cli
-      #llvmPackages.bintools
     ];
   };
 
@@ -217,6 +234,12 @@ in {
         maxCacheTtl = 7200; # 2h
       };
     };
+  };
+
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+    pinentryFlavor = "gtk2";
   };
 
   programs.fish.enable = true;
