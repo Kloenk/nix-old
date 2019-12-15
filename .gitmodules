@@ -7,3 +7,9 @@
 [submodule "home-manager"]
 	path = home-manager
 	url = https://github.com/Kloenk/home-manager.git
+[submodule "sources/jblock"]
+	path = sources/jblock
+	url = https://gitlab.com/jgkamat/jblock.git
+[submodule "secrets"]
+	path = secrets
+	url = git@git.kloenk.de:kloenk/pass.git
