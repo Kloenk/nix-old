@@ -12,7 +12,7 @@ in {
     ../../desktop/sway.nix
     ../../desktop
     #../desktop/spotifyd.nix
-    #../../common/collectd.nix
+    ../../common/collectd.nix
 
   ];
 
@@ -39,11 +39,6 @@ in {
   };
 
   
-
-  security.sudo.extraConfig = ''
-    collectd ALL=(root) NOPASSWD: ${pkgs.wireguard-tools}/bin/wg show all transfer
-  '';
-
   #services.fprintd.enable = true;
   #security.pam.services.login.fprintAuth = true;
   #security.pam.services.xtrlock-pam.fprintAuth = true;
@@ -52,6 +47,11 @@ in {
   services.printing.enable = true;
   services.avahi.enable = true;
 
+
+  #security.sudo.extraConfig = ''
+  #  collectd ALL=(root) NOPASSWD: ${pkgs.wireguard-tools}/bin/wg show all transfer
+  #'';
+#
   #services.collectd2.extraConfig = ''
   #  LoadPlugin exec
 #
@@ -59,6 +59,20 @@ in {
   #    Exec collectd "${pkgs.collectd-wireguard}/bin/collectd-wireguard"
   #  </Plugin>
   #'';
+  systemd.services.collectd.serviceConfig.AmbientCapabilities = [
+    "cap_net_raw"
+  ];
+
+  # write to collect server
+  services.collectd2.plugins = {
+    network.options.Server = "51.254.249.187";
+    sensors.hasConfig = false;
+    processes.hasConfig = false;
+    virt.options = {
+      Connection = "qemu:///system";
+      HostnameFormat = "name";
+    };
+  };
 
   nixpkgs.config.allowUnfree = true;
 
@@ -166,17 +180,6 @@ in {
     Enable=Source,Sink,Media,Socket
   ";
   hardware.pulseaudio.zeroconf.discovery.enable = true;
-
-  # write to collect server
-  #services.collectd2.plugins = {
-  #  network.options.Server = "51.254.249.187";
-  #  sensors.hasConfig = false;
-  #  processes.hasConfig = false;
-  #  virt.options = {
-  #    Connection = "qemu:///system";
-  #    HostnameFormat = "name";
-  #  };
-  #};
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
