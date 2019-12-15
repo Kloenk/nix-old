@@ -1,10 +1,11 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
-{
+let
+  jblock = <sources/jblock>;
+in {
   home-manager.useUserPackages = true;
 
   users.users.kloenk.packages = with pkgs; [
-    arandr
     flameshot
     rustup
     gcc
@@ -13,16 +14,8 @@
     python3
 
     gnupg
-    xournal
-    ansible
-    arcanist
-    ncat
-    pwgen
-    mpc_cli
     powertop
     qemu
-    gnome3.gnome-clocks
-    gnome3.quadrapassel
     imagemagick
     gimp
     inkscape
@@ -35,15 +28,13 @@
     tdesktop
     evince
     youtubeDL
-    #mumble
     calcurse
     neomutt
     bind # for dig
     screen # for usb serial
     pass-otp
     mosh
-    chromium
-    #libreoffice
+    libreoffice
     blueman
     mkpasswd
     lxappearance-gtk3
@@ -111,6 +102,22 @@
 
 
   home-manager.users.kloenk.home.file.".config/VSCodium/User/settings.json".source = ./code-settings.json;
+  home-manager.users.kloenk.home.file.".config/qutebrowser/config.py".text = ''
+    config.bind('p', 'spawn --userscript qute-pass --dmenu-invocation "wofi --show dmenu"')
+    config.bind('P', 'spawn --userscript qute-pass --otp-only --dmenu-invocation "wofi --show dmenu"')
+    config.bind('m', 'spawn mpv {url}')
+    config.bind('M', 'hint links spawn mpv {hint-url}')
+
+    c.content.host_blocking.enabled = False
+    c.content.host_blocking.lists = [
+      'https://easylist.to/easylist/easylist.txt',
+      'https://easylist.to/easylist/easyprivacy.txt'
+    ]
+
+    import sys, os
+    sys.path.append(os.path.join(sys.path[0], '${jblock}'))
+    config.source("${jblock}/jblock/integrations/qutebrowser.py")
+  '';
 
   sound.enable = true;
   hardware.pulseaudio = {

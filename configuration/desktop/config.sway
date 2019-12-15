@@ -210,7 +210,7 @@ bindsym XF86MonBrightnessUp exec brightnessctl set +2%
 #bindsym $mod+f exec telegram-desktop;
 bindsym $mod+q exec qutebrowser
 
-bindsym $mod+z exec swaylock
+bindsym $mod+z exec swaylock -i ~/.wallpaper-imag
 
 #
 # Status Bar:
