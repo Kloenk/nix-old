@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  secrets = import /etc/nixos/secrets.nix;
+  secrets = import <secrets/grafana.nix>;
 in {
     services.prometheus = {
         enable = true;
@@ -40,22 +40,22 @@ in {
 
         analytics.reporting.enable = false;
         rootUrl = "https://grafana.kloenk.de/";
-        security.secretKey = secrets.grafana.signingKey;
+        security.secretKey = secrets.signingKey;
         security.adminUser = "kloenk";
-        security.adminPassword = secrets.grafana.adminPassword;
+        security.adminPassword = secrets.adminPassword;
 
         database = {
             type = "postgres";
             host = "127.0.0.1:5432";
             user = "grafana";
-            password = secrets.postgres.grafana;
+            password = "foobar";
         };
 
         smtp = {
             enable = true;
             fromAddress = "grafana@kloenk.de";
             user = "grafana@kloenk.de";
-            passwordFile = "/etc/nixos/secrets/grafana-mail.password";
+            passwordFile = toString <secrets/grafana.mail>;
         };
     };
 

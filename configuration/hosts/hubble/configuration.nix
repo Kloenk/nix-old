@@ -4,81 +4,37 @@
 #  - /var/vmail
 #  - /var/dkim
 
-
-
 let
-  secrets = import /etc/nixos/secrets.nix;
+  #secrets = import /etc/nixos/secrets.nix;
   netFace = "eth0";
 in {
   imports = [
-    ../../default.nix
-    ../users.nix
-    ../ssh.nix
-    ../server/sshguard.nix
-    ../collectd.nix
+    ./hardware-configuration.nix
+    ./wireguard.nix # TODO
 
-    ../server/common/nginx-common.nix
-    ../server/wireguard.nix
-    ../server/named-hubble.nix
-    ../server/docker.nix
-    #../server/gitlab.nix
-    ../server/gitea.nix
-    ../server/mail.nix
-    ../server/monitoring.nix
-    ../server/postgres.nix
-    ../server/quassel.nix
-    ../server/deluge.nix
-    #../server/minecraft.nix
-    #../server/codimd.nix
-    #../server/firefox.nix
-    #../server/llgcompanion.nix
+    #./sshguard.nix
+    ./dns.nix
+    ./gitea.nix
+    ./mail.nix
+    ./monitoring.nix
+    ./postgres.nix
+    ./quassel.nix
+    ./deluge.nix
+
+    ../../default.nix
+    ../../common
+    ../../common/collectd.nix
+
+    ../../nginx-common.nix
 
     # fallback for detection
     <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
   ];
-  swapDevices = [ { device = "/dev/vda2"; randomEncryption = { enable = true; source = "/dev/random"; }; } ]; # change
 
-  boot.supportedFilesystems = [ "f2fs" "ext4" "ext2" ];
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  boot.loader.grub.device = "/dev/vdb"; # change
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.extraModulePackages = [
-    config.boot.kernelPackages.wireguard
-  ];
+  environment.variables.NIX_PATH = lib.mkForce "/var/src";
+  
+  boot.tmpOnTmpfs = true;
 
-  # taken from hardware-configuration.nix
-  boot.initrd.availableKernelModules = [
-   "virtio-pci"  # network in initrd
-   "aes_x86_64"
-   "aesni_intel"
-   "cryptd"
-   "ata_piix"
-   "uhci_hcd"
-   "virtio_pci"
-   "sr_mod"
-   "virtio_blk"
-  ];
-  nix.maxJobs = lib.mkDefault 8;
-
-  fileSystems."/" = {
-    device = "/dev/mapper/cryptRoot";
-    fsType = "ext4";
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/vdb1";
-    fsType = "ext2";
-  };
-
-  fileSystems."/ssd" = {
-    device = "/dev/mapper/cryptData";
-    fsType = "f2fs";
-  };
-
-  boot.initrd.luks.reusePassphrases = true;
-  boot.initrd.luks.devices."cryptData".device = "/dev/vdb2";
-  boot.initrd.luks.devices."cryptRoot".device = "/dev/vda1"; # change
   boot.initrd.network.enable = true;
   boot.initrd.network.ssh = {
     enable = true;
@@ -95,15 +51,9 @@ in {
 
   networking.firewall.allowedTCPPorts = [ 9092 ];
 
-  services.openssh.passwordAuthentication = false;
-
   networking.hostName = "hubble";
   networking.dhcpcd.enable = false;
   networking.useDHCP = false;
-#  powerManagement.powerUpCommands = ''
-#${pkgs.iproute}/bin/ip -6 addr add 2001:41d0:1004:1629:1337:0187::/112 dev eth0
-#${pkgs.iproute}/bin/ip -6 route add 2001:41d0:1004:16ff:ff:ff:ff:ff/128 dev eth0
-#${pkgs.iproute}/bin/ip -6 route add default via 2001:41d0:1004:16ff:ff:ff:ff:ff dev eth0'';
   networking.nameservers = [ "8.8.8.8" ];
 
   # make sure dirs exists
@@ -193,6 +143,16 @@ in {
   
 
   services.vnstat.enable = true;
+
+  # enable docker
+  networking.firewall.interfaces."docker0" = {
+    allowedTCPPortRanges = [ { from = 1; to = 65534; } ];
+    allowedUDPPortRanges = [ { from = 1; to = 65534; } ];
+  };
+
+  virtualisation.docker.enable = true;
+  users.users.kloenk.extraGroups = [ "docker" ];
+  users.users.kloenk.packages = [ pkgs.docker ];
 
   # auto update/garbage collector
   system.autoUpgrade.enable = true;

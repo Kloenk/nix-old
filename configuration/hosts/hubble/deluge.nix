@@ -4,7 +4,7 @@
   services.deluge2 = {
     enable = true;
     configureNginx = true;
-    downloadsBasicAuthFile = "/etc/nixos/secrets/downloadsBasicAuthFile.deluge";
+    downloadsBasicAuthFile = toString <secrets/BasicAuth.deluge>;
     web.enable = true;
     hostName = "kloenk.de";
   };

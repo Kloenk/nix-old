@@ -13,3 +13,6 @@
 [submodule "sources/home-manager"]
 	path = sources/home-manager
 	url = https://github.com/rycee/home-manager
+[submodule "sources/nixos-mailserver"]
+	path = sources/nixos-mailserver
+	url = https://gitlab.com/simple-nixos-mailserver/nixos-mailserver.git

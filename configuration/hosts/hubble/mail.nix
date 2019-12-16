@@ -1,7 +1,7 @@
 { ... }:
 
 let
-  secrets = import /etc/nixos/secrets.nix;
+  secrets = import <secrets/mail.nix>;
 
 in {
   fileSystems."/var/vmail" = {
@@ -10,12 +10,13 @@ in {
   };
 
   imports = [
-    (builtins.fetchTarball "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/v2.2.1/nixos-mailserver-v2.2.1.tar.gz")
+    #(builtins.fetchTarball "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/v2.2.1/nixos-mailserver-v2.2.1.tar.gz")
+    <sources/nixos-mailserver>
   ];
 
   networking.firewall.allowedTCPPorts = [ 143 587 25 465 993 ];
 
-  services.postfix.submissionOptions.smtpd_tls_wrappermode = "yes";
+  services.postfix.submissionOptions.smtpd_tls_wrappermode = "yes"; # fixme?
 
   mailserver = {
       enable = true;
@@ -25,7 +26,7 @@ in {
 
       loginAccounts = {
           "kloenk@kloenk.de" = {
-              hashedPassword = secrets.mail.kloenk;
+              hashedPassword = secrets.kloenk;
 
               aliases = [ 
                   "admin@kloenk.de"
@@ -49,7 +50,7 @@ in {
 
 
           "finn@kloenk.de" = {
-              hashedPassword = secrets.mail.finn;
+              hashedPassword = secrets.finn;
 
               aliases = [
                   "finn.behrens@kloenk.de"
@@ -59,7 +60,7 @@ in {
           };
 
           "chaos@kloenk.de" = {
-              hashedPassword = secrets.mail.chaos;
+              hashedPassword = secrets.chaos;
 
               aliases = [
                   "35c3@kloenk.de"
@@ -69,38 +70,38 @@ in {
           };
 
           "schule@kloenk.de" = {
-              hashedPassword = secrets.mail.schule;
+              hashedPassword = secrets.schule;
           };
 
           "yougen@kloenk.de" = {
-              hashedPassword = secrets.mail.yougen;
+              hashedPassword = secrets.yougen;
           };
 
           "grafana@kloenk.de" = {
-              hashedPassword = secrets.mail.grafana;
+              hashedPassword = secrets.grafana;
           };
 
           "gitlab@kloenk.de" = {
-              hashedPassword = secrets.mail.gitlab;
+              hashedPassword = secrets.gitlab;
           };
 
           "lkml@kloenk.de" = {
-              hashedPassword = secrets.mail.lkml;
+              hashedPassword = secrets.lkml;
           };
 
           "eljoy@kloenk.de" = {
-              hashedPassword = secrets.mail.eljoy;
+              hashedPassword = secrets.eljoy;
               aliases = [
                 "eljoy2@kloenk.de"
               ];
           };
 
           "noreply-punkte@kloenk.de" = {
-            hashedPassword = secrets.mail.nrpunkte;
+            hashedPassword = secrets.nrpunkte;
           };
 
           "ad@kloenk.de" = {
-              hashedPassword = secrets.mail.ad;
+              hashedPassword = secrets.ad;
 
               aliases = [
                   "llgcompanion@kloenk.de"
@@ -116,7 +117,7 @@ in {
           };
 
           "drachensegler@drachensegler.kloenk.de" = {
-              hashedPassword = secrets.mail.drachensegler;
+              hashedPassword = secrets.drachensegler;
 
               aliases = [
                   "drachensegler@kloenk.de"
@@ -132,11 +133,11 @@ in {
           };
 
           "git@kloenk.de" = {
-              hashedPassword = secrets.mail.git;
+              hashedPassword = secrets.git;
           };
 
           "information@kloenk.de" = {
-              hashedPassword = secrets.mail.information;
+              hashedPassword = secrets.information;
           };
       };
 
