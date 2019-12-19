@@ -25,4 +25,11 @@
     CREATE DATABASE grafana;
     GRANT ALL PRIVILEGES ON DATABASE grafana TO grafana;
   '';
+
+  systemd.services.postgres.serviceConfig.TimeoutSec = 600;
+
+  systemd.services.quassel.after = [ "postgresql.service" ];
+  systemd.services.gitea.after = [ "postgresql.service" ];
+  systemd.services.grafana.after = [ "postgresql.service" ];
+
 }

@@ -8,7 +8,7 @@ in {
   system.activationScripts = {
     gitea-repositories = {
       text = ''mkdir -p /data/gitea/repositories;
-      chown -R gitea:nogroup /data/gitea/repositories'';
+      chown -R gitea:gitea /data/gitea/repositories'';
       deps = [];
     };
   };
@@ -24,7 +24,7 @@ in {
 
   services.gitea = {
     enable = true;
-    stateDir = "/srv/gitea";
+    stateDir = "/data/gitea";
     log.level = "Warn";
     appName = "Kloenk's Gitea";
     domain = "git.kloenk.de";

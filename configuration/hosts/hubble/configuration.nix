@@ -32,6 +32,9 @@ in {
   ];
 
   environment.variables.NIX_PATH = lib.mkForce "/var/src";
+  nix.nixPath = lib.mkForce [
+    "/var/src"
+  ];
   
   boot.tmpOnTmpfs = true;
 

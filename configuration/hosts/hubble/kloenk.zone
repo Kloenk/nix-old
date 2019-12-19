@@ -1,6 +1,6 @@
 $TTL 1M
 @		SOA	ns1.kloenk.de. hostmaster.kloenk.de. (
-    2019112601	; serial (yyyymmdd##)
+    2019121801	; serial (yyyymmdd##)
     3600            ; refresh
     1000            ; retry
     604800          ; expiry
@@ -20,18 +20,18 @@ $TTL 1M
 		IN	MX	1	mail.kloenk.de.
 @		IN	MX	2	mail.kloenk.de.
 
-	TXT	"v=spf1 ip4:51.254.249.187 -all"
-_dmarc		TXT	"v=DMARC1; p=none"
+	TXT	"v=spf1 +a +mx ?all"
+_dmarc		TXT	"v=DMARC1;p=reject;pct=100;rua=mailto:postmaster@kloenk.de"
 
 ;drachensegler.kloenk.de.	IN	MX	1	mail.kloenk.de.
 drachensegler	IN	MX	1	mail.kloenk.de.
-drachensegler	TXT	"v=spf1 ip4:51.254.249.187 -all"
-_dmarc.drachensegler	TXT	"v=DMARC1; p=none"
+drachensegler	TXT	"v=spf1 +a +mx ?all"
+_dmarc.drachensegler	TXT	"v=DMARC1;p=reject;pct=100;rua=mailto:postmaster@kloenk.de"
 
 ;ad.kloenk.de.	IN	MX	1	mail.kloenk.de.
 ad		IN	MX	1	mail.kloenk.de.
-ad		TXT	"v=spf1 ip4:51.254.249.187 -all"
-_dmarc.ad	TXT	"v=DMARC1; p=none"
+ad		TXT	"v=spf1 +a +mx ?all"
+_dmarc.ad	TXT	"v=DMARC1;p=reject;pct=100;rua=mailto:postmaster@kloenk.de"
 
 mail		AAAA	2001:41d0:1004:1629:1337:0187::
 mail		A	51.254.249.187
@@ -75,24 +75,17 @@ firefox          AAAA    2001:41d0:1004:1629:1337:0187::
 quassel          A       51.254.249.187
 quassel          AAAA    2001:41d0:1004:1629:1337:0187::
 
-;internal	A	192.168.42.1
-;internal	AAAA	2001:41d0:1004:1629:1337:187:1:0
-;internal	AAAA	2001:41d0:1004:1629:1337:187:1:1
-;
-;
-;hubble.internal	A	192.168.42.1
-;hubble.internal	AAAA	2001:41d0:1004:1629:1337:187:1:0
-;hubble.internal	AAAA	2001:41d0:1004:1629:1337:187:1:1
-;
-;*.hubble.internal	A	192.168.42.1
-;*.hubble.internal	AAAA	2001:41d0:1004:1629:1337:187:1:0
-;*.hubble.internal	AAAA	2001:41d0:1004:1629:1337:187:1:1
-;
-;KloenkX.internal	A	192.168.42.6
-;KloenkX.internal	AAAA	2001:41d0:1004:1629:1337:187:1:6
-;
-;atom.internal	A	192.168.42.7
-;atom.internal	AAAA	2001:41d0:1004:1629:1337:187:1:7
+hubble			A		192.168.42.1
+hubble			AAAA	2001:41d0:1004:1629:1337:0187:1:0
+
+kloenkX			A 192.168.42.6
+kloenkX			AAAA 2001:41d0:1004:1629:1337:187:1:6
+
+titan			A	192.168.42.3
+titan			AAAA 2001:41d0:1004:1629:1337:187:1:3
+
+atom		A	192.168.42.7
+atom		AAAA 2001:41d0:1004:1629:1337:187:1:7
 
 ; ftb server
 _minecraft._tcp.ftb	SRV	1	1	25565	144.76.19.168

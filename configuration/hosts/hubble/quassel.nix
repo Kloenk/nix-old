@@ -30,5 +30,5 @@
 
   security.acme.certs."kloenk.de".postRun = "systemcdl restart quassel-cert";
 
-  systemd.services.quassel.after = [ "postgresql.service" "quassel-cert" ];
+  systemd.services.quassel.after = [ "quassel-cert" ];
 }

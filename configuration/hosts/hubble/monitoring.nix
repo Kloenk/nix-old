@@ -9,6 +9,23 @@ in {
         globalConfig.scrape_interval = "10s";
 
         exporters = {
+            node.enable = true;
+            #node.enabledCollectors = [ "systemd" ];
+
+            postfix.enable = true;
+            postfix.systemd.enable = true;
+
+            postgres.enable = true;
+
+            rspamd.enable = true;
+
+            wireguard.enable = true;
+
+            bind.enable = true;
+
+            dovecot.enable = true;
+
+            #nginx.enable = true;
         };
 
         scrapeConfigs = [
@@ -29,6 +46,58 @@ in {
                 static_configs = [ { targets = [
                     "127.0.0.1:9103" 
                 ] ; } ];
+            }
+            {
+                job_name = "exporter-node";
+                static_configs = [ { targets = [
+                    "127.0.0.1:9100"
+                    "kloenkX.kloenk.de:9100"
+                    "titan.kloenk.de:9100"
+                    "atom.kloenk.de:9100"
+                    #"io.kloenk.de:9100"
+                ]; } ];
+            }
+            {
+                job_name = "exporter-postfix";
+                static_configs = [ { targets = [
+                    "127.0.0.1:9154"
+                ]; } ];
+            }
+            {
+                job_name = "exporter-postgres";
+                static_configs = [ { targets = [
+                    "127.0.0.1:9187"
+                ]; } ];
+            }
+            {
+                job_name = "exporter-rspamd";
+                static_configs = [ { targets = [
+                    "127.0.0.1:7980"
+                ]; } ];
+            }
+            {
+                job_name = "exporter-wireguard";
+                static_configs = [ { targets = [
+                    "127.0.0.1:9586"
+                ]; } ];
+            }
+            {
+                job_name = "exporter-bind";
+                static_configs = [ { targets = [
+                    "127.0.0.1:9119"
+                ]; } ];
+            }
+            {
+                job_name = "exporter-dovecot";
+                static_configs = [ { targets = [
+                    "127.0.0.1:9166"
+                ]; } ];
+            }
+            {
+                job_name = "exporter-nginx";
+                static_configs = [ { targets = [
+                    "127.0.0.1:9113"
+                ]; } ];
             }
         ];
     };
