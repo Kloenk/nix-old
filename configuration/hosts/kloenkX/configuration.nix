@@ -30,8 +30,6 @@ in {
   networking.extraHosts = ''
     172.16.0.1 airlink.local unit.local
     192.168.43.2  git.yougen.de grafana.yougen.de netbox.yougen.de
-    192.168.42.6 kloenkX.kloenk.de
-    192.168.178.171 titan.kloenk.de
   '';
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
 
