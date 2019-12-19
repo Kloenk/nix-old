@@ -10,6 +10,11 @@
     (self: super: import <pkgs> { pkgs = super; })
   ];
 
+  services.prometheus.exporters.node = {
+    enable = true;
+    #enabledCollectors = [ "systemd" ];
+  };
+
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
   nix.gc.automatic = lib.mkDefault true;
   nix.gc.options = lib.mkDefault "--delete-older-than 7d";
