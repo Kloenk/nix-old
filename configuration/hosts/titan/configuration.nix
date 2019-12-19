@@ -25,9 +25,7 @@ in {
   networking.hostName = "titan";
   networking.extraHosts = ''
     172.16.0.1 airlink.local unit.local
-    192.168.178.248	atom atom.fritz.box
-    192.168.178.42 kloenkX.kloenk.de
-    192.168.178.171 titan.kloenk.de
+    192.168.178.248	atom.fritz.box
   '';
   networking.nameservers = [ "192.168.178.248" "1.0.0.1" ];
   networking.search = [ "fritz.box" "kloenk.de" ];

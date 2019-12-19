@@ -8,7 +8,7 @@
 
   networking.wireguard.interfaces = { 
     wg0 = {
-      ips = [ "192.168.42.6/24" "2001:41d0:1004:1629:1337:187:1:6/120" ];
+      ips = [ "192.168.42.3/24" "2001:41d0:1004:1629:1337:187:1:3/120" ];
       privateKeyFile = toString <secrets/wg0.key>;
       peers = [ 
         {
