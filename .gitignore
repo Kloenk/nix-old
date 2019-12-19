@@ -21,4 +21,3 @@ result
 
 # vm image
 *.qcow2
-secrets/

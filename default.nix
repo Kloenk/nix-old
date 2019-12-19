@@ -1,13 +1,18 @@
-{ config, pkgs, ... }:
+let
+  hosts = import ./configuration/hosts;
+  pkgs = import ./sources/nixpkgs { };
+in {
+  deploy = import ./lib/krops.nix;
+  # kexec_tarbal
+  # isoImage
+  # pkgs = import ./configuration/pkgs;
 
-{
-  imports = [
-    ./modules
-    ./home-manager/nixos/default.nix
-    #"./configuration/hosts/${config.networking.hostName}"
-  ];
-
-  nixpkgs.overlays = [
-    (self: super: import ./pkgs { inherit super; })
-  ];
+  update-sources = pkgs.writeScript "update-sources" ''
+    #!${pkgs.stdenv.shell}
+    set -xe
+    cd ${toString ./.}
+    git submodule foreach git pull
+    git add sources
+    git commit -m "update submodules"
+  '';
 }

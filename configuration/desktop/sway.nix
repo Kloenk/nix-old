@@ -32,5 +32,7 @@
     xdg.configFile."sway/config".source = ./config.sway;
     xdg.configFile."waybar/config".source = ./config.waybar;
     xdg.configFile."waybar/style.css".source = ./style.waybar;
+    xdg.configFile."quassel-irc.org/Dracula.qss".source = ./Dracula.qss;
+    home.file.".wallpaper-image".source = ./wallpaper-image;
   };
 }

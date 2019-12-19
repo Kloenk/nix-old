@@ -14,7 +14,7 @@ let
     git = {
       enable = true;
       userName = "Kloenk";
-      userEmail = "klshellInitoenk@kloenk.de";
+      userEmail = "kloenk@kloenk.de";
       extraConfig = {
         core.editor = "${pkgs.vim}/bin/vim";
         color.ui = true;
