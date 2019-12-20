@@ -10,9 +10,9 @@ in {
     ../../default.nix
     
     ../../common
-    ../../desktop/sway.nix
-    ../../desktop
     ../../common/collectd.nix
+    ../../desktop
+    ../../desktop/sway.nix
 
     # fallback for detection
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>

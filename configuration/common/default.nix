@@ -15,6 +15,11 @@
     #enabledCollectors = [ "systemd" ];
   };
 
+  environment.variables.NIX_PATH = lib.mkForce "/var/src";
+  nix.nixPath = lib.mkForce [
+    "/var/src"
+  ];
+
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
   nix.gc.automatic = lib.mkDefault true;
   nix.gc.options = lib.mkDefault "--delete-older-than 7d";

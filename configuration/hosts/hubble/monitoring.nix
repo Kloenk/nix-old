@@ -99,6 +99,12 @@ in {
                     "127.0.0.1:9113"
                 ]; } ];
             }
+            {
+                job_name = "exporter-fritzbox";
+                static_configs = [ { targets = [
+                    "192.168.42.7:9133"
+                ]; } ];
+            }
         ];
     };
 
