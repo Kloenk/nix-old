@@ -8,4 +8,7 @@
   titan = {
     hostname = "kloenk@titan.kloenk.de:62954";
   };
+  atom = {
+    hostname = "kloenk@192.168.178.248:62954";
+  };
 }
