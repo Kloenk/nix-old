@@ -162,7 +162,7 @@
             port = 62954;
             user = "root";
             forwardAgent = false;
-            identityFile = toString <secrets/id_rsa>;
+            #identityFile = toString <secrets/id_rsa>;
             checkHostIP = false;
             extraOptions = { "UserKnownHostsFile" = "/dev/null"; };
           };
