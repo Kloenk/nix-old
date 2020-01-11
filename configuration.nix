@@ -11,7 +11,7 @@
 {
     imports = [
         ./hardware-configuration.nix
-        (builtin.fechGit {
+        (builtins.fechGit {
           url = "https://github.com/rycee/home-manager/";
           rev = "d677556e62ab524cb6fcbc20b8b1fb32964db021";
           sha256 = "17kdp4vflyvqiq1phy7x5mfrcgy5c02c0a0p0n5yjf8yilvcldr4";

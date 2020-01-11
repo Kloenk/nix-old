@@ -4,7 +4,7 @@ let
 in {
   deploy = import ./lib/krops.nix;
   # kexec_tarbal
-  # isoImage
+  isoImage = import ./lib/iso-image.nix;
   # pkgs = import ./configuration/pkgs;
 
   update-sources = pkgs.writeScript "update-sources" ''
