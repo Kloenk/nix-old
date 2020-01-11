@@ -11,9 +11,10 @@
 {
     imports = [
         ./hardware-configuration.nix
-        (builtins.fetchUrl {
-          url = "https://github.com/rycee/home-manager/archive/d677556e62ab524cb6fcbc20b8b1fb32964db021.tar.gz";
-          sha256 = "14kj9z4h6rnlm2ynmw9v0lc9vbdkb0vfrrzw8vrby3sqc5h0v0p1";
+        (lib.fetchFromGitHub {
+          owner = "rycee";
+          repo = "home-manager";
+          rev = "d677556e62ab524cb6fcbc20b8b1fb32964db021";
         } + "/nixos")
     ];
 
@@ -255,4 +256,6 @@
   programs.mtr.enable = true;
 
   users.users.root.shell = pkgs.fish;
+
+  system.stateVersion = "20.03";
 }
