@@ -89,6 +89,7 @@ in {
 
   environment.systemPackages = with pkgs; [
     spice_gtk
+    ebtables
     davfs2
     geogebra
     gtk-engine-murrine
@@ -179,6 +180,19 @@ in {
     Enable=Source,Sink,Media,Socket
   ";
   hardware.pulseaudio.zeroconf.discovery.enable = true;
+
+  # build server
+  nix.buildMachines = [
+    {
+      hostName = "io";
+      sshUser = "kloenk";
+      sshKey = "/root/.ssh/id_buildfarm";
+      system = "x86_64-linux";
+      supportedFeatures = [ "kvm" "big-parallel" ];
+      maxJobs = 8;
+      speedFactor = 2;
+    }
+  ];
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database

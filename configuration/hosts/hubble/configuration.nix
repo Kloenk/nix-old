@@ -20,6 +20,8 @@ in {
     ./postgres.nix
     ./quassel.nix
     ./deluge.nix
+    #./netbox.nix
+    #./redis.nix
 
     ../../default.nix
     ../../common

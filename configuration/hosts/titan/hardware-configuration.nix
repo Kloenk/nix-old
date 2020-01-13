@@ -13,7 +13,7 @@
   boot.loader.grub.useOSProber = true;
 
   # f2fs support
-  boot.supportedFilesystems = [ "f2fs" "nfs" "ntfs" ];
+  boot.supportedFilesystems = [ "xfs" "nfs" "ntfs" ];
 
   # taken from hardware-configuration.nix
   boot.initrd.availableKernelModules = [
@@ -35,7 +35,7 @@
 
   fileSystems."/" =
     { device = "/dev/disk/by-id/ata-Samsung_SSD_860_EVO_1TB_S3Z9NB0M344364P-part3";
-      fsType = "f2fs";
+      fsType = "xfs";
     };
 
   #boot.initrd.luks.reusePassphrases = true;
@@ -47,11 +47,11 @@
     fsType = "ntfs";
   };
 
-  fileSystems."/home/kloenk/kloenkX" = {
-    device = "192.168.178.42:/kloenk";
-    fsType = "nfs";
-    options = ["x-systemd.automount" "noauto"];
-  };
+  #fileSystems."/home/kloenk/kloenkX" = {
+  #  device = "192.168.178.42:/kloenk";
+  #  fsType = "nfs";
+  #  options = ["x-systemd.automount" "noauto"];
+  #};
 
   swapDevices = [
     { device = "/dev/disk/by-label/nixos-swap"; }

@@ -18,6 +18,11 @@
     '';
   };
 
+  networking.firewall.interfaces."wg0" = {
+    allowedTCPPortRanges = [ { from = 1; to = 65534; } ];
+    allowedUDPPortRanges = [ { from = 1; to = 65534; } ];
+  };
+
   networking.wireguard.interfaces = {
     wg0 = {
       ips = [ "192.168.42.1/24" "2001:41d0:1004:1629:1337:187:0:1/128" "2001:41d0:1004:1629:1337:187:1:0/120" ];
@@ -80,6 +85,13 @@
 
           persistentKeepalive = 21;
         }
+	{ # nein Drachensegler
+          publicKey = "esYAvRGkZ1cRsPoqBVHWjKsKysB7SVv5pNz783k4cXs=";
+
+          allowedIPs = [ "192.168.30.3/32" "2001:41d0:1004:1629:1337:187:30:3/128" ];
+
+          persistentKeepalive = 21;
+	}
         { # IPhone mum
           publicKey = "2Yz6+oEqP01haMf9yuh99/Ojt+81CJtLFyr+BPtK+X4=";
 

@@ -15,15 +15,12 @@
     #enabledCollectors = [ "systemd" ];
   };
 
-  environment.variables.NIX_PATH = lib.mkForce "/var/src";
-  nix.nixPath = lib.mkForce [
-    "/var/src"
-  ];
+  environment.variables.NIX_PATH = lib.mkOverride 25 "/var/src";
 
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
   nix.gc.automatic = lib.mkDefault true;
   nix.gc.options = lib.mkDefault "--delete-older-than 7d";
-  nix.trustedUsers = [ "root" "@wheel" ];
+  nix.trustedUsers = [ "root" "@wheel" "kloenk" ];
 
   services.openssh.enable = true;
   services.openssh.ports = [ 62954 ];
@@ -63,6 +60,7 @@
     shell = pkgs.fish;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIISCKsWIhN2UBenk0kJ1Hnc+fCZC/94l6bX9C4KFyKZN cardno:FFFE43212945"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAEDZjcKdYViw9cPrLNkO37+1NgUj8Ul1PTlbXMMwlMR kloenk@kloenkX"
     ];
     packages = with pkgs; [
       wget
