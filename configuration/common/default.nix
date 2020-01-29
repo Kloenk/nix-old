@@ -240,6 +240,7 @@
         defaultCacheTtl = 300; # 5 min
         defaultCacheTtlSsh = 600; # 10 min
         maxCacheTtl = 7200; # 2h
+        #pinentryFlavor = "gtk2";
       };
     };
   };
@@ -247,7 +248,6 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
-    pinentryFlavor = "gtk2";
   };
 
   programs.fish.enable = true;

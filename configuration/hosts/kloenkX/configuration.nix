@@ -29,7 +29,6 @@ in {
   networking.wireless.userControlled.enable = true;
   networking.extraHosts = ''
     172.16.0.1 airlink.local unit.local
-    192.168.43.2  git.yougen.de grafana.yougen.de netbox.yougen.de
   '';
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
 
@@ -97,18 +96,6 @@ in {
     breeze-icons
     gnome3.adwaita-icon-theme
   ];
-
-  services.xserver.wacom.enable = true;
-  services.xserver.config = ''
-    Section "InputClass"
-        Identifier	"calibration"
-        MatchProduct	"Wacom ISDv4 90 Pen stylus"
-        Option	"MinX"	"69"
-        Option	"MaxX"	"27558"
-        Option	"MinY"	"193"
-        Option	"MaxY"	"15654"
-    EndSection
-  '';
 
   # make autoupdates
   #system.autoUpgrade.enable = true;
