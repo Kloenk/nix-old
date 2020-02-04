@@ -160,12 +160,11 @@
             port = 62954;
             user = "root";
             forwardAgent = false;
-            #identityFile = toString <secrets/id_rsa>;
             checkHostIP = false;
             extraOptions = { "UserKnownHostsFile" = "/dev/null"; };
           };
           lycus = {
-            hostname = "10.0.0.4";
+            hostname = "10.0.0.5";
             port = 62954;
             user = "kloenk";
             forwardAgent = true;
@@ -215,13 +214,7 @@
             forwardAgent = true;
           };
           atom-wg = {
-            hostname = "192.168.42.7";
-            port = 62954;
-            user = "kloenk";
-            forwardAgent = true;
-          };
-          kloenkX-fritz = {
-            hostname = "192.168.178.43";
+            hostname = "atom.kloenk.de";
             port = 62954;
             user = "kloenk";
             forwardAgent = true;
@@ -240,7 +233,7 @@
         defaultCacheTtl = 300; # 5 min
         defaultCacheTtlSsh = 600; # 10 min
         maxCacheTtl = 7200; # 2h
-        #pinentryFlavor = "gtk2";
+        pinentryFlavor = "gtk2";
       };
     };
   };
