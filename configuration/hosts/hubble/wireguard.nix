@@ -18,11 +18,6 @@
     '';
   };
 
-  networking.firewall.interfaces."wg0" = {
-    allowedTCPPortRanges = [ { from = 1; to = 65534; } ];
-    allowedUDPPortRanges = [ { from = 1; to = 65534; } ];
-  };
-
   networking.wireguard.interfaces = {
     wg0 = {
       ips = [ "192.168.42.1/24" "2001:41d0:1004:1629:1337:187:0:1/128" "2001:41d0:1004:1629:1337:187:1:0/120" ];
@@ -53,7 +48,7 @@
         { # atom
           publicKey = "009Wk3RP7zOmu61Zc7ZCeS6lJyhUcXZwZsBJoadHOA0=";
 
-          allowedIPs = [ "192.168.42.7/32" "2001:41d0:1004:1629:1337:187:1:7/128" ]; # TODO: add local net
+          allowedIPs = [ "192.168.42.7/32" "2001:41d0:1004:1629:1337:187:1:7/128" "192.168.178.0/24" ]; # TODO: add local net
 
           presharedKeyFile = toString <secrets/wg0.atom.psk>;
 

@@ -22,6 +22,8 @@
   nix.gc.options = lib.mkDefault "--delete-older-than 7d";
   nix.trustedUsers = [ "root" "@wheel" "kloenk" ];
 
+  networking.firewall.trustedInterfaces = [ "wg0" ];
+
   services.openssh.enable = true;
   services.openssh.ports = [ 62954 ];
   services.openssh.passwordAuthentication = lib.mkDefault false;
