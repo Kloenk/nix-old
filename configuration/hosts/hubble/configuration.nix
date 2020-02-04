@@ -16,7 +16,7 @@ in {
     ./dns.nix
     ./gitea.nix
     ./mail.nix
-    ./monitoring.nix
+    ./monitoring
     ./postgres.nix
     ./quassel.nix
     ./deluge.nix
@@ -26,8 +26,6 @@ in {
     ../../default.nix
     ../../common
     ../../common/collectd.nix
-
-    ../../nginx-common.nix
 
     # fallback for detection
     <nixpkgs/nixos/modules/profiles/qemu-guest.nix>

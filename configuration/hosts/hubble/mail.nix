@@ -20,6 +20,7 @@ in {
 
   mailserver = {
       enable = true;
+      localDnsResolver = false; # already running bind
       fqdn = "mail.kloenk.de";
       domains = [ "kloenk.de" "ad.kloenk.de" "drachensegler.kloenk.de" ];
 
@@ -99,6 +100,10 @@ in {
 
           "noreply-punkte@kloenk.de" = {
             hashedPassword = secrets.nrpunkte;
+          };
+
+          "alertmanager@kloenk.de" = {
+            hashedPassword = secrets.alert;
           };
 
           "ad@kloenk.de" = {

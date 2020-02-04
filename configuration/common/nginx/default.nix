@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   networking.firewall.allowedTCPPorts = [ 80 443 ];
@@ -28,5 +28,10 @@
       #proxy_cookie_path / "/; secure; HttpOnly; SameSite=strict";
       #add_header Content-Security-Policy "script-src 'self'; object-src 'none'; base-uri 'none';" always;
     '';
+  };
+  services.nginx.virtualHosts."${config.networking.hostName}.kloenk.de" = {
+    #enableACME = true;
+    #forceSSL = true;
+    locations."/public/".alias = "/mnt/data/pbb/public/";
   };
 }
