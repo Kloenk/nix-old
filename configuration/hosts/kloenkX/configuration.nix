@@ -30,15 +30,15 @@ in {
   networking.extraHosts = ''
     172.16.0.1 airlink.local unit.local
   '';
-  networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
+  networking.nameservers = [ "1.1.1.1" "10.0.0.2" ];
 
   networking.bonds."bond0" = {
     interfaces = [ "eno0" "wlp2s0" ];
   };
 
   
-  #services.fprintd.enable = true;
-  #security.pam.services.login.fprintAuth = true;
+  services.fprintd.enable = true;
+  security.pam.services.login.fprintAuth = true;
   #security.pam.services.xtrlock-pam.fprintAuth = true;
 
   services.printing.browsing = true;
@@ -102,6 +102,7 @@ in {
 
   #services.logind.lidSwitch = "ignore";
   services.tlp.enable = true;
+  home-manager.users.kloenk.programs.ssh.matchBlocks.hubble-encrypt.identityFile = toString <secrets/id_rsa>;
   users.users.kloenk.initialPassword = "foobaar";
   users.users.kloenk.packages = with pkgs; [
     lm_sensors
