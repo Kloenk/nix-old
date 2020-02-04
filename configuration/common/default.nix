@@ -4,16 +4,13 @@
   imports = [
     <modules>
     <sources/home-manager/nixos>
+    ./nginx
+    ./node-exporter
   ];
 
   nixpkgs.overlays = [
     (self: super: import <pkgs> { pkgs = super; })
   ];
-
-  services.prometheus.exporters.node = {
-    enable = true;
-    #enabledCollectors = [ "systemd" ];
-  };
 
   environment.variables.NIX_PATH = lib.mkOverride 25 "/var/src";
 
@@ -29,6 +26,9 @@
   services.openssh.permitRootLogin = lib.mkDefault "no";
   services.vnstat.enable = lib.mkDefault true;
   security.sudo.wheelNeedsPassword = false;
+
+  services.ferm2.enable = true;
+  services.ferm2.forwardPolicy = lib.mkDefault "DROP";
 
   i18n = {
     consoleFont = "Lat2-Terminus16";
