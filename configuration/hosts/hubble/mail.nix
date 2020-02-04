@@ -56,6 +56,7 @@ in {
                   "finn.behrens@kloenk.de"
                   "behrens.finn@kloenk.de"
                   "info@kloenk.de"
+                  "me@kloenk.de"
               ];
           };
 
