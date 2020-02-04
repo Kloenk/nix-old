@@ -16,7 +16,7 @@ in {
 
   networking.firewall.allowedTCPPorts = [ 143 587 25 465 993 ];
 
-  services.postfix.submissionOptions.smtpd_tls_wrappermode = "yes"; # fixme?
+  #services.postfix.submissionOptions.smtpd_tls_wrappermode = "yes"; # fixme?
 
   mailserver = {
       enable = true;
