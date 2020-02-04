@@ -12,8 +12,6 @@ in {
     ../../desktop/sway.nix
     ../../desktop
     #../desktop/spotifyd.nix
-    ../../common/collectd.nix
-
   ];
 
   environment.variables.NIX_PATH = lib.mkForce "/var/src";
@@ -29,6 +27,7 @@ in {
   networking.wireless.userControlled.enable = true;
   networking.extraHosts = ''
     172.16.0.1 airlink.local unit.local
+    192.168.42.1 prometheus.kloenk.de alertmanager.kloenk.de
   '';
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
 
@@ -36,30 +35,9 @@ in {
     interfaces = [ "eno0" "wlp2s0" ];
   };
 
-  
-  #services.fprintd.enable = true;
-  #security.pam.services.login.fprintAuth = true;
-  #security.pam.services.xtrlock-pam.fprintAuth = true;
-
   services.printing.browsing = true;
   services.printing.enable = true;
   services.avahi.enable = true;
-
-
-  #security.sudo.extraConfig = ''
-  #  collectd ALL=(root) NOPASSWD: ${pkgs.wireguard-tools}/bin/wg show all transfer
-  #'';
-#
-  #services.collectd2.extraConfig = ''
-  #  LoadPlugin exec
-#
-  #  <Plugin exec>
-  #    Exec collectd "${pkgs.collectd-wireguard}/bin/collectd-wireguard"
-  #  </Plugin>
-  #'';
-  systemd.services.collectd.serviceConfig.AmbientCapabilities = [
-    "cap_net_raw"
-  ];
 
   # write to collect server
   services.collectd2.plugins = {

@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, config, pkgs, ... }:
 
 let
   hosts = import ../..;
@@ -9,13 +9,15 @@ in {
     enableACME = true;
     forceSSL = true;
   };
-  # services.nginx.virtualHosts."prometheus.kloenk.de" = {
-  #   locations."/".proxyPass = "http://127.0.0.1:9090/";
-  #   enableACME = true;
-  #   forceSSL = true;
-  # };
+  services.nginx.virtualHosts."prometheus.kloenk.de" = {
+    locations."/".proxyPass = "http://127.0.0.1:9090/";
+    extraConfig = config.services.nginx.virtualHosts."${config.networking.hostName}.kloenk.de".locations."/node-exporter/metrics".extraConfig;
+    enableACME = true;
+    forceSSL = true;
+  };
   services.nginx.virtualHosts."alertmanager.kloenk.de" = {
     locations."/".proxyPass = "http://127.0.0.1:9093/";
+    extraConfig = config.services.nginx.virtualHosts."${config.networking.hostName}.kloenk.de".locations."/node-exporter/metrics".extraConfig;
     enableACME = true;
     forceSSL = true;
   };
@@ -105,14 +107,27 @@ in {
     enable = true;
     globalConfig.scrape_interval = "10s";
     webExternalUrl = "https://prometheus.kloenk.de/";
-    scrapeConfigs = lib.concatLists (lib.mapAttrsToList (name: host: if host ? prometheusExporters then [{
-      job_name = name;
-      static_configs = map (port: {
+
+    scrapeConfigs = let
+      filteredHosts = lib.filterAttrs (name: host: host ? prometheusExporters) hosts;
+      makeTargets = name: host: map (exporter: {
         targets = [
           "${name}.kloenk.de"
         ];
+        labels = {
+          job = name;
+          __metrics_path__ = "/${exporter}/metrics";
+        };
       }) host.prometheusExporters;
-    }] else []) hosts); # FIXME: other hubble jobs??
+      targets = lib.concatLists (lib.mapAttrsToList makeTargets filteredHosts);
+      targetsFile = pkgs.writeText "targets.json" (builtins.toJSON targets);
+    in [{
+      job_name = "dummy";
+      file_sd_configs = [{
+        files = [ (toString targetsFile) ];
+      }];
+    }];
+
     alertmanagers = [ {
       scheme = "http";
       static_configs = [{
