@@ -10,13 +10,10 @@ in {
   };
 
   imports = [
-    #(builtins.fetchTarball "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/v2.2.1/nixos-mailserver-v2.2.1.tar.gz")
     <sources/nixos-mailserver>
   ];
 
   networking.firewall.allowedTCPPorts = [ 143 587 25 465 993 ];
-
-  #services.postfix.submissionOptions.smtpd_tls_wrappermode = "yes"; # fixme?
 
   mailserver = {
       enable = true;

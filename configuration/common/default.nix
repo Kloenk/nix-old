@@ -32,6 +32,8 @@
   services.ferm2.enable = true;
   services.ferm2.forwardPolicy = lib.mkDefault "DROP";
 
+  services.journald.extraConfig = "SystemMaxUse=2G";
+
   i18n = {
     consoleFont = "Lat2-Terminus16";
     consoleKeyMap = "neo";
