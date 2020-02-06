@@ -2,6 +2,7 @@
 
 {
 	services.prometheus.exporters.node.enable = true;
+  services.prometheus.exporters.node.enabledCollectors = [ "logind" "systemd" ];
   services.prometheus.exporters.nginx.enable = true;
   services.nginx.statusPage = true;
   services.nginx.virtualHosts."${config.networking.hostName}.kloenk.de" = {
