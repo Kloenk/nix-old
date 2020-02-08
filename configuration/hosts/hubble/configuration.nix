@@ -183,6 +183,7 @@ in {
     Listen = "0.0.0.0";
   };
   networking.firewall.allowedUDPPorts = [ 25826 ];
+  services.ferm2.forwardPolicy = "ACCEPT";
 
 
   # This value determines the NixOS release with which your system is to be

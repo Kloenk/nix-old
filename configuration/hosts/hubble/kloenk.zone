@@ -20,17 +20,17 @@ $TTL 1M
 		IN	MX	1	mail.kloenk.de.
 @		IN	MX	2	mail.kloenk.de.
 
-	TXT	"v=spf1 +a +mx ?all"
+	TXT	"v=spf1 +a +mx -all"
 _dmarc		TXT	"v=DMARC1;p=reject;pct=100;rua=mailto:postmaster@kloenk.de"
 
 ;drachensegler.kloenk.de.	IN	MX	1	mail.kloenk.de.
 drachensegler	IN	MX	1	mail.kloenk.de.
-drachensegler	TXT	"v=spf1 +a +mx ?all"
+drachensegler	TXT	"v=spf1 +a +mx -all"
 _dmarc.drachensegler	TXT	"v=DMARC1;p=reject;pct=100;rua=mailto:postmaster@kloenk.de"
 
 ;ad.kloenk.de.	IN	MX	1	mail.kloenk.de.
 ad		IN	MX	1	mail.kloenk.de.
-ad		TXT	"v=spf1 +a +mx ?all"
+ad		TXT	"v=spf1 +a +mx -all"
 _dmarc.ad	TXT	"v=DMARC1;p=reject;pct=100;rua=mailto:postmaster@kloenk.de"
 
 mail		AAAA	2001:41d0:1004:1629:1337:0187::

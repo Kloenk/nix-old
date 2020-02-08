@@ -58,6 +58,14 @@ in {
               ];
           };
 
+          "praesidium@kloenk.de" = {
+            hashedPassword = secrets.praesidium;
+
+            aliases = [
+              "präsidium@kloenk.de"
+            ];
+          };
+
           "chaos@kloenk.de" = {
               hashedPassword = secrets.chaos;
 
