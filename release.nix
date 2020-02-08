@@ -1,5 +1,5 @@
 {
-	nix ? builtins.fetchGit ./.
+	NixSrc ? ./.
 , nixpkgs ? ./sources/nixpkgs
 , officialRelease ? false
 , systems ? [ "x86-64_linux" ]
@@ -12,8 +12,9 @@ let
 
   lib = pkgs.lib;
 
-  hosts = import hostsFile;
+  #hosts = import NixSrc + hostsFile;
 
+  #root = import (toString NixSrc + toString rootFile);
   root = import rootFile;
 
 
@@ -21,11 +22,10 @@ let
   jobs = rec {
   	isoImage = root.isoImage;
 
-  	#dep = let
-  	#	makeDeploy = name: root.deploy."${name}";
-  	#in {
-  	#	makeDeploy hosts
-  	#};
+  	# deploy scripts
+    deploy = let
+      targets = root.deploy;
+    in targets;
 
 
   	update-sources = root.update-sources;
