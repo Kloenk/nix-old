@@ -1,10 +1,8 @@
 {
-	NixSrc ? ./.
-, nixpkgs ? ./sources/nixpkgs
+	NixSrc ? builtins.fetchGit ./.
+, nixpkgs ? builtins.fetchTarball https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz
 , officialRelease ? false
 , systems ? [ "x86-64_linux" ]
-, hostsFile ? ./configuration/hosts
-, rootFile ? ./.
 }:
 
 let
@@ -15,7 +13,7 @@ let
   #hosts = import NixSrc + hostsFile;
 
   #root = import (toString NixSrc + toString rootFile);
-  root = import rootFile;
+  root = import ./default.nix;
 
 
   
