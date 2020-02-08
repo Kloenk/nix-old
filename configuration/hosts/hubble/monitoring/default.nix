@@ -11,13 +11,13 @@ in {
   };
   services.nginx.virtualHosts."prometheus.kloenk.de" = {
     locations."/".proxyPass = "http://127.0.0.1:9090/";
-    extraConfig = config.services.nginx.virtualHosts."${config.networking.hostName}.kloenk.de".locations."/node-exporter/metrics".extraConfig;
+    extraConfig = config.services.nginx.virtualHosts."${config.networking.hostName}.kloenk.de".locations."/node-exporter/".extraConfig;
     enableACME = true;
     forceSSL = true;
   };
   services.nginx.virtualHosts."alertmanager.kloenk.de" = {
     locations."/".proxyPass = "http://127.0.0.1:9093/";
-    extraConfig = config.services.nginx.virtualHosts."${config.networking.hostName}.kloenk.de".locations."/node-exporter/metrics".extraConfig;
+    extraConfig = config.services.nginx.virtualHosts."${config.networking.hostName}.kloenk.de".locations."/node-exporter/".extraConfig;
     enableACME = true;
     forceSSL = true;
   };
