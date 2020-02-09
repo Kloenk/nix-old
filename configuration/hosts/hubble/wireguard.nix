@@ -98,6 +98,13 @@
 
       privateKeyFile = toString <secrets/llg0.key>;
 
+      allowedIPsAsRoutes = false;
+      postSetup = ''
+        ip route add 192.168.43.0/24 dev llg0 metric 1024
+        ip -6 route add 2001:41d0:1004:1629:1337:187:43:0/120 dev llg0 # no metric, ipv6
+        ip route add 10.0.0.0/8 dev llg0 metric 2048
+      '';
+
       peers = [
         { # io
           publicKey = "rzyPnz6iliO5hyggfUJcmDrNeFPtMDeWRsq3liEfdQ4=";
