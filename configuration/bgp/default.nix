@@ -217,13 +217,14 @@ in {
       }
     '') bgpHosts);
     };
-  } // lib.mkIf cfg.default {
-    systemd.network.networks."wg-default".extraConfig = ''
-      [RoutingPolicyRule]
-      FirewallMark = ${as}
-      Table = ${as}
-      Family = both
-      Priority = 30000
-    '';
-  };
+    systemd.network = lib.optionalAttrs cfg.default {
+      networks."wg-default".extraConfig = ''
+        [RoutingPolicyRule]
+        FirewallMark = ${as}
+        Table = ${as}
+        Family = both
+        Priority = 30000
+      '';
+    };
+  }
 }
