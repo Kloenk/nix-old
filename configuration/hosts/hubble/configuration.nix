@@ -59,6 +59,9 @@ in {
   networking.dhcpcd.enable = false;
   networking.useDHCP = false;
   networking.nameservers = [ "8.8.8.8" ];
+  networking.extraHosts = ''
+    172.0.0.1 hubble.kloenk.de
+  '';
 
   # make sure dirs exists
   system.activationScripts = {
