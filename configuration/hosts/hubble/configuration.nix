@@ -184,8 +184,13 @@ in {
     Listen = "0.0.0.0";
   };
   networking.firewall.allowedUDPPorts = [ 25826 ];
-  services.ferm2.forwardPolicy = "ACCEPT";
 
+  services.bgp = {
+    enable = true;
+    localAS = 65049;
+    primaryIP = "2a0f:4ac0:f199::1";
+    primaryIP4 = "195.39.246.49";
+  };
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
