@@ -47,10 +47,10 @@ in {
   };
   # setup network
   boot.initrd.preLVMCommands = lib.mkBefore (''
-    ip li set eth0 up
-    ip addr add 51.254.249.187/32 dev eth0
-    ip route add 164.132.202.254/32 dev eth0
-    ip route add default via 164.132.202.254 dev eth0 && hasNetwork=1 
+    ip li set ens18 up
+    ip addr add 51.254.249.187/32 dev ens18
+    ip route add 164.132.202.254/32 dev ens18
+    ip route add default via 164.132.202.254 dev ens18 && hasNetwork=1 
   '');
 
   networking.firewall.allowedTCPPorts = [ 9092 ];
@@ -59,9 +59,24 @@ in {
   networking.dhcpcd.enable = false;
   networking.useDHCP = false;
   networking.nameservers = [ "8.8.8.8" ];
+  networking.interfaces.ens18.ipv4.addresses = [ { address = "51.254.249.187"; prefixLength = 32; } ];
+  networking.interfaces.ens18.ipv4.routes = [ { address = "164.132.202.254"; prefixLength = 32; } ];
+  #networking.defaultGateway = { address = "164.132.202.254"; interface = "enp0s18"; };
+  networking.interfaces.ens18.ipv6.addresses = [ { address = "2001:41d0:1004:1629:1337:0187::"; prefixLength = 112; } ];
+  networking.interfaces.ens18.ipv6.routes = [ { address = "2001:41d0:1004:16ff:ff:ff:ff:ff"; prefixLength = 128; } ];
+  #networking.defaultGateway6 = { address = "2001:41d0:1004:16ff:ff:ff:ff:ff"; interface = "ens18"; };
   networking.extraHosts = ''
     172.0.0.1 hubble.kloenk.de
   '';
+  services.resolved.enable = false; # running bind
+
+  #systemd.network.networks."ens18".name = "ens18";
+  systemd.network.networks."40-ens18".routes = [
+    {
+      routeConfig.Gateway = "164.132.202.254";
+      routeConfig.GatewayOnLink = true;
+    }
+  ];
 
   # make sure dirs exists
   system.activationScripts = {

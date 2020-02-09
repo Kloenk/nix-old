@@ -11,13 +11,59 @@
     ];
   };
 
+  networking.interfaces.wg0 = {
+    ipv4.addresses = [
+      { address = "192.168.42.1"; prefixLength = 24; }
+    ];
+    ipv4.routes = [
+      { address = "192.168.42.0"; prefixLength = 24; }
+    ];
+    ipv6.addresses = [
+      { address = "2001:41d0:1004:1629:1337:187:0:1"; prefixLength = 128; }
+      { address = "2001:41d0:1004:1629:1337:187:1:0"; prefixLength = 120; }
+    ];
+    ipv6.routes = [
+      { address = "2001:41d0:1004:1629:1337:187:1:0"; prefixLength = 120; }
+    ];
+  };
+  networking.interfaces.wgFam = {
+    ipv4.addresses = [
+      { address = "192.168.30.1"; prefixLength = 24; }
+    ];
+    ipv4.routes = [
+      { address = "192.168.30.0"; prefixLength = 24; }
+    ];
+    ipv6.addresses = [
+      { address = "2001:41d0:1004:1629:1337:187:30:0"; prefixLength = 120; }
+    ];
+    ipv6.routes = [
+      { address = "2001:41d0:1004:1629:1337:187:30:0"; prefixLength = 120; }
+    ];
+  };
+  networking.interfaces.llg0 = {
+    ipv4.addresses = [
+      { address = "192.168.43.1"; prefixLength = 24; }
+    ];
+    ipv4.routes = [
+      { address = "192.168.43.0"; prefixLength = 24; }
+      { address = "10.0.0.0"; prefixLength = 8; options.metric = 3192; }
+    ];
+    ipv6.addresses = [
+      { address = "2001:41d0:1004:1629:1337:187:43:0"; prefixLength = 120; }
+    ];
+    ipv6.routes = [
+      { address = "2001:41d0:1004:1629:1337:187:43:0"; prefixLength = 120; }
+    ];
+  };
+
   networking.wireguard.interfaces = {
     wg0 = {
-      ips = [ "192.168.42.1/24" "2001:41d0:1004:1629:1337:187:0:1/128" "2001:41d0:1004:1629:1337:187:1:0/120" ];
+      ips = [ ];
 
       listenPort = 51820;
 
       privateKeyFile = toString <secrets/wg0.key>;
+      allowedIPsAsRoutes = false;
 
       peers = [
         { # kloenkX
@@ -63,6 +109,8 @@
 
       privateKeyFile = toString <secrets/wgFam.key>;
 
+      allowedIPsAsRoutes = false;
+
       peers = [
         { # Namu raspi
           publicKey = "VUb1id67AUBzA8W4zulMGQMAS8sd1Lk7UbIfZAJWoV4=";
@@ -99,11 +147,11 @@
       privateKeyFile = toString <secrets/llg0.key>;
 
       allowedIPsAsRoutes = false;
-      postSetup = ''
-        ip route add 192.168.43.0/24 dev llg0 metric 1024
-        ip -6 route add 2001:41d0:1004:1629:1337:187:43:0/120 dev llg0 # no metric, ipv6
-        ip route add 10.0.0.0/8 dev llg0 metric 2048
-      '';
+      #postSetup = ''
+      #  ip route add 192.168.43.0/24 dev llg0 metric 1024
+      #  ip -6 route add 2001:41d0:1004:1629:1337:187:43:0/120 dev llg0 # no metric, ipv6
+      #  ip route add 10.0.0.0/8 dev llg0 metric 2048
+      #'';
 
       peers = [
         { # io
