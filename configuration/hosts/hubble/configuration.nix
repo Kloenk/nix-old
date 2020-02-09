@@ -187,7 +187,7 @@ in {
 
   services.bgp = {
     enable = true;
-    localAS = 65049;
+    localAS = 65249;
     primaryIP = "2a0f:4ac0:f199::1";
     primaryIP4 = "195.39.246.49";
   };
