@@ -1,4 +1,4 @@
-{ ... }:
+{ config, lib, ... }:
 
 let
   hosts = import ../hosts;
