@@ -21,6 +21,8 @@ in {
   boot.tmpOnTmpfs = true;
 
   networking.hostName = "KloenkX";
+  networking.useDHCP = false;
+  networking.interfaces.bond0.useDHCP = true;
   networking.wireless.enable = true;
   networking.wireless.interfaces = [ "wlp2s0" ];
   networking.wireless.networks = import <secrets/wifi.nix>;
