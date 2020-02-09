@@ -22,6 +22,7 @@ in {
       primaryIP4 = mkOption {
         type = types.str;
       };
+      default = mkEnableOption "default";
     };
   };
 
@@ -215,5 +216,14 @@ in {
         neighbor 10.23.42.${toString host.magicNumber} as ${if host.bgp ? as then host.bgp.as else toString (65000 + host.magicNumber)};
       }
     '') bgpHosts);
+    };
+  } // lib.mkIf cfg.default {
+    systemd.network.networks."wg-default".extraConfig = ''
+      [RoutingPolicyRule]
+      FirewallMark = ${as}
+      Table = ${as}
+      Family = both
+      Priority = 30000
+    '';
   };
 }

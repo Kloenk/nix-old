@@ -193,6 +193,7 @@ in {
     localAS = 65249;
     primaryIP = "2a0f:4ac0:f199::1";
     primaryIP4 = "195.39.246.49";
+    default = true;
   };
 
   # This value determines the NixOS release with which your system is to be
