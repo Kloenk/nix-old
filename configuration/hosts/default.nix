@@ -1,4 +1,10 @@
-{
+let
+
+  pbbAS = {
+    as = "207921";
+  };
+
+in {
   kloenkX = {
     hostname = "kloenk@kloenkX.kloenk.de:62954";
     prometheusExporters = [ "node-exporter" "nginx-exporter" "wireguard" ];
@@ -28,29 +34,29 @@
     wireguard.publicKey = "9azKCE2ZgWYo0kWD8ezsWDWD3YMlFrxXia23q5ENLm8=";
     wireguard.endpoint = "notcombahton.pbb.lc";
     magicNumber = 5;
-    bgp.enable = true;
+    bgp = pbbAS;
   };
   vultr = {
     wireguard.publicKey = "SD8bQrbrr3TlyaUrqZMvlXsrP9GUTYH3wRjAGWVDoTA=";
     wireguard.endpoint = "notvultr.pbb.lc";
     magicNumber = 1;
-    bgp.enable = true;
+    bgp = pbbAS;
   };
   netcup = {
     wireguard.publicKey = "licaX8d5sOjz7OPZM2YDbEB/PKhwlqoJ3Ut10xfL9Co=";
     wireguard.endpoint = "notnetcup.pbb.lc";
     magicNumber = 8;
-    bgp.enable = true;
+    bgp = pbbAS;
   };
   tomate = {
     wireguard.publicKey = "bBkntnpzbkN8W0cbJ+yd5MMnPZu7gctQNPGMGMUU23g=";
     magicNumber = 201;
-    bgp.enable = true;
+    bgp = pbbAS;
   };
   schinken = {
     wireguard.publicKey = "VT4wAsdBJuFzDhsTgcpdWLMkZJYbfeXa2yAvuGh1/iA=";
     wireguard.endpoint = "2a01:4f8:162:1900::20";
     magicNumber = 4;
-    bgp.enable = true;
+    bgp = pbbAS;
   };
 }
