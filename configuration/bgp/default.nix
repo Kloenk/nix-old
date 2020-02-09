@@ -196,10 +196,19 @@ in {
           next hop self;
           import keep filtered;
           import filter {
-            ${host.bgp.importFilter}
+            if net_local() then reject;
+            if net_bogon() then reject;
+            if as_bogon() then reject;
+            if (65535, 0) ~ bgp_community then {
+              bgp_local_pref = 0;
+            }
+            accept;
           };
           export filter {
-            ${host.bgp.exportFilter}
+            if !net_local() then reject;
+            if net_bogon() then reject;
+            if as_bogon() then reject;
+            accept;
           };
         };
         source address 10.23.42.${toString thisHost.magicNumber};
