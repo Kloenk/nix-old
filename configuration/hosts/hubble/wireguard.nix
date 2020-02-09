@@ -3,19 +3,12 @@
 {
   environment.systemPackages = [ pkgs.wireguard pkgs.wireguard-tools ];
 
-  networking.nat.enable = true;
-  networking.nat.externalInterface = "eth0";
-  networking.nat.internalInterfaces = [ "wg0" "wgFam" ];
   networking.firewall = {
     allowedUDPPorts = [
       51820 # wg0
       51821 # wgFam
       51822 # llg0
     ];
-
-    extraCommands = ''
-    iptables -t nat -A POSTROUTING -s 192.168.42.0/24 -o ens18 -j MASQUERADE
-    '';
   };
 
   networking.wireguard.interfaces = {

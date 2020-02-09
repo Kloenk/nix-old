@@ -26,6 +26,7 @@ in {
     ../../default.nix
     ../../common
     ../../common/collectd.nix
+    ../../bgp
 
     # fallback for detection
     <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
