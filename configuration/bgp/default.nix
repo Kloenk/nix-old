@@ -216,7 +216,6 @@ in {
         neighbor 10.23.42.${toString host.magicNumber} as ${if host.bgp ? as then host.bgp.as else toString (65000 + host.magicNumber)};
       }
     '') bgpHosts);
-    };
     systemd.network = lib.optionalAttrs cfg.default {
       networks."wg-default".extraConfig = ''
         [RoutingPolicyRule]
@@ -226,5 +225,5 @@ in {
         Priority = 30000
       '';
     };
-  }
+    };
 }
