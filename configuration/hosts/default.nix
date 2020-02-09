@@ -2,13 +2,13 @@
   kloenkX = {
     hostname = "kloenk@kloenkX.kloenk.de:62954";
     prometheusExporters = [ "node-exporter" "nginx-exporter" "wireguard" ];
-    magicNumber = 50;
+    magicNumber = 250;
   };
   hubble = {
     hostname = "kloenk@hubble.kloenk.de:62954";
     #prometheusExporters = [ 9100 3001 9090 9154 9187 7980 9586 9119 9166 9113 ];
     prometheusExporters = [ "node-exporter" "nginx-exporter" "wireguard" ];
-    magicNumber = 49;
+    magicNumber = 249;
   };
   titan = {
     #hostname = "kloenk@titan.kloenk.de:62954";
