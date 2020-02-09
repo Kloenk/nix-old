@@ -9,6 +9,7 @@
   services.nginx.statusPage = true;
   services.nginx.virtualHosts."${config.networking.hostName}.kloenk.de" = {
     enableACME = true;
+    addSSL = true;
     locations."/node-exporter/".proxyPass = "http://127.0.0.1:9100/";
     locations."/node-exporter/".extraConfig = ''
       allow 2001:41d0:1004:1629:1337:187:1:0/112;

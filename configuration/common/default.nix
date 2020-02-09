@@ -20,6 +20,7 @@
   nix.trustedUsers = [ "root" "@wheel" "kloenk" ];
 
   networking.firewall.trustedInterfaces = [ "wg0" ];
+  networking.useNetworkd = lib.mkDefault true;
 
   services.openssh.enable = true;
   services.openssh.ports = [ 62954 ];
@@ -49,6 +50,7 @@
     restic
     tmux
     exa
+    iptables
   ];
 
   environment.variables.EDITOR = "vim";
@@ -99,6 +101,7 @@
       neofetch
       sl
       todo-txt-cli
+      tcpdump
     ];
   };
 
