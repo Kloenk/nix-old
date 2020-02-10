@@ -7,5 +7,6 @@
     ./collectd.nix
     ./ferm2
     ./secrets
+    ./engelsystem
   ];
 }
