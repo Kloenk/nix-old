@@ -27,42 +27,72 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-	  networking.firewall.allowedUDPPorts = lib.mapAttrsToList (name: host: 51820 + host.magicNumber + thisHost.magicNumber) bgpHosts;
-	  networking.wireguard.interfaces = (lib.mapAttrs' (name: host: 
-	    let
-	      port = 51820 + host.magicNumber + thisHost.magicNumber;
-	    in lib.nameValuePair "wg-${name}" {
-	      privateKeyFile = toString <secrets/wg-pbb.key>;
-	      listenPort = port;
-	      ips = [ "10.23.42.${toString thisHost.magicNumber}/32" "fda0::${toString thisHost.magicNumber}/128" "fe80::${toString thisHost.magicNumber}/64" ];
-	      allowedIPsAsRoutes = false;
-	      postSetup = "wg set wg-${name} fwmark 0x51820";
-	      peers = [
-	        (
-	          {
-	            allowedIPs = [ "::/0" "0.0.0.0/0" ];
-	            publicKey = host.wireguard.publicKey;
-	          }
-	            //
-	          (
-	            if host.wireguard ? endpoint then
-	              { endpoint = lib.optionalAttrs (host.wireguard ? endpoint) "${host.wireguard.endpoint}:${toString port}"; }
-	            else
-	              {}
-	          )
-	        )
-	      ];
-	    }
-	  ) bgpHosts);
-	
-	  networking.firewall.allowedTCPPorts = [ 179 ];
-	  users.users.kloenk.extraGroups = [ "bird2" ];
-	  services.ferm2.forwardPolicy = "ACCEPT";
-	  boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = true;
-	  boot.kernel.sysctl."net.ipv4.conf.all.forwarding" = true;
-	
-	  services.bird2.enable = true;
-	  services.bird2.config = ''
+    networking.firewall.allowedUDPPorts = lib.mapAttrsToList (name: host: 51820 + host.magicNumber + thisHost.magicNumber) bgpHosts;
+
+    systemd.network.netdevs = (lib.mapAttrs' (name: host:
+      let
+        port = 51820 + host.magicNumber + thisHost.magicNumber;
+      in lib.nameValuePair "wg-${name}" {
+        netdevConfig = {
+          Kind = "wireguard";
+          Name = "wg-${name}";
+        };
+        wireguardConfig = {
+          FwMark = 333856;
+          ListenPort = port;
+          PrivateKeyFile = config.krops.secrets.files."wg-pbb.key".path;
+        };
+        wireguardPeers = [
+          {
+            wireguardPeerConfig = {
+              AllowedIPs = [ "::/0" "0.0.0.0/0" ];
+              PublicKey = host.wireguard.publicKey;
+            }
+              //
+            (
+              if host.wireguard ? endpoint then
+                { Endpoint = lib.optionalAttrs (host.wireguard ? endpoint) "${host.wireguard.endpoint}:${toString port}"; }
+              else
+                {}
+            );
+          }
+        ];
+      }
+    ) bgpHosts);
+
+    systemd.network.networks = (lib.mapAttrs' (name: host: lib.nameValuePair "wg-${name}" {
+      name = "wg-${name}";
+      addresses = [
+        { addressConfig.Address = "10.23.42.${toString thisHost.magicNumber}/32"; }
+        { addressConfig.Address = "fda0::${toString thisHost.magicNumber}/128"; }
+        { addressConfig.Address = "fe80::${toString thisHost.magicNumber}/64"; }
+      ];
+    }) bgpHosts) // {
+      "wg-default".extraConfig = ''
+        [RoutingPolicyRule]
+        FirewallMark = 51820
+        InvertRule = true
+        Table = ${as}
+        Family = both
+        Priority = 30000
+      '';
+    };
+
+    krops.secrets.files."wg-pbb.key".owner = "systemd-network";
+    users.users.systemd-network.extraGroups = [ "keys" ];
+
+    networking.firewall.allowedTCPPorts = [ 179 ];
+    users.users.kloenk.extraGroups = [ "bird2" ];
+    services.ferm2.forwardPolicy = "ACCEPT";
+    services.nscd.enable = lib.mkForce false;
+    boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = true;
+    boot.kernel.sysctl."net.ipv4.conf.all.forwarding" = true;
+
+    networking.interfaces.lo.ipv4.addresses = [ { address = cfg.primaryIP4; prefixLength = 32; }  ];
+    networking.interfaces.lo.ipv6.addresses = [ { address = cfg.primaryIP; prefixLength = 128; }  ];
+
+    services.bird2.enable = true;
+    services.bird2.config = ''
       router id ${cfg.primaryIP4};
 
       function net_local() {
@@ -144,6 +174,7 @@ in {
       }
       protocol direct {
         interface "wg-*";
+        interface "lo";
         ipv6 { import all; };
         ipv4 { import all; };
       }
@@ -216,14 +247,24 @@ in {
         neighbor 10.23.42.${toString host.magicNumber} as ${if host.bgp ? as then host.bgp.as else toString (65000 + host.magicNumber)};
       }
     '') bgpHosts);
-    systemd.network = lib.optionalAttrs cfg.default {
-      networks."wg-default".extraConfig = ''
-        [RoutingPolicyRule]
-        FirewallMark = ${as}
-        Table = ${as}
-        Family = both
-        Priority = 30000
-      '';
-    };
-    };
+
+    services.ferm2.extraConfig = ''
+      table mangle {
+        chain FORWARD {
+          protocol tcp tcp-flags (SYN RST) SYN TCPMSS clamp-mss-to-pmtu;
+        }
+        chain PREROUTING {
+          CONNMARK restore-mark;
+          mod connmark mark 51820 MARK set-mark 0x1234;
+          mod connmark mark ! 0x1234 MARK set-mark 51820;
+          mod connmark mark ! 0x1234 interface (${lib.concatStringsSep " " (lib.mapAttrsToList (name: host: "wg-${name}") bgpHosts)}) MARK set-mark 0x0;
+          mod connmark mark ! 0x1234 CONNMARK save-mark;
+          MARK set-mark 0x0;
+        }
+        chain OUTPUT {
+          CONNMARK restore-mark;
+        }
+      }
+    '';
+  };
 }
