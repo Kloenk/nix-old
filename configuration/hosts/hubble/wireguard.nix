@@ -24,7 +24,7 @@
     wireguardPeers = [
       { # kloenkX
         wireguardPeerConfig = {
-          AllowedIPs = [ "192.168.42.6/32" "2001:41d0:1004:1629:1337:187:1:6/128" "2a0f:4ac0:f199:42::6/128" ];
+          AllowedIPs = [ "192.168.42.6/32" "2001:41d0:1004:1629:1337:187:1:6/128" "2a0f:4ac0:f199:42::6/128" "195.39.246.50/32" ];
           PublicKey = "cTpyxiMfKTdytWMV+lMAUazQPPLAax7rZ98kvPT96no=";
           PresharedKeyFile = config.krops.secrets.files."wg0.kloenkX.psk".path;
           PersistentKeepalive = 21;
@@ -78,6 +78,7 @@
         routeConfig.Destination = "2a0f:4ac0:f199:42::/64";
         routeConfig.Table = "51820";
       }
+      { routeConfig.Destination = "195.39.246.50/32"; }
     ];
   };
 
