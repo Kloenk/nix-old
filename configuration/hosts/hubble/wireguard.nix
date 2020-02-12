@@ -11,7 +11,7 @@
     ];
   };
 
-  systemd.network.netdevs.wg0 = {
+  systemd.network.netdevs."30-wg0" = {
     netdevConfig = {
       Kind = "wireguard";
       Name = "wg0";
@@ -39,27 +39,56 @@
       } { # atom
         wireguardPeerConfig = { 
           AllowedIPs = [ "192.168.42.7/32" "2001:41d0:1004:1629:1337:187:1:7/128" "2a0f:4ac0:f199:42::7/128" ];
-          PublicKey = "009Wk3RP7zOmu61Zc7ZCeS6lJyhUcXZwZsBJoadHOA0";
+          PublicKey = "009Wk3RP7zOmu61Zc7ZCeS6lJyhUcXZwZsBJoadHOA0=";
           PresharedKeyFile = config.krops.secrets.files."wg0.atom.psk".path;
           PersistentKeepalive = 21;
         };
       }
     ];
   };
-  systemd.network.networks.wg0 = {
+  systemd.network.networks."30-wg0" = {
     name = "wg0";
     addresses = [
-      { addressConfig.Address = "192.168.42.1/24"; }
-      { addressConfig.Address = "2001:41d0:1004:1629:1337:187:1:0/120"; }
-      { addressConfig.Address = "2001:41d0:1004:1629:1337:187:1:1/120"; }
-      { addressConfig.Address = "2001:41d0:1004:1629:1337:187:0:1/128"; }
-      { addressConfig.Address = "2a0f:4ac0:f199:42::1/64"; }
+      {
+        addressConfig.Address = "192.168.42.1/24";
+      }
+      {
+        addressConfig.Address = "2001:41d0:1004:1629:1337:187:1:0/120";
+      }
+      {
+        addressConfig.Address = "2001:41d0:1004:1629:1337:187:1:1/120";
+      }
+      {
+        addressConfig.Address = "2001:41d0:1004:1629:1337:187:0:1/128";
+      }
+      {
+        addressConfig.Address = "2a0f:4ac0:f199:42::1/64";
+      }
     ];
     routes = [
-      { routeConfig.Destination = "192.168.42.0/24"; }
-      { routeConfig.Destination = "2001:41d0:1004:1629:1337:187:1:0/120"; }
-      { routeConfig.Destination = "2a0f:4ac0:f199:42::/64"; }
+      {
+        routeConfig.Destination = "192.168.42.0/24";
+        routeConfig.Table = "51820";
+      }
+      {
+        routeConfig.Destination = "2001:41d0:1004:1629:1337:187:1:0/120";
+        routeConfig.Table = "51820";
+      }
+      {
+        routeConfig.Destination = "2a0f:4ac0:f199:42::/64";
+        routeConfig.Table = "51820";
+      }
     ];
+  };
+
+  systemd.network.networks."70-wg-priv" = {
+    name = "*";
+    extraConfig = ''
+      [RoutingPolicyRule]
+      Table = 51820
+      Family = both
+      Priority = 25000
+    '';
   };
      
 
