@@ -6,6 +6,7 @@ let
               ../sources/nixpkgs/nixos/modules/installer/cd-dvd/channel.nix
               ../configuration/common
           ];
+          networking.useDHCP = false;
           boot.loader.grub.enable = false;
           boot.kernelParams = [
               "panic=30" "boot.panic_on_fail"
