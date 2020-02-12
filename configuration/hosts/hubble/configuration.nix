@@ -20,6 +20,7 @@ in {
     ./postgres.nix
     ./quassel.nix
     ./deluge.nix
+    #./engelsystem.nix
     #./netbox.nix
     #./redis.nix
 
@@ -31,6 +32,21 @@ in {
     # fallback for detection
     <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
   ];
+
+  # patches for systemd
+  systemd.package = pkgs.systemd.overrideAttrs (old: {
+  patches = old.patches or [] ++ [
+    (pkgs.fetchpatch {
+      url = "https://github.com/petabyteboy/systemd/commit/c9476b836d647b470e6ff4d1bf843c9cec81748a.diff";
+      sha256 = "1vrkykwg05bhvk1q1k5dbxgblgvx6pci19k06npfdblsf7aycfsz";
+    })
+  ];
+});
+
+  environment.etc."systemd/networkd.conf".source = pkgs.writeText "networkd.conf" ''
+    [Network]
+    DropForeignRoutes=yes
+  '';
 
   environment.variables.NIX_PATH = lib.mkForce "/var/src";
   nix.nixPath = lib.mkForce [
