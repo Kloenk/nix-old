@@ -6,6 +6,7 @@ in {
   imports = [
     ./hardware-configuration.nix
     ./wireguard.nix
+    ./bgp.nix
 
     ../../default.nix
     ../../common
@@ -20,7 +21,7 @@ in {
 
   boot.tmpOnTmpfs = true;
 
-  networking.hostName = "KloenkX";
+  networking.hostName = "kloenkX";
   networking.useDHCP = false;
   networking.interfaces.bond0.useDHCP = true;
   networking.wireless.enable = true;

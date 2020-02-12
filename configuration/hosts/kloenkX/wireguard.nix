@@ -26,7 +26,6 @@
     name = "wg0";
     addresses = [
       { addressConfig.Address = "192.168.42.6/32"; }
-      { addressConfig.Address = "195.39.246.50/32"; }
       { addressConfig.Address = "2a0f:4ac0:f199:42::6/128"; }
       { addressConfig.Address = "2001:41d0:1004:1629:1337:187:1:6/128"; } # legacy
     ];
