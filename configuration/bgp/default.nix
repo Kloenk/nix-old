@@ -67,8 +67,7 @@ in {
         { addressConfig.Address = "fda0::${toString thisHost.magicNumber}/128"; }
         { addressConfig.Address = "fe80::${toString thisHost.magicNumber}/64"; }
       ];
-    }) bgpHosts) // {
-      "70-wg-default".extraConfig = ''
+      extraConfig = ''
         [RoutingPolicyRule]
         FirewallMark = 51820
         InvertRule = true
@@ -76,8 +75,7 @@ in {
         Family = both
         Priority = 30000
       '';
-      "70-wg-default".name = "*";
-    };
+    }) bgpHosts);
 
     krops.secrets.files."wg-pbb.key".owner = "systemd-network";
     users.users.systemd-network.extraGroups = [ "keys" ];
