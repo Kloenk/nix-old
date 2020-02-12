@@ -174,7 +174,6 @@ in {
       protocol direct {
         interface "wg-*";
         interface "lo";
-        #interface "wg0";
         ipv6 { import all; };
         ipv4 { import all; };
       }
