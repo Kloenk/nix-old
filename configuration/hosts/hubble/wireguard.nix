@@ -78,8 +78,17 @@
         routeConfig.Destination = "2a0f:4ac0:f199:42::/64";
         routeConfig.Table = "51820";
       }
-      { routeConfig.Destination = "195.39.246.50/32"; }
+      {
+        routeConfig.Destination = "195.39.246.50/32";
+        routeConfig.Table = "51820";
+      }
     ];
+    extraConfig = ''
+      [RoutingPolicyRule]
+      Table = 51820
+      Family = both
+      Priority = 25000
+    '';
   };
 
   systemd.network.netdevs."30-wgFam" = {
@@ -129,6 +138,12 @@
       { routeConfig.Destination = "192.168.30.0/24"; routeConfig.Table = "51820"; }
       { routeConfig.Destination = "2a0f:4ac0:f199:fa14::/64"; }
     ];
+    extraConfig = ''
+      [RoutingPolicyRule]
+      Table = 51820
+      Family = both
+      Priority = 25000
+    '';
   };
 
 
@@ -179,12 +194,6 @@
       { routeConfig.Destination = "192.168.43.0/24"; routeConfig.Table = "51820"; }
       { routeConfig.Destination = "2a0f:4ac0:f199:199::/64"; }
     ];
-  };
-
-  
-
-  systemd.network.networks."70-wg-priv" = {
-    name = "*";
     extraConfig = ''
       [RoutingPolicyRule]
       Table = 51820
@@ -192,7 +201,6 @@
       Priority = 25000
     '';
   };
-     
 
   krops.secrets.files."wg0.key".owner = "systemd-network";
   krops.secrets.files."wg0.titan.psk".owner = "systemd-network";
