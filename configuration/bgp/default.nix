@@ -32,7 +32,7 @@ in {
     systemd.network.netdevs = (lib.mapAttrs' (name: host:
       let
         port = 51820 + host.magicNumber + thisHost.magicNumber;
-      in lib.nameValuePair "wg-${name}" {
+      in lib.nameValuePair "30-wg-${name}" {
         netdevConfig = {
           Kind = "wireguard";
           Name = "wg-${name}";
@@ -60,7 +60,7 @@ in {
       }
     ) bgpHosts);
 
-    systemd.network.networks = (lib.mapAttrs' (name: host: lib.nameValuePair "wg-${name}" {
+    systemd.network.networks = (lib.mapAttrs' (name: host: lib.nameValuePair "30-wg-${name}" {
       name = "wg-${name}";
       addresses = [
         { addressConfig.Address = "10.23.42.${toString thisHost.magicNumber}/32"; }
@@ -68,7 +68,7 @@ in {
         { addressConfig.Address = "fe80::${toString thisHost.magicNumber}/64"; }
       ];
     }) bgpHosts) // {
-      "wg-default".extraConfig = ''
+      "70-wg-default".extraConfig = ''
         [RoutingPolicyRule]
         FirewallMark = 51820
         InvertRule = true
@@ -76,6 +76,7 @@ in {
         Family = both
         Priority = 30000
       '';
+      "wg-default".name = "*";
     };
 
     krops.secrets.files."wg-pbb.key".owner = "systemd-network";
@@ -175,6 +176,7 @@ in {
       protocol direct {
         interface "wg-*";
         interface "lo";
+        #interface "wg0";
         ipv6 { import all; };
         ipv4 { import all; };
       }
