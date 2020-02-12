@@ -63,7 +63,7 @@
       "bluetooth"
       "libvirt"
     ];
-    shell = pkgs.fish;
+    shell = pkgs.bash;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIISCKsWIhN2UBenk0kJ1Hnc+fCZC/94l6bX9C4KFyKZN cardno:FFFE43212945"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAEDZjcKdYViw9cPrLNkO37+1NgUj8Ul1PTlbXMMwlMR kloenk@kloenkX"
@@ -254,5 +254,5 @@
   programs.fish.enable = true;
   programs.mtr.enable = true;
 
-  users.users.root.shell = pkgs.fish;
+  users.users.root.shell = pkgs.bash;
 }
