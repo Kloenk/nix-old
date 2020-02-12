@@ -76,7 +76,7 @@ in {
         Family = both
         Priority = 30000
       '';
-      "wg-default".name = "*";
+      "70-wg-default".name = "*";
     };
 
     krops.secrets.files."wg-pbb.key".owner = "systemd-network";
