@@ -81,6 +81,107 @@
     ];
   };
 
+  systemd.network.netdevs."30-wgFam" = {
+    netdevConfig = {
+      Kind = "wireguard";
+      Name = "wgFam";
+    };
+    wireguardConfig = {
+      FwMark = 51820;
+      ListenPort = 51821;
+      PrivateKeyFile = config.krops.secrets.files."wgFam.key".path;
+    };
+    wireguardPeers = [
+      { # Namu Raspi
+        wireguardPeerConfig = {
+           AllowedIPs = [ "192.168.30.222/32" "2a0f:4ac0:f199:fa14::222/128" ];
+           PublicKey = "VUb1id67AUBzA8W4zulMGQMAS8sd1Lk7UbIfZAJWoV4=";
+           PresharedKeyFile = config.krops.secrets.files."wgFam.namu.psk".path;
+           PersistentKeepalive = 21;
+        };
+      }  
+      { # nein Drachensegler
+        wireguardPeerConfig = {
+           AllowedIPs = [ "192.168.30.3/32" "2a0f:4ac0:f199:fa14::3/128" ];
+           PublicKey = "esYAvRGkZ1cRsPoqBVHWjKsKysB7SVv5pNz783k4cXs=";
+           #PresharedKeyFile = config.krops.secrets.files."wgFam.namu.psk".path;
+           PersistentKeepalive = 21;
+        };
+      }  
+      { # IPhone mum
+        wireguardPeerConfig = {
+           AllowedIPs = [ "192.168.30.212/32" "2a0f:4ac0:f199:fa14::212/128" ];
+           PublicKey = "2Yz6+oEqP01haMf9yuh99/Ojt+81CJtLFyr+BPtK+X4=";
+           PresharedKeyFile = config.krops.secrets.files."wgFam.imum.psk".path;
+           PersistentKeepalive = 21;
+        };
+      }
+    ];
+  };
+  systemd.network.networks."30-wgFam" = {
+    name = "wgFam";
+    addresses = [
+      { addressConfig.Address = "192.168.30.1/24"; }
+      { addressConfig.Address = "2a0f:4ac0:f199:fa14::/64"; }
+    ];
+    routes = [
+      { routeConfig.Destination = "192.168.30.0/24"; routeConfig.Table = "51820"; }
+      { routeConfig.Destination = "2a0f:4ac0:f199:fa14::/64"; }
+    ];
+  };
+
+
+  systemd.network.netdevs."30-llg0" = {
+    netdevConfig = {
+      Kind = "wireguard";
+      Name = "llg0";
+    };
+    wireguardConfig = {
+      FwMark = 51820;
+      ListenPort = 51822;
+      PrivateKeyFile = config.krops.secrets.files."llg0.key".path;
+    };
+    wireguardPeers = [
+      { # io
+        wireguardPeerConfig = {
+           AllowedIPs = [ "192.168.43.2/32" "2a0f:4ac0:f199:119::2/128" ];
+           PublicKey = "rzyPnz6iliO5hyggfUJcmDrNeFPtMDeWRsq3liEfdQ4=";
+           PresharedKeyFile = config.krops.secrets.files."llg0.io.psk".path;
+           PersistentKeepalive = 21;
+        };
+      }  
+      { # kloenkX
+        wireguardPeerConfig = {
+           AllowedIPs = [ "192.168.43.10/32" "2a0f:4ac0:f199:199::10/128" ];
+           PublicKey = "MYNYNLmxTBsr30JsHV1qSqKqA3Gk54wLaKJn/uwBBiY=";
+           #PresharedKeyFile = config.krops.secrets.files."llg0.kloenkX.psk".path;
+           PersistentKeepalive = 21;
+        };
+      }  
+      { # phoenix 
+        wireguardPeerConfig = {
+           AllowedIPs = [ "192.168.43.235/32" "2a0f:4ac0:f199:199::235/128" ];
+           PublicKey = "IVwWeSQ034oDQytB3IfaxWI5yQcfzz977dN7Ak8nSD8=";
+           #PresharedKeyFile = config.krops.secrets.files."wgFam.imum.psk".path;
+           PersistentKeepalive = 21;
+        };
+      }
+    ];
+  };
+  systemd.network.networks."30-llg0" = {
+    name = "llg0";
+    addresses = [
+      { addressConfig.Address = "192.168.43.1/24"; }
+      { addressConfig.Address = "2a0f:4ac0:f199:199::/64"; }
+    ];
+    routes = [
+      { routeConfig.Destination = "192.168.43.0/24"; routeConfig.Table = "51820"; }
+      { routeConfig.Destination = "2a0f:4ac0:f199:199::/64"; }
+    ];
+  };
+
+  
+
   systemd.network.networks."70-wg-priv" = {
     name = "*";
     extraConfig = ''
@@ -96,6 +197,13 @@
   krops.secrets.files."wg0.titan.psk".owner = "systemd-network";
   krops.secrets.files."wg0.kloenkX.psk".owner = "systemd-network";
   krops.secrets.files."wg0.atom.psk".owner = "systemd-network";
+  krops.secrets.files."wgFam.key".owner = "systemd-network";
+  krops.secrets.files."wgFam.namu.psk".owner = "systemd-network";
+  krops.secrets.files."wgFam.imum.psk".owner = "systemd-network";
+  krops.secrets.files."llg0.key".owner = "systemd-network";
+  krops.secrets.files."llg0.io.psk".owner = "systemd-network";
+  krops.secrets.files."llg0.kloenkX.psk".owner = "systemd-network";
+  
   users.users.systemd-network.extraGroups = [ "keys" ];
 
   #networking.interfaces.wg0 = {
