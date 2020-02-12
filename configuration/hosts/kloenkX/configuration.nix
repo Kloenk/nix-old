@@ -114,8 +114,8 @@ in {
 
     # paint software
     krita
-    sublimetext3
-    wpa_gui
+    sublime3
+    wpa_supplicant_gui
   ];
 
 
