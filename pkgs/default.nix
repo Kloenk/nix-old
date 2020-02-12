@@ -7,6 +7,7 @@ let
 
   newpkgs = {
     collectd-wireguard = callPackage ./collectd-wireguard { };
+    engelsystem = callPackage ./engelsystem { };
     #rifo = callPackage ./rifo { };
     rwm = callPackage ./rwm { };
     dwm = callPackage ./dwm { rwm = newpkgs.rwm; };

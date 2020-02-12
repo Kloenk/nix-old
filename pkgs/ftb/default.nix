@@ -22,7 +22,7 @@ in stdenv.mkDerivation {
 
   src = fetchurl {
     url = "http://ftb.forgecdn.net/FTB2/launcher/FTB_Launcher.jar";
-    sha256 = "f2ec575e3ffd92bac87caf8b306fc22d4ba78b19bf9577a2d915e9dedab2c030";
+    sha256 = "0l3b5lnn5r2ywjlk0nsjj20nncs18jwi3amyhysi4b85zjcwxmj7";
   };
 
   nativeBuildInputs = [ makeWrapper ];

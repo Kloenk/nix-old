@@ -20,16 +20,33 @@ in {
     ./postgres.nix
     ./quassel.nix
     ./deluge.nix
+    #./engelsystem.nix
     #./netbox.nix
     #./redis.nix
 
     ../../default.nix
     ../../common
     ../../common/collectd.nix
+    ../../bgp
 
     # fallback for detection
     <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
   ];
+
+  # patches for systemd
+  systemd.package = pkgs.systemd.overrideAttrs (old: {
+  patches = old.patches or [] ++ [
+    (pkgs.fetchpatch {
+      url = "https://github.com/petabyteboy/systemd/commit/c9476b836d647b470e6ff4d1bf843c9cec81748a.diff";
+      sha256 = "1vrkykwg05bhvk1q1k5dbxgblgvx6pci19k06npfdblsf7aycfsz";
+    })
+  ];
+});
+
+  environment.etc."systemd/networkd.conf".source = pkgs.writeText "networkd.conf" ''
+    [Network]
+    DropForeignRoutes=yes
+  '';
 
   environment.variables.NIX_PATH = lib.mkForce "/var/src";
   nix.nixPath = lib.mkForce [
@@ -46,10 +63,10 @@ in {
   };
   # setup network
   boot.initrd.preLVMCommands = lib.mkBefore (''
-    ip li set eth0 up
-    ip addr add 51.254.249.187/32 dev eth0
-    ip route add 164.132.202.254/32 dev eth0
-    ip route add default via 164.132.202.254 dev eth0 && hasNetwork=1 
+    ip li set ens18 up
+    ip addr add 51.254.249.187/32 dev ens18
+    ip route add 164.132.202.254/32 dev ens18
+    ip route add default via 164.132.202.254 dev ens18 && hasNetwork=1 
   '');
 
   networking.firewall.allowedTCPPorts = [ 9092 ];
@@ -58,6 +75,24 @@ in {
   networking.dhcpcd.enable = false;
   networking.useDHCP = false;
   networking.nameservers = [ "8.8.8.8" ];
+  networking.interfaces.ens18.ipv4.addresses = [ { address = "51.254.249.187"; prefixLength = 32; } ];
+  networking.interfaces.ens18.ipv4.routes = [ { address = "164.132.202.254"; prefixLength = 32; } ];
+  #networking.defaultGateway = { address = "164.132.202.254"; interface = "enp0s18"; };
+  networking.interfaces.ens18.ipv6.addresses = [ { address = "2001:41d0:1004:1629:1337:0187::"; prefixLength = 112; } ];
+  networking.interfaces.ens18.ipv6.routes = [ { address = "2001:41d0:1004:16ff:ff:ff:ff:ff"; prefixLength = 128; } ];
+  #networking.defaultGateway6 = { address = "2001:41d0:1004:16ff:ff:ff:ff:ff"; interface = "ens18"; };
+  networking.extraHosts = ''
+    172.0.0.1 hubble.kloenk.de
+  '';
+  services.resolved.enable = false; # running bind
+
+  #systemd.network.networks."ens18".name = "ens18";
+  systemd.network.networks."40-ens18".routes = [
+    {
+      routeConfig.Gateway = "164.132.202.254";
+      routeConfig.GatewayOnLink = true;
+    }
+  ];
 
   # make sure dirs exists
   system.activationScripts = {
@@ -148,14 +183,14 @@ in {
   services.vnstat.enable = true;
 
   # enable docker
-  networking.firewall.interfaces."docker0" = {
-    allowedTCPPortRanges = [ { from = 1; to = 65534; } ];
-    allowedUDPPortRanges = [ { from = 1; to = 65534; } ];
-  };
+  #networking.firewall.interfaces."docker0" = {
+  #  allowedTCPPortRanges = [ { from = 1; to = 65534; } ];
+  #  allowedUDPPortRanges = [ { from = 1; to = 65534; } ];
+  #};
 
-  virtualisation.docker.enable = true;
-  users.users.kloenk.extraGroups = [ "docker" ];
-  users.users.kloenk.packages = [ pkgs.docker ];
+  #virtualisation.docker.enable = true;
+  #users.users.kloenk.extraGroups = [ "docker" ];
+  #users.users.kloenk.packages = [ pkgs.docker ];
 
   # auto update/garbage collector
   system.autoUpgrade.enable = true;
@@ -183,8 +218,14 @@ in {
     Listen = "0.0.0.0";
   };
   networking.firewall.allowedUDPPorts = [ 25826 ];
-  services.ferm2.forwardPolicy = "ACCEPT";
 
+  services.bgp = {
+    enable = true;
+    localAS = 65249;
+    primaryIP = "2a0f:4ac0:f199::1";
+    primaryIP4 = "195.39.246.49";
+    default = true;
+  };
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database

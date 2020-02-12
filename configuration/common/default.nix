@@ -102,6 +102,7 @@
       sl
       todo-txt-cli
       tcpdump
+      binutils
     ];
   };
 
