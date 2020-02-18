@@ -4,21 +4,21 @@ let
   bondName = "world";
 in {
   systemd.network = {
-    netdevs."30-bond0" = {
-      netdevConfig = {
-        Kind = "bond";
-        Name = bondName;
-      };
-      bondConfig = {
-        Mode = "active-backup";
-        MinLinks = "1";
-        FailOverMACPolicy = "active";
-      };
-    };
-    networks."50-bond0" = {
-      name = bondName;
-      DHCP = "yes";
-    };
+    #netdevs."30-bond0" = {
+    #  netdevConfig = {
+    #    Kind = "bond";
+    #    Name = bondName;
+    #  };
+    #  bondConfig = {
+    #    Mode = "active-backup";
+    #    MinLinks = "1";
+    #    FailOverMACPolicy = "active";
+    #  };
+    #};
+    #networks."50-bond0" = {
+    #  name = bondName;
+    #  DHCP = "yes";
+    #};
     #networks."30-bond0" = {
     #  name = bondName;
     #  DHCP = "yes";
@@ -28,15 +28,11 @@ in {
 
     networks."20-eno0" = {
       name = "eno0";
-      DHCP = "no";
-      bond = [ bondName ];  
-      networkConfig.PrimarySlave = "yes";
+      DHCP = "yes";
     };
     networks."20-wlp2s0" = {
       name = "wlp2s0";
-      DHCP = "no";
-      bond = [ bondName ];
-      networkConfig.ActiveSlave = "yes";
+      DHCP = "yes";
     };
     networks."30-lo" = {
       name = "lo";
@@ -50,5 +46,6 @@ in {
       ];
     };
     networks."99-how_cares".linkConfig.RequiredForOnline = "no";
+    networks."99-how_cares".linkConfig.Unmanaged = "yes";
   };
 }

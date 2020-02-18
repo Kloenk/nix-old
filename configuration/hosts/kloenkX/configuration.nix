@@ -7,6 +7,7 @@ in {
     ./hardware-configuration.nix
     ./wireguard.nix
     ./bgp.nix
+    ./links.nix
 
     ../../default.nix
     ../../common
@@ -14,6 +15,8 @@ in {
     ../../desktop
     #../desktop/spotifyd.nix
   ];
+
+  systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL = "debug";
 
   environment.variables.NIX_PATH = lib.mkForce "/var/src";
 
@@ -23,7 +26,7 @@ in {
 
   networking.hostName = "kloenkX";
   networking.useDHCP = false;
-  networking.interfaces.bond0.useDHCP = true;
+  #networking.interfaces.bond0.useDHCP = true;
   networking.wireless.enable = true;
   networking.wireless.interfaces = [ "wlp2s0" ];
   networking.wireless.networks = import <secrets/wifi.nix>;
@@ -34,9 +37,9 @@ in {
   '';
   networking.nameservers = [ "1.1.1.1" "10.0.0.2" ];
 
-  networking.bonds."bond0" = {
-    interfaces = [ "eno0" "wlp2s0" ];
-  };
+  #networking.bonds."bond0" = {
+  #  interfaces = [ "eno0" "wlp2s0" ];
+  #};
 
   services.fprintd.enable = true;
   security.pam.services.login.fprintAuth = true;
@@ -45,17 +48,6 @@ in {
   services.printing.browsing = true;
   services.printing.enable = true;
   services.avahi.enable = true;
-
-  # write to collect server
-  services.collectd2.plugins = {
-    network.options.Server = "51.254.249.187";
-    sensors.hasConfig = false;
-    processes.hasConfig = false;
-    virt.options = {
-      Connection = "qemu:///system";
-      HostnameFormat = "name";
-    };
-  };
 
   nixpkgs.config.allowUnfree = true;
 

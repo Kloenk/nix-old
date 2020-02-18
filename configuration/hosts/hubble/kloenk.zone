@@ -1,6 +1,6 @@
 $TTL 1M
 @		SOA	ns1.kloenk.de. hostmaster.kloenk.de. (
-    2020020902	; serial (yyyymmdd##)
+    2020021801  	; serial (yyyymmdd##)
     3600            ; refresh
     1000            ; retry
     604800          ; expiry
@@ -34,7 +34,9 @@ ad		TXT	"v=spf1 +a +mx -all"
 _dmarc.ad	TXT	"v=DMARC1;p=reject;pct=100;rua=mailto:postmaster@kloenk.de"
 
 mail		AAAA	2001:41d0:1004:1629:1337:0187::
+mail		AAAA    2a0f:4ac0:f199::1
 mail		A	51.254.249.187
+mail		A	195.39.246.49
 
 www.mail		AAAA	2001:41d0:1004:1629:1337:0187::
 www.mail		A	51.254.249.187
@@ -80,8 +82,8 @@ hubble			A 	51.254.249.187
 ;hubble			AAAA	2001:41d0:1004:1629:1337:0187:1:0
 hubble			AAAA  2001:41d0:1004:1629:1337:0187::
 
-kloenkX			A 192.168.42.6
-kloenkX			AAAA 2001:41d0:1004:1629:1337:187:1:6
+kloenkX			A 195.39.246.50
+kloenkX			AAAA 2a0f:4ac0:f199::6
 
 titan			A	192.168.42.3
 titan			AAAA 2001:41d0:1004:1629:1337:187:1:3
@@ -102,13 +104,19 @@ _ts3._udp.ts	SRV	1	1	790	web.xorit.de.
 _ts3._udp.ts3	SRV	1	1	790	web.xorit.de.
 _ts3._udp.ftb	SRV	1	1	790	web.xorit.de.
 
-; engelsystem bühnentechnik
-buenentechnik	A	51.254.249.187
-buenentechnik	AAAA	2001:41d0:1004:1629:1337:187::
-
 ; facharbeit survey system
 survey		A 51.254.249.180
 survey		CAA 0 issue letsencrypt.org
+
+yougen  A  195.39.247.9
+
+io.yougen  A    195.39.247.9
+io.yougen  AAAA 2a0f:4ac0:119::10
+
+git.yougen A 195.39.247.9
+git.yougen AAAA 2a0f:4ac0:119::10 
+
+punkte A 195.39.247.9
 
 
 ; llg entrys

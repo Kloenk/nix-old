@@ -1,8 +1,7 @@
-{ pkgs, config, ... }:
+{ lib, pkgs, config, ... }:
 
 {
-  users.users.pbb.shell = pkgs.zsh;
-  home-manager.users.pbb.programs.zsh = {
+  home-manager.users.kloenk.programs.zsh = {
     initExtra = ''
       function use {
         nix-shell -p $@ --run zsh
@@ -23,10 +22,22 @@
       ];
     };
     plugins = [
-      {
-        name = "zsh-fast-syntax-highlighting";
-        src = pkgs.zsh-fast-syntax-highlighting;
-      }
+      # {
+      #   name = "zsh-fast-syntax-highlighting";
+      #   src = pkgs.zsh-fast-syntax-highlighting;
+      # }
+       {
+         name = "zsh-syntax-highlighting";
+         src = pkgs.zsh-syntax-highlighting;
+       }
     ];
+    shellAliases = {
+      ls = "exa";
+      l  = "exa -a";
+      ll = "exa -lgh";
+      la = "exa -lagh";
+      lt = "exa -T";
+      lg = "exa -lagh --git";
+    };
   };
 }

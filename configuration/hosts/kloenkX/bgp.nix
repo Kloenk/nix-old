@@ -6,7 +6,7 @@ let
   thisHost = hosts.${config.networking.hostName};
   as = "65249";
   bgpHosts = lib.filterAttrs (name: host: host ? bgp && host ? wireguard && name != config.networking.hostName) hosts;
-  primaryIP = "2a0f:4ac0:f199:42::6";
+  primaryIP = "2a0f:4ac0:f199::6";
   primaryIP4 = "195.39.246.50";
 
 in {
@@ -17,6 +17,9 @@ in {
     netdevConfig = {
       Kind = "wireguard";
       Name = "wg-${name}";
+    };
+    netdevConfig = {
+      MTUBytes = "1402";
     };
     wireguardConfig = {
       FwMark = 51820;
@@ -63,9 +66,6 @@ in {
   networking.firewall.allowedTCPPorts = [ 179 ];
   users.users.kloenk.extraGroups = [ "bird2" ];
 
-  networking.interfaces.lo.ipv4.addresses = [ { address = primaryIP4; prefixLength = 32; }  ];
-  networking.interfaces.lo.ipv6.addresses = [ { address = primaryIP; prefixLength = 128; }  ];
-
   services.bird2.enable = true;
   services.bird2.config = ''
     router id ${primaryIP4};
@@ -80,10 +80,10 @@ in {
     }
     function net_default() {
       if net.type = NET_IP4 then return net ~ [
-       0.0.0.0/0+
+       0.0.0.0/0
       ];
       return net ~ [
-        ::/0+
+        ::/0
       ];
     } 
     function net_bogon() {
@@ -176,14 +176,14 @@ in {
         next hop self;
         import keep filtered;
         import filter {
-          if !net_default() then reject;
           if net_local() then reject;
           if net_bogon() then reject;
           if as_bogon() then reject;
           if (65535, 0) ~ bgp_community then {
             bgp_local_pref = 0;
           }
-          accept;
+          if net_default() then accept;
+          reject;
         };
         export filter {
           if !net_local() then reject;
@@ -210,14 +210,14 @@ in {
         next hop self;
         import keep filtered;
         import filter {
-          if !net_default() then reject;
           if net_local() then reject;
           if net_bogon() then reject;
           if as_bogon() then reject;
           if (65535, 0) ~ bgp_community then {
             bgp_local_pref = 0;
           }
-          accept;
+          if net_default() then accept;
+          reject;
         };
         export filter {
           if !net_local() then reject;
