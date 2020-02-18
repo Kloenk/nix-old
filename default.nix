@@ -3,7 +3,7 @@ let
   pkgs = import ./sources/nixpkgs { };
 in {
   deploy = import ./lib/krops.nix;
-  # kexec_tarbal
+  kexec_tarball = import ./lib/kexec-tarball.nix;
   isoImage = import ./lib/iso-image.nix;
   # pkgs = import ./configuration/pkgs;
 

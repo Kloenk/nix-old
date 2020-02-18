@@ -6,6 +6,7 @@
     <sources/home-manager/nixos>
     ./nginx
     ./node-exporter
+    ./zsh
   ];
 
   nixpkgs.overlays = [
@@ -63,7 +64,7 @@
       "bluetooth"
       "libvirt"
     ];
-   shell = pkgs.fish;
+   shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIISCKsWIhN2UBenk0kJ1Hnc+fCZC/94l6bX9C4KFyKZN cardno:FFFE43212945"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAEDZjcKdYViw9cPrLNkO37+1NgUj8Ul1PTlbXMMwlMR kloenk@kloenkX"
@@ -177,6 +178,13 @@
             user = "kloenk";
             forwardAgent = true;
           };
+          lycus-pbb = {
+            hostname = "10.0.0.5";
+            port = 62954;
+            user = "kloenk";
+            forwardAgent = true;
+            proxyJump = "io-pbb";
+          };
           admin-yougen = {
             hostname = "10.66.6.42";
             port = 62954;
@@ -211,6 +219,12 @@
           };
           io-llg0 = {
             hostname = "192.168.43.2";
+            port = 62954;
+            user = "kloenk";
+            forwardAgent = true;
+          };
+          io-pbb = {
+            hostname = "195.39.247.9";
             port = 62954;
             user = "kloenk";
             forwardAgent = true;
@@ -252,6 +266,7 @@
   };
 
   programs.fish.enable = true;
+  programs.zsh.enable = true;
   programs.mtr.enable = true;
 
   users.users.root.shell = pkgs.fish;
