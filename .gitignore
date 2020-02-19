@@ -21,3 +21,4 @@ result
 
 # vm image
 *.qcow2
+iso-extra.nix
