@@ -29,6 +29,10 @@ in {
     hostname = "kloenk@192.168.178.48:62954";
     prometheusExporters = [ "node-exporter" "nginx-exporter" ];
   };
+  gurke = {
+    hostname = "gurke.pbb.lc:62954";
+    prometheusExporters = [ "node-exporter" "nginx-exporter" ];
+  };
   # for wireguard only
   combahton = {
     wireguard.publicKey = "9azKCE2ZgWYo0kWD8ezsWDWD3YMlFrxXia23q5ENLm8=";

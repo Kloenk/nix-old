@@ -2,13 +2,14 @@
   config
 , pkgs
 , lib
-, grubDev ? "/dev/sda"
-, interface ? "eno0"
-, hostname ? "nixos"
-, supportedFilesystems ? [ ]
 , ...}:
 
-{
+in
+  grubDev = "/dev/sda";
+  interface = "eno0";
+  hostname = "nixos";
+  supportedFilesystems = [ ];
+let {
     imports = [
         ./hardware-configuration.nix
         (builtins.fetchGit {
@@ -62,7 +63,7 @@
   environment.variables.EDITOR = "vim";
 
   users.users.kloenk = {
-    inNormalUser = true;
+    isNormalUser = true;
     uid = 1000;
     extraGroups = [
       "wheel"

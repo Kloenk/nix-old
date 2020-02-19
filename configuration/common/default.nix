@@ -241,6 +241,11 @@
             user = "kloenk";
             forwardAgent = true;
           };
+          gurke = {
+            hostname = "gurke.pbb.lc";
+            port = 62954;
+            user = "kloenk";
+          };
         };
       };
 
