@@ -251,6 +251,13 @@
 
       vim = {
         enable = true;
+        extraConfig = ''
+          set viminfo='20,<1000
+          set tabstop=2
+          set shiftwidth=2
+          set expandtab
+          set nu
+        '';
       };
     };
 

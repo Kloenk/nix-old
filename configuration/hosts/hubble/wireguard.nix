@@ -43,6 +43,12 @@
           PresharedKeyFile = config.krops.secrets.files."wg0.atom.psk".path;
           PersistentKeepalive = 21;
         };
+      } {
+        wireguardPeerConfig = {
+          AllowedIPs = [ "192.168.42.137/32" "2a0f:4ac0:f199:42::6/128" ];
+          PublicKey = "+6fW740Tp3B2dfaPTWWulfqIM65y6hy8zqRukNa2dV4=";
+          PersistentKeepalive = 21;
+        };
       }
     ];
   };
