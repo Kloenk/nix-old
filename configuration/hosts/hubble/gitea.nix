@@ -82,6 +82,14 @@ in {
     locations."/".proxyPass = "http://127.0.0.1:3000";
   };
 
+  services.ferm2.extraConfig = ''
+    table nat {
+      chain PREROUTING {
+        mod addrtype dst-type LOCAL proto tcp dport 22 REDIRECT to-ports 2222;
+      }
+    }
+  '';
+
   #systemd.services.gitea.serviceConfig.AmbientCapabilities = "cap_net_bind_service";
   systemd.services.gitea.serviceConfig.SystemCallFilter = lib.mkForce "~@clock @cpu-emulation @debug @keyring @memlock @module @obsolete @raw-io @reboot @resources @setuid @swap";
 }
