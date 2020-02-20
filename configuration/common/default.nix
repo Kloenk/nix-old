@@ -119,38 +119,38 @@
         };
       };
 
-      fish = {
-        enable = true;
-        shellInit = ''
-          set PAGER less
-        '';
-        shellAbbrs = {
-          admin-YouGen = "ssh admin-yougen";
-          cb = "cargo build";
-          cr = "cargo run";
-          ct = "cargo test";
-          exit = " exit";
-          gc = "git commit";
-          gis = "git status";
-          gp = "git push";
-          hubble = "mosh hubble";
-          ipa = "ip a";
-          ipr = "ip r";
-          s = "sudo";
-          ssy = "sudo systemctl";
-          sy = "systemctl";
-          v = "vim";
-          jrnl = " jrnl";
-        };
-        shellAliases = {
-          ls = "exa";
-          l = "exa -a";
-          ll = "exa -lgh";
-          la = "exa -lagh";
-          lt = "exa -T";
-          lg = "exa -lagh --git";
-        };
-      };
+      #fish = {
+      #  enable = true;
+      #  shellInit = ''
+      #    set PAGER less
+      #  '';
+      #  shellAbbrs = {
+      #    admin-YouGen = "ssh admin-yougen";
+      #    cb = "cargo build";
+      #    cr = "cargo run";
+      #    ct = "cargo test";
+      #    exit = " exit";
+      #    gc = "git commit";
+      #    gis = "git status";
+      #    gp = "git push";
+      #    hubble = "mosh hubble";
+      #    ipa = "ip a";
+      #    ipr = "ip r";
+      #    s = "sudo";
+      #    ssy = "sudo systemctl";
+      #    sy = "systemctl";
+      #    v = "vim";
+      #    jrnl = " jrnl";
+      #  };
+      #  shellAliases = {
+      #    ls = "exa";
+      #    l = "exa -a";
+      #    ll = "exa -lgh";
+      #    la = "exa -lagh";
+      #    lt = "exa -T";
+      #    lg = "exa -lagh --git";
+      #  };
+      #};
 
       ssh = {
         enable = true;
@@ -270,9 +270,9 @@
     enableSSHSupport = true;
   };
 
-  programs.fish.enable = true;
+  #programs.fish.enable = true;
   programs.zsh.enable = true;
   programs.mtr.enable = true;
 
-  users.users.root.shell = pkgs.fish;
+  #users.users.root.shell = pkgs.fish;
 }

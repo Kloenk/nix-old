@@ -18,9 +18,10 @@
   nix.nixPath = lib.mkForce [
     "/var/src"
   ];
-  
-  boot.tmpOnTmpfs = true;
 
+  security.acme.email = "ca@kloenk.de";
+  security.acme.acceptTerms = true;
+  
   networking.hostName = "gurke";
   networking.dhcpcd.enable = false;
   networking.useDHCP = false;
