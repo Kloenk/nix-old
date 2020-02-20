@@ -9,7 +9,6 @@
 
     ../../default.nix
     ../../common
-    ../../common/collectd.nix
 
     # fallback for detection
     <nixpkgs/nixos/modules/profiles/qemu-guest.nix>

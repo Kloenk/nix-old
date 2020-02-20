@@ -36,10 +36,10 @@
   services.journald.extraConfig = "SystemMaxUse=2G";
 
   i18n = {
-    consoleFont = "Lat2-Terminus16";
-    consoleKeyMap = "neo";
     defaultLocale = "en_US.UTF-8";
   };
+  console.keyMap = "neo";
+  console.font = "Lat2-Terminus16";
 
   time.timeZone = "Europe/Berlin";
 
