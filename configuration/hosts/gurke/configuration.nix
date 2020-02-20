@@ -66,10 +66,6 @@
   nix.gc.automatic = true;
   nix.gc.options = "--delete-older-than 14d";
 
-  nix.extraOptions = ''
-    allowed-uris = https://git.pbb.lc ; https://github.com ; https://cgit.krebsco.de ; https://gitlab.com
-  '';
-
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
